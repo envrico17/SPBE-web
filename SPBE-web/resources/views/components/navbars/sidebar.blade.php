@@ -13,7 +13,11 @@
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
+<<<<<<< HEAD
     <div class="navbar-vertical w-auto vh-auto" id="sidenav-main">
+=======
+    <div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
+>>>>>>> c6a54d403abd87dae2fdd57a4158f1bc980cbd79
         <ul class="navbar-nav">
             {{-- <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Laravel examples</h6>
@@ -54,7 +58,8 @@
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
-                    <span class="nav-link-text ms-1">Tables</span>
+                    {{-- <span class="nav-link-text ms-1">Tables</span> --}}
+                    <span class="nav-link-text ms-1">Tugas Penilaian Mandiri</span>
                 </a>
             </li>
             {{-- <li class="nav-item">
