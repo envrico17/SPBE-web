@@ -12,4 +12,24 @@ class Indicator extends Model
     protected $fillable = [
         'aspect_id','indicator_name','description'
    ];
+
+   /**
+    * Get all of the documents for the Indicator
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+   public function documents(): HasMany
+   {
+       return $this->hasMany(Document::class);
+   }
+
+   /**
+    * Get the aspect that owns the Indicator
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    */
+   public function aspect(): BelongsTo
+   {
+       return $this->belongsTo(Aspect::class);
+   }
 }
