@@ -60,9 +60,10 @@
                                             <td class="align-middle text-center">
                                                 <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
                                             </td>
-                                            <td class="align-middle text-center text-sm">
+                                            <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Delete user">
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModal"
+                                                    data-original-title="Edit user">
                                                     Edit
                                                 </a>
                                             </td>
@@ -94,12 +95,9 @@
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModal"
+                                                    data-original-title="Edit user">
                                                     Edit
-                                                </a>
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Delete user">
-                                                    Delete
                                                 </a>
                                             </td>
                                         </tr>
@@ -130,12 +128,9 @@
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModal"
+                                                    data-original-title="Edit user">
                                                     Edit
-                                                </a>
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Delete user">
-                                                    Delete
                                                 </a>
                                             </td>
                                         </tr>
@@ -166,12 +161,9 @@
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModal"
+                                                    data-original-title="Edit user">
                                                     Edit
-                                                </a>
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Delete user">
-                                                    Delete
                                                 </a>
                                             </td>
                                         </tr>
@@ -202,12 +194,9 @@
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModal"
+                                                    data-original-title="Edit user">
                                                     Edit
-                                                </a>
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Delete user">
-                                                    Delete
                                                 </a>
                                             </td>
                                         </tr>
@@ -238,12 +227,9 @@
                                             </td>
                                             <td class="align-middle">
                                                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    data-bs-toggle="modal" data-bs-target="#editDataModal"
+                                                    data-original-title="Edit user">
                                                     Edit
-                                                </a>
-                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                    data-toggle="tooltip" data-original-title="Delete user">
-                                                    Delete
                                                 </a>
                                             </td>
                                         </tr>
@@ -256,53 +242,94 @@
                         onclick="">Tambah Data</button> --}}
                     <!-- Tombol untuk membuka pop-up -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                        Launch demo modal
+                        data-bs-target="#inputDataModal">
+                        Tambah Data
                     </button>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <!-- Modal Edit Data -->
+                    <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editModalLabel"
                         aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Modal
-                                        title</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
+                                    <button type="button" class="btn-close btn-close-white  "
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="form.php" method="post">
                                         <div class="container">
-                                            <div class="row">
-                                                <label for="domain">Domain:</label>
-                                                <input type="text" id="domain" name="domain" />
+                                            <div class="form-group mt-2">
+                                                <label for="domain">Domain</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="domain" name="domain">
                                             </div>
-                                            <div class="row">
-                                                <label for="aspek">Aspek:</label>
-                                                <input type="text" id="aspek" name="aspek" />
+                                            <div class="form-group mt-2">
+                                                <label for="aspek">Aspek</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="aspek" name="aspek">
                                             </div>
-                                            <div class="row">
+                                            <div class="form-group mt-2">
                                                 <label for="indikator">Indikator</label>
-                                                <input type="text" id="indikator" name="indikator" />
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="indikator" name="indikator">
                                             </div>
-                                            <div class="row" style="margin-top: 25px;">
-                                                <label for="data-dukung">Upload Data Dukung</label>
-                                            </div>
-                                            <div>
-                                                <input type="file" class="form-control-file" id="data-dukung"
-                                                    name="data-dukung" placeholder="Upload Data Dukung(PDF)">
+                                            <div class="form-group mt-2">
+                                                <label for="data-dukung">Upload Data Dukung</label></br>
+                                                <input type="file" class="form-control border border-2"
+                                                    id="data-dukung" name="data-dukung" aria-describedby="fileHelp"
+                                                    placeholder="Upload Data Dukung(PDF)">
                                             </div>
                                         </div>
-                                        <button style="margin-top: 50px;" type="submit"
-                                            class="btn bg-gradient-dark px-3 mb-2 me-3 active">Tambah Data</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save
-                                        changes</button>
+                                    <button type="button" class="btn btn-danger">Hapus</button>
+                                    <button type="button" class="btn btn-success">Ubah Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Tambah Data -->
+                    <div class="modal fade" id="inputDataModal" tabindex="-1" aria-labelledby="inputModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="inputModalLabel">Form Input</h5>
+                                    <button type="button" class="btn-close btn-close-white  "
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="form.php" method="post">
+                                        <div class="container">
+                                            <div class="form-group mt-2">
+                                                <label for="domain">Domain</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="domain" name="domain">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="aspek">Aspek</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="aspek" name="aspek">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="indikator">Indikator</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="indikator" name="indikator">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="data-dukung">Upload Data Dukung</label></br>
+                                                <input type="file" class="form-control border border-2"
+                                                    id="data-dukung" name="data-dukung" aria-describedby="fileHelp"
+                                                    placeholder="Upload Data Dukung(PDF)">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Tambah Data</button>
                                 </div>
                             </div>
                         </div>
