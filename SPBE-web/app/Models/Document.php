@@ -28,7 +28,7 @@ class Document extends Model
    {
        return $this->belongsTo(User::class);
    }
-   
+
    /**
     * Get the indicator that owns the Document
     *

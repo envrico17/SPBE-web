@@ -21,6 +21,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\DocumentController;
 
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
@@ -42,37 +43,50 @@ Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('aut
 Route::get('profile', [ProfileController::class, 'create'])->middleware('auth')->name('profile');
 Route::post('user-profile', [ProfileController::class, 'update'])->middleware('auth');
 
-Route::resource('Domain', DomainController::class);
-
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('billing', function () {
 		return view('pages.billing');
 	})->name('billing');
-	Route::get('tables', function () {
-		return view('pages.tables');
-	})->name('tables');
+
+	Route::get('tables', [DocumentController::class, 'index'])
+    ->name('tables');
+
 	Route::get('rtl', function () {
 		return view('pages.rtl');
 	})->name('rtl');
+
 	Route::get('virtual-reality', function () {
 		return view('pages.virtual-reality');
 	})->name('virtual-reality');
+
 	Route::get('notifications', function () {
 		return view('pages.notifications');
 	})->name('notifications');
+
 	Route::get('static-sign-in', function () {
 		return view('pages.static-sign-in');
 	})->name('static-sign-in');
+
 	Route::get('static-sign-up', function () {
 		return view('pages.static-sign-up');
 	})->name('static-sign-up');
+
 	Route::get('user-management', function () {
 		return view('pages.laravel-examples.user-management');
 	})->name('user-management');
+
 	Route::get('user-profile', function () {
 		return view('pages.laravel-examples.user-profile');
 	})->name('user-profile');
+
     Route::get('create-data', function () {
 		return view('pages.create-data');
 	})->name('create-data');
+
+    // Route::get('tables', [DocumentController::class, 'index'])->name('documents.index');
+    // Route::post('tables', [DocumentController::class, 'store'])->name('documents.store');
+    // Route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.show');
+    // Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
+    // Route::put('tables/{id}', [DocumentController::class, 'update'])->name('documents.update');
+    // Route::delete('tables/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 });

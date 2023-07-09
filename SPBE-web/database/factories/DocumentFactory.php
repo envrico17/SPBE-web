@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Indicator;
 use App\Models\User;
 
-
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Document>
  */
@@ -21,7 +20,7 @@ class DocumentFactory extends Factory
     {
         return [
             'id' => fake()->uuid(),
-            'doc_name' => fake()->sentence(),
+            'doc_name' => fake()->sentence(4),
             'upload_path' => null,
             'user_id' => User::inRandomOrder()->first()->id,
             'indicator_id' => Indicator::inRandomOrder()->first()->id
