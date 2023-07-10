@@ -43,39 +43,35 @@ class DatabaseSeeder extends Seeder
         Domain::factory()->count(4)->create();
 
         Aspect::factory()->count(8)->sequence(
-            [
-                'domain_id' => Domain::inRandomOrder()
-                                ->first()->id
-            ]
+            ['domain_id' => Domain::inRandomOrder()->get()->random()->id],
+            ['domain_id' => Domain::inRandomOrder()->get()->random()->id],
+            ['domain_id' => Domain::inRandomOrder()->get()->random()->id],
+            ['domain_id' => Domain::inRandomOrder()->get()->random()->id],
         )->create();
 
         Indicator::factory()->count(46)->sequence(
-            [
-                'aspect_id' => Aspect::inRandomOrder()
-                                ->first()->id
-            ]
+            ['aspect_id' => Aspect::inRandomOrder()->get()->random()->id],
+            ['aspect_id' => Aspect::inRandomOrder()->get()->random()->id],
+            ['aspect_id' => Aspect::inRandomOrder()->get()->random()->id],
+            ['aspect_id' => Aspect::inRandomOrder()->get()->random()->id],
         )->create();
 
-        Document::factory()->count(80)
-        ->sequence(
+        Document::factory()->count(105)->sequence(
             ['upload_path'=>null],
-            ['upload_path'=>'/path/to/document']
+            ['upload_path'=>'/path/to/document'],
+            ['indicator_id' => Indicator::inRandomOrder()->first()->id]
         )
         ->create([
-            'user_id' => 1,
-            'indicator_id' => Indicator::inRandomOrder()
-                                ->first()->id
+            'user_id' => 1
         ]);
 
-        Document::factory()->count(210)
-        ->sequence(
+        Document::factory()->count(105)->sequence(
             ['upload_path'=>null],
-            ['upload_path'=>'/path/to/document']
+            ['upload_path'=>'/path/to/document'],
+            ['indicator_id' => Indicator::inRandomOrder()->first()->id]
         )
         ->create([
             'user_id' => 2,
-            'indicator_id' => Indicator::inRandomOrder()
-                                ->first()->id
         ]);
     }
 }
