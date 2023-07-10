@@ -39,7 +39,10 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'domain_name' => '',
+        //     'aspect_name' => ''
+        // ])
     }
 
     /**

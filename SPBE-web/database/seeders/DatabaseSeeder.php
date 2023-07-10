@@ -40,13 +40,23 @@ class DatabaseSeeder extends Seeder
             'password' => ('secret'),
         ]);
 
-        Domain::factory()->count(3)->create();
+        Domain::factory()->count(4)->create();
 
-        Aspect::factory()->count(5)->create();
+        Aspect::factory()->count(8)->sequence(
+            [
+                'domain_id' => Domain::inRandomOrder()
+                                ->first()->id
+            ]
+        )->create();
 
-        Indicator::factory()->count(7)->create();
+        Indicator::factory()->count(46)->sequence(
+            [
+                'aspect_id' => Aspect::inRandomOrder()
+                                ->first()->id
+            ]
+        )->create();
 
-        Document::factory()->count(5)
+        Document::factory()->count(80)
         ->sequence(
             ['upload_path'=>null],
             ['upload_path'=>'/path/to/document']
@@ -57,7 +67,7 @@ class DatabaseSeeder extends Seeder
                                 ->first()->id
         ]);
 
-        Document::factory()->count(5)
+        Document::factory()->count(210)
         ->sequence(
             ['upload_path'=>null],
             ['upload_path'=>'/path/to/document']
@@ -67,10 +77,5 @@ class DatabaseSeeder extends Seeder
             'indicator_id' => Indicator::inRandomOrder()
                                 ->first()->id
         ]);
-
-        // Aspect::factory()->for($domains)->create();
-        // $indicators = Indicator::factory()->for($aspects)->create();
-        // $documents = Document::factory()->for($indicators)->for($users)
-        //     ->create();
     }
 }
