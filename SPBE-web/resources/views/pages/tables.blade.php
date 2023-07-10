@@ -31,6 +31,9 @@
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Data Dukung</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Action</th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
@@ -51,25 +54,30 @@
                                                             </p>
                                                         </div>
                                                     </div> --}}
-                                                    <span class="text-secondary text-xs font-weight-bold">{{$attribute->domain_name}}</span>
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
                                                 {{-- Aspect --}}
                                                 <td>
                                                     {{-- <p class="text-xs font-weight-bold mb-0">Manager</p>
                                                     <p class="text-xs text-secondary mb-0">Organization</p> --}}
-                                                    <span class="text-secondary text-xs font-weight-bold">{{$attribute->aspect_name}}</span>
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
                                                 </td>
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-center text-sm">
                                                     {{-- <span class="badge badge-sm bg-gradient-success">Online</span> --}}
-                                                    <span class="text-secondary text-xs font-weight-bold">{{$attribute->indicator_name}}</span>
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
                                                 </td>
                                                 {{-- Document --}}
                                                 <td class="align-middle text-center">
-                                                    <span class="text-secondary text-xs font-weight-bold">{{$attribute->doc_name}}</span>
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->doc_name }}</span>
                                                 </td>
-                                                <td class="align-middle">
-                                                    <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                                <td class="align-middle text-center">
+                                                    <a href="javascript:;"
+                                                        class="text-secondary font-weight-bold text-xs"
                                                         data-bs-toggle="modal" data-bs-target="#editDataModal"
                                                         data-original-title="Edit user">
                                                         Edit
@@ -89,10 +97,34 @@
                     {{-- <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active" data-toggle="modal" data-target="#exampleModal"
                         onclick="">Tambah Data</button> --}}
                     <!-- Tombol untuk membuka pop-up -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#inputDataModal">
-                        Tambah Data
-                    </button>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2" style="margin-right:20px; margin-left: -20px;">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#inputDataDomainModal">
+                                    Tambah Domain
+                                </button>
+                            </div>
+                            <div class="col-2" style="margin-left:-50px;">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#inputDataAspekModal">
+                                    Tambah Aspek
+                                </button>
+                            </div>
+                            <div class="col-2" style="margin-left:-40px;">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#inputDataIndikatorModal">
+                                    Tambah Indikator
+                                </button>
+                            </div>
+                            <div class="col-3" style="margin-left:-15px;">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#inputDataDukungModal">
+                                    Tambah Data Dukung
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Modal Edit Data -->
                     <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editModalLabel"
@@ -101,8 +133,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
-                                    <button type="button" class="btn-close btn-close-white  "
-                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="form.php" method="post">
@@ -139,13 +171,13 @@
                         </div>
                     </div>
 
-                    <!-- Modal Tambah Data -->
-                    <div class="modal fade" id="inputDataModal" tabindex="-1" aria-labelledby="inputModalLabel"
-                        aria-hidden="true">
+                    <!-- Modal Tambah Data Domain -->
+                    <div class="modal fade" id="inputDataDomainModal" tabindex="-1"
+                        aria-labelledby="inputModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="inputModalLabel">Form Input</h5>
+                                    <h5 class="modal-title" id="inputModalLabel">Form Input Domain</h5>
                                     <button type="button" class="btn-close btn-close-white  "
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
@@ -157,21 +189,47 @@
                                                 <input type="text" class="form-control border border-2 p-2"
                                                     id="domain" name="domain">
                                             </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Tambah Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Tambah Data Aspek -->
+                    <div class="modal fade" id="inputDataAspekModal" tabindex="-1"
+                        aria-labelledby="inputModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="inputModalLabel">Form Input Aspek</h5>
+                                    <button type="button" class="btn-close btn-close-white  "
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="form.php" method="post">
+                                        <div class="container">
+                                            <div class="form-group mt-2">
+                                                <div>
+                                                    <label for="domain">Domain</label>
+                                                </div>
+                                                <div>
+                                                    <select id="domain" name="domain"
+                                                        class="form-control border border-2 p-2" ">
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="form-group mt-2">
                                                 <label for="aspek">Aspek</label>
                                                 <input type="text" class="form-control border border-2 p-2"
                                                     id="aspek" name="aspek">
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="indikator">Indikator</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="indikator" name="indikator">
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="data-dukung">Upload Data Dukung</label></br>
-                                                <input type="file" class="form-control border border-2"
-                                                    id="data-dukung" name="data-dukung" aria-describedby="fileHelp"
-                                                    placeholder="Upload Data Dukung(PDF)">
                                             </div>
                                         </div>
                                     </form>
@@ -183,6 +241,145 @@
                         </div>
                     </div>
 
+                    <!-- Modal Tambah Data Indikator -->
+                    <div class="modal fade" id="inputDataIndikatorModal" tabindex="-1" aria-labelledby="inputModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="inputModalLabel">Form Input Indikator</h5>
+                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="form.php" method="post">
+                                        <div class="container">
+                                            <div class="form-group mt-2">
+                                                <div>
+                                                    <label for="aspek">Aspek</label>
+                                                    </div>
+                                                <div>
+                                                    <select id="aspek" name="aspek"
+                                                    class="form-control border border-2 p-2"
+                                                    ">
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="indikator">Indikator</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="indikator" name="indikator">
+                                            </div>
+                                            <div>
+                                                <label for="deskripsi">Deskripsi</label>
+                                            </div>
+                                            <div>
+                                                <textarea
+                                                    style="
+                                                    width: 50%;
+                                                    height: 150px;
+                                                    padding: 12px 20px;
+                                                    box-sizing: border-box;
+                                                    border: 2px solid #ccc;
+                                                    border-radius: 4px;
+                                                    background-color: #f8f8f8;
+                                                    font-size: 16px;
+                                                    resize: none;
+                                                "
+                                                    name="deskripsi" class="form-control border border-2 p-2">Masukkan Deskripsi</textarea>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Tambah Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal Tambah Data Dukung -->
+                    <div class="modal fade" id="inputDataDukungModal" tabindex="-1" aria-labelledby="inputModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="inputModalLabel">Form Input Data Dukung</h5>
+                                    <button type="button" class="btn-close btn-close-white  "
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="form.php" method="post">
+                                        <div class="container">
+                                            <div class="form-group mt-2">
+                                                <div>
+                                                    <label for="aspek">Aspek</label>
+                                                    </div>
+                                                <div>
+                                                    <select id="aspek" name="aspek"
+                                                    class="form-control border border-2 p-2"
+                                                    ">
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <div>
+                                                    <label for="indikator">Indikator</label>
+                                                    </div>
+                                                <div>
+                                                    <select id="indikator" name="indikator"
+                                                    class="form-control border border-2 p-2"
+                                                    ">
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <div>
+                                                    <label for="upd">Nama UPD</label>
+                                                    </div>
+                                                <div>
+                                                    <select id="upd" name="upd"
+                                                    class="form-control border border-2 p-2"
+                                                    ">
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="data-dukung">Nama Dokumen</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="data-dukung" name="data-dukung">
+                                            </div>
+                                            {{-- <div class="form-group mt-2">
+                                                <label for="data-dukung">Upload Data Dukung</label></br>
+                                                <input type="file" class="form-control border border-2"
+                                                    id="data-dukung" name="data-dukung" aria-describedby="fileHelp"
+                                                    placeholder="Upload Data Dukung(PDF)">
+                                            </div> --}}
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Tambah Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     {{-- <div class="row">
                     <div class="col-12">
@@ -456,18 +653,16 @@
     </main>
     <x-plugins></x-plugins>
     @push('js')
-    <script>
-        //message with toastr
-        @if(session()->has('success'))
+        <script>
+            //message with toastr
+            @if (session()->has('success'))
 
-            toastr.success('{{ session('success') }}', 'BERHASIL!');
+                toastr.success('{{ session('success') }}', 'BERHASIL!');
+            @elseif (session()->has('error'))
 
-        @elseif(session()->has('error'))
-
-            toastr.error('{{ session('error') }}', 'GAGAL!');
-
-        @endif
-    </script>
+                toastr.error('{{ session('error') }}', 'GAGAL!');
+            @endif
+        </script>
     @endpush
 
 </x-layout>
