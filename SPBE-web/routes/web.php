@@ -22,7 +22,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\DocumentController;
-
+use App\Http\Controllers\DomainController;
+use App\Http\Controllers\IndicatorController;
+use App\Http\Controllers\AspectController;
+use App\Models\Indicator;
 
 Route::get('/', function () {return redirect('sign-in');})->middleware('guest');
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -48,8 +51,17 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('pages.billing');
 	})->name('billing');
 
-	Route::get('tables', [DocumentController::class, 'index'])
-    ->name('tables');
+	Route::get('document', [DocumentController::class, 'index'])
+    ->name('document');
+
+    Route::get('domain', [DomainController::class, 'index'])
+    ->name('domain');
+
+    Route::get('indicator', [IndicatorController::class, 'index'])
+    ->name('indicator');
+
+    Route::get('aspect', [AspectController::class, 'index'])
+    ->name('aspect');
 
 	Route::get('rtl', function () {
 		return view('pages.rtl');
