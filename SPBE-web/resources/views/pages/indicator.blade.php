@@ -1,8 +1,8 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
-    <x-navbars.sidebar activePage="tables"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="indicator"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="Tables"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="Indikator"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
@@ -11,11 +11,11 @@
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 {{-- <h6 class="text-white text-capitalize ps-3">Authors table</h6> --}}
-                                <h6 class="text-white text-capitalize ps-3">Tabel Tugas Penilaian Mandiri</h6>
+                                <h6 class="text-white text-capitalize ps-3">Indikator</h6>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
-                            <div class="table-responsive p-0">
+                            <div class="table table-responsive p-0">
                                 <table class="table align-items-center mb-0">
                                     <thead>
                                         <tr>
@@ -100,34 +100,34 @@
                     {{-- <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active" data-toggle="modal" data-target="#exampleModal"
                         onclick="">Tambah Data</button> --}}
                     <!-- Tombol untuk membuka pop-up -->
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-2" style="margin-right:20px; margin-left: -20px;">
+                    {{-- <div class="container"> --}}
+                        <div class="d-flex flex-row">
+                            <div class="p-2">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#inputDataDomainModal">
                                     Tambah Domain
                                 </button>
                             </div>
-                            <div class="col-2" style="margin-left:-50px;">
+                            <div class="p-2">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#inputDataAspekModal">
                                     Tambah Aspek
                                 </button>
                             </div>
-                            <div class="col-2" style="margin-left:-40px;">
+                            <div class="p-2">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#inputDataIndikatorModal">
                                     Tambah Indikator
                                 </button>
                             </div>
-                            <div class="col-3" style="margin-left:-15px;">
+                            <div class="p-2">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#inputDataDukungModal">
                                     Tambah Data Dukung
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    {{-- </div> --}}
 
                     <!-- Modal Edit Data -->
                     <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editModalLabel"

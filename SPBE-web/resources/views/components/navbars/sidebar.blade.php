@@ -49,13 +49,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white {{ $activePage == 'tables' ? ' active bg-gradient-primary' : '' }} "
-                    href="{{ route('tables') }}">
+                <a class="nav-link text-white {{ $activePage == 'document' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('document') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
                     {{-- <span class="nav-link-text ms-1">Tables</span> --}}
-                    <span class="nav-link-text ms-1">Tugas Penilaian Mandiri</span>
+                    <span class="nav-link-text ms-1">Data Dukung</span>
                 </a>
             </li>
             {{-- <li class="nav-item">
@@ -85,7 +85,7 @@
                     <span class="nav-link-text ms-1">RTL</span>
                 </a>
             </li> --}}
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'notifications' ? ' active bg-gradient-primary' : '' }}  "
                     href="{{ route('notifications') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -93,11 +93,41 @@
                     </div>
                     <span class="nav-link-text ms-1">Notifications</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Data Master</h6>
             </li>
             <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'domain' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('domain') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">table_view</i>
+                    </div>
+                    {{-- <span class="nav-link-text ms-1">Tables</span> --}}
+                    <span class="nav-link-text ms-1">Domain</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'aspect' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('aspect') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">table_view</i>
+                    </div>
+                    {{-- <span class="nav-link-text ms-1">Tables</span> --}}
+                    <span class="nav-link-text ms-1">Aspek</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'indicator' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('indicator') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">table_view</i>
+                    </div>
+                    {{-- <span class="nav-link-text ms-1">Tables</span> --}}
+                    <span class="nav-link-text ms-1">Indikator</span>
+                </a>
+            </li>
+            {{-- <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'profile' ? ' active bg-gradient-primary' : '' }}  "
                     href="{{ route('profile') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -105,8 +135,8 @@
                     </div>
                     <span class="nav-link-text ms-1">Profile</span>
                 </a>
-            </li>
-            <li class="nav-item">
+            </li> --}}
+            {{-- <li class="nav-item">
                 <a href="javascript:;" class="nav-link text-white">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">login</i>
@@ -115,7 +145,7 @@
                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
                         Out</span>
                 </a>
-            </li>
+            </li> --}}
             {{-- <li class="nav-item">
                 <a class="nav-link text-white " href="{{ route('static-sign-in') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">

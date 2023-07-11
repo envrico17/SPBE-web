@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Indicator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class IndicatorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index():View
     {
-        //
+        $attributes = DB::table('documents')
+            ->join('indicators','documents.indicator_id','=','indicators.id')
+            ->join('aspects','indicators.aspect_id','=','aspects.id')
+            ->join('domains','aspects.domain_id','=','domains.id')
+            ->join('users','documents.user_id','=','users.id')
+            ->paginate(10);
+        return view('pages.indicator', compact('attributes'));
     }
 
     /**
