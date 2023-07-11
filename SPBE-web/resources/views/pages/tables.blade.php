@@ -86,11 +86,14 @@
                                             </tr>
                                         @empty
                                             <div class='alert alert-danger'>
-                                                Tidak adadata
+                                                Tidak ada data
                                             </div>
                                         @endforelse
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="container mt-3">
+                                {{$attributes->onEachSide(2)->links()}}
                             </div>
                         </div>
                     </div>

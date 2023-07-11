@@ -22,7 +22,7 @@ class DocumentController extends Controller
             ->join('aspects','indicators.aspect_id','=','aspects.id')
             ->join('domains','aspects.domain_id','=','domains.id')
             ->join('users','documents.user_id','=','users.id')
-            ->get();
+            ->paginate(10);
     return view('pages.tables', compact('attributes'));
     }
 
