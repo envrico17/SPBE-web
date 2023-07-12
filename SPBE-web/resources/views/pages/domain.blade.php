@@ -46,7 +46,7 @@
                                                 {{-- Year of the Domain --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
