@@ -47,7 +47,7 @@
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
                                                 </td>
                                                 {{-- Aspect of the Indicator --}}
                                                 <td class="align-middle text-center text-sm">
@@ -57,25 +57,41 @@
                                                 {{-- Year of the Indicator --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
                                                 </td>
                                                 {{-- Details of the Indicator --}}
                                                 <td class="align-middle text-center">
-                                                    <a
-                                                        class="text-secondary font-weight-bold text-xs"
-                                                        style="cursor: pointer"
-                                                        data-bs-toggle="modal" data-bs-target="#detailModal"
-                                                        data-original-title="Edit user">
+                                                    <a class="text-secondary font-weight-bold text-xs"
+                                                        style="cursor: pointer" data-bs-toggle="modal"
+                                                        data-bs-target="#detailModal" data-original-title="Edit user">
                                                         Detail
                                                     </a>
+                                                    <!-- Modal Detail Indicator -->
+                                                    <div class="modal fade" id="detailModal" tabindex="-1"
+                                                        aria-labelledby="detailModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="detailModalLabel">Detail
+                                                                        Indikator</h5>
+                                                                    <button type="button"
+                                                                        class="btn-close btn-close-white  "
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    {{ $attribute->description }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
+
                                                 {{-- Document of the Indicator --}}
                                                 <td class="align-middle text-center">
-                                                    <a
-                                                        class="text-secondary font-weight-bold text-xs"
-                                                        style="cursor: pointer"
-                                                        data-bs-toggle="modal" data-bs-target="#editDataModal"
-                                                        data-original-title="Edit user">
+                                                    <a class="text-secondary font-weight-bold text-xs"
+                                                        style="cursor: pointer" data-bs-toggle="modal"
+                                                        data-bs-target="#editDataModal" data-original-title="Edit user">
                                                         Edit
                                                     </a>
                                                 </td>
@@ -139,32 +155,15 @@
                         </div>
                     </div>
 
-                    <!-- Modal Detail Indicator -->
-                    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="detailModalLabel">Detail Indikator</h5>
-                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Modal Tambah Data Indikator -->
-                    <div class="modal fade" id="inputDataIndikatorModal" tabindex="-1" aria-labelledby="inputModalLabel"
-                        aria-hidden="true">
+                    <div class="modal fade" id="inputDataIndikatorModal" tabindex="-1"
+                        aria-labelledby="inputModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="inputModalLabel">Form Input Indikator</h5>
-                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <button type="button" class="btn-close btn-close-white  "
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form action="form.php" method="post">
@@ -172,11 +171,10 @@
                                             <div class="form-group mt-2">
                                                 <div>
                                                     <label for="aspek">Nama Aspek</label>
-                                                    </div>
+                                                </div>
                                                 <div>
                                                     <select id="aspek" name="aspek"
-                                                    class="form-control border border-2 p-2"
-                                                    ">
+                                                        class="form-control border border-2 p-2" ">
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>

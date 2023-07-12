@@ -44,17 +44,17 @@
                                                 {{-- Aspect --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
                                                 </td>
                                                 {{-- Domain of the Aspect --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
                                                 {{-- Year of the Aspect --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
