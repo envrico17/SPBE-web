@@ -11,7 +11,17 @@
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 {{-- <h6 class="text-white text-capitalize ps-3">Authors table</h6> --}}
-                                <h6 class="text-white text-capitalize ps-3">Domain</h6>
+                                <div class="d-flex flex-row">
+                                    <div class="p-2" style="margin-top: 8px;">
+                                        <h6 class="text-white text-capitalize ps-3">Tabel Input Domain</h6>
+                                    </div>
+                                    <div class="p-2" style="margin-left: 825px;">
+                                        <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
+                                            data-bs-toggle="modal" data-bs-target="#inputDataDomainModal">
+                                            Tambah Domain
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -93,7 +103,7 @@
                                 </table>
                             </div>
                             <div class="container mt-3">
-                                {{$attributes->onEachSide(2)->links()}}
+                                {{ $attributes->onEachSide(2)->links() }}
                             </div>
                         </div>
                     </div>
@@ -101,32 +111,6 @@
                         onclick="">Tambah Data</button> --}}
                     <!-- Tombol untuk membuka pop-up -->
                     {{-- <div class="container"> --}}
-                        <div class="d-flex flex-row">
-                            <div class="p-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#inputDataDomainModal">
-                                    Tambah Domain
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#inputDataAspekModal">
-                                    Tambah Aspek
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#inputDataIndikatorModal">
-                                    Tambah Indikator
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#inputDataDukungModal">
-                                    Tambah Data Dukung
-                                </button>
-                            </div>
-                        </div>
                     {{-- </div> --}}
 
                     <!-- Modal Edit Data -->
@@ -188,7 +172,7 @@
                                     <form action="form.php" method="post">
                                         <div class="container">
                                             <div class="form-group mt-2">
-                                                <label for="domain">Domain</label>
+                                                <label for="domain">Nama Domain</label>
                                                 <input type="text" class="form-control border border-2 p-2"
                                                     id="domain" name="domain">
                                             </div>
@@ -306,8 +290,8 @@
                     </div>
 
                     <!-- Modal Tambah Data Dukung -->
-                    <div class="modal fade" id="inputDataDukungModal" tabindex="-1" aria-labelledby="inputModalLabel"
-                        aria-hidden="true">
+                    <div class="modal fade" id="inputDataDukungModal" tabindex="-1"
+                        aria-labelledby="inputModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -321,11 +305,10 @@
                                             <div class="form-group mt-2">
                                                 <div>
                                                     <label for="aspek">Aspek</label>
-                                                    </div>
+                                                </div>
                                                 <div>
                                                     <select id="aspek" name="aspek"
-                                                    class="form-control border border-2 p-2"
-                                                    ">
+                                                        class="form-control border border-2 p-2" ">
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>
@@ -351,11 +334,10 @@
                                             <div class="form-group mt-2">
                                                 <div>
                                                     <label for="upd">Nama UPD</label>
-                                                    </div>
+                                                </div>
                                                 <div>
                                                     <select id="upd" name="upd"
-                                                    class="form-control border border-2 p-2"
-                                                    ">
+                                                        class="form-control border border-2 p-2" ">
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>
                                                         <option value="Kebijakan SPBE">Kebijakan SPBE</option>
@@ -656,16 +638,16 @@
     </main>
     <x-plugins></x-plugins>
     @push('js')
-        <script>
-            //message with toastr
-            @if (session()->has('success'))
+    <script>
+        //message with toastr
+        @if (session()->has('success'))
 
-                toastr.success('{{ session('success') }}', 'BERHASIL!');
-            @elseif (session()->has('error'))
+            toastr.success('{{ session('success') }}', 'BERHASIL!');
+        @elseif (session()->has('error'))
 
-                toastr.error('{{ session('error') }}', 'GAGAL!');
-            @endif
-        </script>
-    @endpush
+            toastr.error('{{ session('error') }}', 'GAGAL!');
+        @endif
+    </script>
+@endpush
 
 </x-layout>

@@ -11,7 +11,17 @@
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 {{-- <h6 class="text-white text-capitalize ps-3">Authors table</h6> --}}
-                                <h6 class="text-white text-capitalize ps-3">Tabel Input Data Dukung</h6>
+                                <div class="d-flex flex-row">
+                                    <div class="p-2" style="margin-top: 8px;">
+                                        <h6 class="text-white text-capitalize ps-3">Tabel Input Data Dukung</h6>
+                                    </div>
+                                    <div class="p-2" style="margin-left: 750px;">
+                                        <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
+                                            data-bs-toggle="modal" data-bs-target="#inputDataDukungModal">
+                                            Tambah Data Dukung
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body px-0 pb-2">
@@ -101,32 +111,6 @@
                         onclick="">Tambah Data</button> --}}
                     <!-- Tombol untuk membuka pop-up -->
                     {{-- <div class="container"> --}}
-                        <div class="d-flex flex-row">
-                            <div class="p-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#inputDataDomainModal">
-                                    Tambah Domain
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#inputDataAspekModal">
-                                    Tambah Aspek
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#inputDataIndikatorModal">
-                                    Tambah Indikator
-                                </button>
-                            </div>
-                            <div class="p-2">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#inputDataDukungModal">
-                                    Tambah Data Dukung
-                                </button>
-                            </div>
-                        </div>
                     {{-- </div> --}}
 
                     <!-- Modal Edit Data -->
@@ -320,22 +304,7 @@
                                         <div class="container">
                                             <div class="form-group mt-2">
                                                 <div>
-                                                    <label for="aspek">Aspek</label>
-                                                    </div>
-                                                <div>
-                                                    <select id="aspek" name="aspek"
-                                                    class="form-control border border-2 p-2"
-                                                    ">
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <div>
-                                                    <label for="indikator">Indikator</label>
+                                                    <label for="indikator">Nama Indikator</label>
                                                     </div>
                                                 <div>
                                                     <select id="indikator" name="indikator"
