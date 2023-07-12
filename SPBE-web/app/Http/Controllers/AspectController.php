@@ -18,7 +18,8 @@ class AspectController extends Controller
         $attributes = DB::table('aspects')
             ->join('domains','aspects.domain_id','=','domains.id')
             ->paginate(10);
-        return view('pages.aspect', compact('attributes'));
+        $domains = DB::table('domains')->get();
+        return view('pages.aspect', compact('attributes','domains'));
     }
 
     /**
@@ -35,7 +36,8 @@ class AspectController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'aspect_name' => 'required'
+            'aspect_name' => 'required',
+            'domain_id' => 'required'
         ]);
         Aspect::create($request->all());
         return redirect()->route('aspect')

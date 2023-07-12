@@ -108,7 +108,7 @@
                                                     id="indikator" name="indikator">
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="data-dukung">Upload Data Dukung</label></br>
+                                                <label for="data-dukung">Upload Data Dukung</label>
                                                 <input type="file" class="form-control border border-2"
                                                     id="data-dukung" name="data-dukung" aria-describedby="fileHelp"
                                                     placeholder="Upload Data Dukung(PDF)">
@@ -135,33 +135,37 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="form.php" method="post">
+                                    <form action="{{ route('aspect.store') }}" method="POST">
+                                        @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
                                                 <div>
-                                                    <label for="domain">Nama Domain</label>
+                                                    <label for="domain_id">Nama Domain</label>
                                                 </div>
                                                 <div>
-                                                    <select id="domain" name="domain"
-                                                        class="form-control border border-2 p-2" ">
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                    <select id="domain_id" name="domain_id"
+                                                        class="form-control border border-2 p-2">
+                                                        @forelse ($domains as $domain)
+                                                        <option value="{{ $domain->id }}">{{ $domain->domain_name }}</option>
+                                                        @empty
+                                                            <div class='alert alert-danger'>
+                                                                Tidak ada data
+                                                            </div>
+                                                        @endforelse
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="aspek">Nama Aspek</label>
+                                                <label for="aspect_name">Nama Aspek</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="aspek" name="aspek">
+                                                    id="aspect_name" name="aspect_name">
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Tambah Data</button>
-                                </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

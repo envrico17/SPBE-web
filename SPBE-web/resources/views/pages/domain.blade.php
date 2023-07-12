@@ -101,7 +101,7 @@
                                                     id="indikator" name="indikator">
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="data-dukung">Upload Data Dukung</label></br>
+                                                <label for="data-dukung">Upload Data Dukung</label>
                                                 <input type="file" class="form-control border border-2"
                                                     id="data-dukung" name="data-dukung" aria-describedby="fileHelp"
                                                     placeholder="Upload Data Dukung(PDF)">
@@ -132,7 +132,7 @@
                                         @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
-                                                <label for="domain">Nama Domain</label>
+                                                <label for="domain_name">Nama Domain</label>
                                                 <input type="text" class="form-control border border-2 p-2"
                                                     id="domain_name" name="domain_name">
                                             </div>
