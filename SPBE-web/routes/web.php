@@ -53,15 +53,42 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('document', [DocumentController::class, 'index'])
     ->name('document');
+    Route::post('document', [DocumentController::class, 'store'])
+    ->name('domain.store');
+    Route::put('document/{id}', [DocumentController::class, 'update'])
+    ->name('domain.update');
+    Route::delete('document/{id}', [DocumentController::class, 'destroy'])
+    ->name('domain.destroy');
 
+    // Domain CRUD routes
     Route::get('domain', [DomainController::class, 'index'])
     ->name('domain');
+    Route::post('domain', [DomainController::class, 'store'])
+    ->name('domain.store');
+    Route::put('domain/{id}', [DomainController::class, 'update'])
+    ->name('domain.update');
+    Route::delete('domain/{id}', [DomainController::class, 'destroy'])
+    ->name('domain.destroy');
 
+    // Indicator CRUD routes
     Route::get('indicator', [IndicatorController::class, 'index'])
     ->name('indicator');
+    Route::post('indicator', [IndicatorController::class, 'store'])
+    ->name('indicator.store');
+    Route::put('indicator/{id}', [IndicatorController::class, 'update'])
+    ->name('indicator.update');
+    Route::delete('domain/{id}', [IndicatorController::class, 'destroy'])
+    ->name('indicator.destroy');
 
+    // Aspect CRUD routes
     Route::get('aspect', [AspectController::class, 'index'])
     ->name('aspect');
+    Route::post('aspect', [AspectController::class, 'store'])
+    ->name('aspect.store');
+    Route::put('aspect/{id}', [AspectController::class, 'update'])
+    ->name('aspect.update');
+    Route::delete('aspect/{id}', [AspectController::class, 'destroy'])
+    ->name('aspect.destroy');
 
 	Route::get('rtl', function () {
 		return view('pages.rtl');

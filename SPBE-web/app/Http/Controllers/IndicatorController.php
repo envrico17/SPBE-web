@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Indicator;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -14,11 +15,8 @@ class IndicatorController extends Controller
      */
     public function index():View
     {
-        $attributes = DB::table('documents')
-            ->join('indicators','documents.indicator_id','=','indicators.id')
+        $attributes = DB::table('indicators')
             ->join('aspects','indicators.aspect_id','=','aspects.id')
-            ->join('domains','aspects.domain_id','=','domains.id')
-            ->join('users','documents.user_id','=','users.id')
             ->paginate(10);
         return view('pages.indicator', compact('attributes'));
     }
@@ -34,9 +32,15 @@ class IndicatorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $request->validate([
+            'indicator_name' => 'required',
+            'description'=> 'required'
+        ]);
+        Indicator::create($request->all());
+        return redirect()->route('indicator')
+            ->with('success','Indikator berhasil dibuat');
     }
 
     /**
@@ -58,16 +62,23 @@ class IndicatorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Indicator $indicator)
+    public function update(Request $request, Indicator $indicator): RedirectResponse
     {
-        //
+        $request->validate([
+            'indicator_name' => 'required'
+        ]);
+        $indicator->update($request->all());
+        return redirect()->route('indicator')
+            ->with('success','Indikator berhasil dibuat');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Indicator $indicator)
+    public function destroy(Indicator $indicator): RedirectResponse
     {
-        //
+        $indicator->delete();
+        return redirect()->route('indicator')
+            ->with('success','Indikator berhasil dihapus');
     }
 }

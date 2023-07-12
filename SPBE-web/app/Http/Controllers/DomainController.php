@@ -15,11 +15,7 @@ class DomainController extends Controller
      */
     public function index():View
     {
-        $attributes = DB::table('documents')
-            ->join('indicators','documents.indicator_id','=','indicators.id')
-            ->join('aspects','indicators.aspect_id','=','aspects.id')
-            ->join('domains','aspects.domain_id','=','domains.id')
-            ->join('users','documents.user_id','=','users.id')
+        $attributes = DB::table('domains')
             ->paginate(10);
         return view('pages.domain', compact('attributes'));
     }
@@ -41,7 +37,7 @@ class DomainController extends Controller
             'domain_name' => 'required'
         ]);
         Domain::create($request->all());
-        return redirect()->route('pages.tables')
+        return redirect()->route('domain')
             ->with('success','Domain berhasil dibuat');
     }
 
@@ -50,7 +46,8 @@ class DomainController extends Controller
      */
     public function show(Domain $domain)
     {
-        //
+
+        return view('pages.domain', compact('domain'));
     }
 
     /**
@@ -64,16 +61,23 @@ class DomainController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Domain $domain)
+    public function update(Request $request, Domain $domain): RedirectResponse
     {
-        //
+        $request->validate([
+            'domain_name' => 'required'
+        ]);
+        $domain->update($request->all());
+        return redirect()->route('domain')
+            ->with('success','Domain berhasil dibuat');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Domain $domain)
+    public function destroy(Domain $domain): RedirectResponse
     {
-        //
+        $domain->delete();
+        return redirect()->route('domain')
+            ->with('success','Domain berhasil dihapus');
     }
 }

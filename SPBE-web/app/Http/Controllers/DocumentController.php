@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Aspect;
 use App\Models\Document;
-use App\Models\Domain;
-use App\Models\Indicator;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -37,12 +36,25 @@ class DocumentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        // $request->validate([
-        //     'domain_name' => '',
-        //     'aspect_name' => ''
-        // ])
+        $request->validate([
+            'doc_name'=>'required',
+            'file'=>'nullable'
+        ]);
+
+        $document = new Document();
+        $document->doc_name = $request->input('doc_name');
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('documents');
+            $document->upload_path = $path;
+        }
+
+        $document->save();
+        return redirect()->route('document')
+            ->with('success', 'Dokumen berhasil diupload');
     }
 
     /**
@@ -64,16 +76,47 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Document $document)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'doc_name'=>'required',
+            'file'=>'nullable|file'
+        ]);
+
+        $document = Document::findOrFail($id);
+        $document->doc_name = $request->input('doc_name');
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('documents');
+
+            if ($document->upload_path) {
+                Storage::delete($document->upload_path);
+            }
+
+            $document->upload_path = $path;
+        }
+
+        $document->save();
+
+        return redirect()->route('document')
+            ->with('success', 'Dokumen berhasil diupload');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Document $document)
+    public function destroy(Document $document, $id)
     {
-        //
+        $document = Document::findOrFail($id);
+
+        if ($document->upload_path) {
+            Storage::delete($document->upload_path);
+        }
+
+        $document->delete();
+
+        return redirect()->route('document')
+            ->with('success', 'Dokumen berhasil dihapus');
     }
 }

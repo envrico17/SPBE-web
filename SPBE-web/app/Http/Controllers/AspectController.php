@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aspect;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -14,11 +15,8 @@ class AspectController extends Controller
      */
     public function index():View
     {
-        $attributes = DB::table('documents')
-            ->join('indicators','documents.indicator_id','=','indicators.id')
-            ->join('aspects','indicators.aspect_id','=','aspects.id')
+        $attributes = DB::table('aspects')
             ->join('domains','aspects.domain_id','=','domains.id')
-            ->join('users','documents.user_id','=','users.id')
             ->paginate(10);
         return view('pages.aspect', compact('attributes'));
     }
@@ -34,11 +32,14 @@ class AspectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        // $request = validate([
-        //     'aspect_name' => 'required'
-        // ]);
+        $request->validate([
+            'aspect_name' => 'required'
+        ]);
+        Aspect::create($request->all());
+        return redirect()->route('aspect')
+            ->with('success','Aspek berhasil dibuat');
     }
 
     /**
@@ -60,16 +61,23 @@ class AspectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Aspect $aspect)
+    public function update(Request $request, Aspect $aspect): RedirectResponse
     {
-        //
+        $request->validate([
+            'aspect_name' => 'required'
+        ]);
+        $aspect->update($request->all());
+        return redirect()->route('aspect')
+            ->with('success','Aspek berhasil dibuat');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Aspect $aspect)
+    public function destroy(Aspect $aspect): RedirectResponse
     {
-        //
+        $aspect->delete();
+        return redirect()->route('aspect')
+            ->with('success','Aspek berhasil dihapus');
     }
 }
