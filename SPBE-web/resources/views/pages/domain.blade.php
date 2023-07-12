@@ -128,19 +128,20 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="form.php" method="post">
+                                    <form action="{{ route('domain.store') }}" method="POST">
+                                        @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
                                                 <label for="domain">Nama Domain</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="domain" name="domain">
+                                                    id="domain_name" name="domain_name">
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Tambah Data</button>
-                                </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
