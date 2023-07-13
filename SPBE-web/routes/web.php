@@ -55,9 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('document');
     Route::post('document', [DocumentController::class, 'store'])
     ->name('document.store');
-    Route::put('document/{document}', [DocumentController::class, 'update'])
+    Route::put('document', [DocumentController::class, 'update'])
     ->name('document.update');
-    Route::delete('document/{document}', [DocumentController::class, 'destroy'])
+    Route::delete('document', [DocumentController::class, 'destroy'])
     ->name('document.destroy');
 
     // Domain CRUD routes
@@ -87,7 +87,7 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('indicator.store');
     Route::put('indicator/{indicator}', [IndicatorController::class, 'update'])
     ->name('indicator.update');
-    Route::delete('domain/{indicator}', [IndicatorController::class, 'destroy'])
+    Route::delete('indicator/{indicator}', [IndicatorController::class, 'destroy'])
     ->name('indicator.destroy');
 
 	Route::get('rtl', function () {
@@ -121,11 +121,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('create-data', function () {
 		return view('pages.create-data');
 	})->name('create-data');
-
-    // Route::get('tables', [DocumentController::class, 'index'])->name('documents.index');
-    // Route::post('tables', [DocumentController::class, 'store'])->name('documents.store');
-    // Route::get('/documents/{id}', [DocumentController::class, 'show'])->name('documents.show');
-    // Route::get('/documents/{id}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
-    // Route::put('tables/{id}', [DocumentController::class, 'update'])->name('documents.update');
-    // Route::delete('tables/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 });
