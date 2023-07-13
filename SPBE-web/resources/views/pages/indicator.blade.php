@@ -101,47 +101,50 @@
                                                         </a>
                                                     </div>
                                                     <!-- Modal Edit Data -->
-                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}"
-                                                        tabindex="-1" aria-labelledby="editModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editModalLabel">Form
-                                                                        Edit</h5>
-                                                                    <button type="button"
-                                                                        class="btn-close btn-close-white"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form action="{{ route('indicator.update', ['indicator' => $attribute->id]) }}" method="POST">
+                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}" tabindex="-1" aria-labelledby="editModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
+                                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('indicator.update', ['indicator' => $attribute->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="container pb-3">
+                                                                        <div class="form-group mt-2">
+                                                                            <label for="indicatorNameEdit">Masukan Nama Indikator Baru</label>
+                                                                            <input type="text" value="{{ $attribute->indicator_name }}" class="form-control border border-2 p-2"
+                                                                                id="indicatorNameEdit"
+                                                                                name="indicator_name">
+                                                                        </div>
+                                                                        <div class="form-group mt-2">
+                                                                            <label
+                                                                                for="descriptionField">Masukan Deskripsi Baru</label>
+                                                                            <textarea
+                                                                                style="width: 50%;
+                                                                                height: 150px;
+                                                                                padding: 12px 20px;
+                                                                                box-sizing: border-box;
+                                                                                border: 2px solid #ccc;
+                                                                                border-radius: 4px;
+                                                                                background-color: #f8f8f8;
+                                                                                resize: none;"
+                                                                                name="description" id="descriptionField" class="form-control border border-2 p-2">{{ $attribute->description }}</textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <form action="{{ route('indicator.destroy', ['indicator' => $attribute->id]) }}" method="POST">
                                                                         @csrf
-                                                                        @method('PUT')
-                                                                        <div class="container pb-3">
-                                                                            <div class="form-group mt-2">
-                                                                                <label for="indicatorNameEdit">Masukan Nama Indikator Baru</label>
-                                                                                <input type="text"
-                                                                                    value="{{ $attribute->indicator_name }}"
-                                                                                    class="form-control border border-2 p-2"
-                                                                                    id="indicatorNameEdit"
-                                                                                    name="indicator_name">
-                                                                            </div>
-                                                                            <div class="form-group mt-2">
-                                                                                <label
-                                                                                    for="descriptionField">Masukan Deskripsi Baru</label>
-                                                                                <textarea
-                                                                                    style="width: 50%; height: 150px; padding: 12px 20px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; background-color: #f8f8f8; resize: none;"
-                                                                                    name="description" id="descriptionField" class="form-control border border-2 p-2">{{ $attribute->description }}</textarea>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <button type="button"
-                                                                                class="btn btn-danger">Hapus</button>
-                                                                            <button type="submit"
-                                                                                class="btn btn-success">Ubah Data</button>
-                                                                        </div>
-                                                                    </form>
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                        </form>
+                                                                        <button type="submit" class="btn btn-success">Ubah Data</button>
+                                                                    </div>
+                                                                </form>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -182,8 +185,8 @@
                                                 </div>
                                                 <div>
                                                     <select id="aspect_id" name="aspect_id"
-                                                        class="form-control border border-2 p-2" ">
-                                                          @forelse ($aspects as $aspect)
+                                                        class="form-control border border-2 p-2">
+                                                        @forelse ($aspects as $aspect)
                                                         <option value="{{ $aspect->id }}">
                                                             {{ $aspect->aspect_name }}
                                                         </option>
@@ -201,7 +204,7 @@
                                                     id="indicator_name" name="indicator_name">
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="description">Deskripsi</label>
+                                                <label for="descriptionEdit">Deskripsi</label>
                                                 <textarea
                                                     style="
                                                     width: 50%;
@@ -211,10 +214,8 @@
                                                     border: 2px solid #ccc;
                                                     border-radius: 4px;
                                                     background-color: #f8f8f8;
-                                                    font-size: 16px;
-                                                    resize: none;
-                                                "
-                                                    name="description" id="description" class="form-control border border-2 p-2"></textarea>
+                                                    resize: none;"
+                                                    name="description" id="descriptionEdit" class="form-control border border-2 p-2"></textarea>
                                             </div>
                                         </div>
                                     </div>

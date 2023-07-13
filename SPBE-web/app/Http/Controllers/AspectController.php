@@ -16,7 +16,9 @@ class AspectController extends Controller
     public function index():View
     {
         $attributes = DB::table('aspects')
-            ->join('domains','aspects.domain_id','=','domains.id')
+            ->join('domains','domains.id','=','aspects.domain_id')
+            // ->select('aspects.id as aspect_id','aspect_name','domains.id as domain_id','domain_name','timestamp')
+            ->select('aspects.*','domains.domain_name')
             ->paginate(10);
         $domains = DB::table('domains')->get();
         return view('pages.aspect', compact('attributes','domains'));

@@ -17,6 +17,7 @@ class IndicatorController extends Controller
     {
         $attributes = DB::table('indicators')
             ->join('aspects','indicators.aspect_id','=','aspects.id')
+            ->select('indicators.*','aspects.aspect_name')
             ->paginate(10);
         $aspects = DB::table('aspects')->get();
         return view('pages.indicator', compact('attributes', 'aspects'));

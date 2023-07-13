@@ -86,9 +86,13 @@
                                                                                 id="aspectEdit" name="aspect_name">
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                            </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-danger">Hapus</button>
+                                                                    <form action="{{ route('aspect.destroy', ['aspect' => $attribute->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                    </form>
                                                                     <button type="submit" class="btn btn-success">Ubah Data</button>
                                                                 </div>
                                                             </form>
