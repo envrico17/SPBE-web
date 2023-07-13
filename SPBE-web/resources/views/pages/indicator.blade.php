@@ -118,9 +118,9 @@
                                                                     <form action="{{ route('indicator.update', ['indicator' => $attribute->id]) }}" method="POST">
                                                                         @csrf
                                                                         @method('PUT')
-                                                                        <div class="container">
+                                                                        <div class="container pb-3">
                                                                             <div class="form-group mt-2">
-                                                                                <label for="indicatorNameEdit">Nama Indikator</label>
+                                                                                <label for="indicatorNameEdit">Masukan Nama Indikator Baru</label>
                                                                                 <input type="text"
                                                                                     value="{{ $attribute->indicator_name }}"
                                                                                     class="form-control border border-2 p-2"
@@ -129,7 +129,7 @@
                                                                             </div>
                                                                             <div class="form-group mt-2">
                                                                                 <label
-                                                                                    for="descriptionField">Deskripsi</label>
+                                                                                    for="descriptionField">Masukan Deskripsi Baru</label>
                                                                                 <textarea
                                                                                     style="width: 50%; height: 150px; padding: 12px 20px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; background-color: #f8f8f8; resize: none;"
                                                                                     name="description" id="descriptionField" class="form-control border border-2 p-2">{{ $attribute->description }}</textarea>

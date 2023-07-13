@@ -81,7 +81,7 @@
                                                                         <div class="form-group mt-2">
                                                                             <div class="text-info">Nama Aspek Lama</div>
                                                                             <div class="text-warning">{{ $attribute->aspect_name }}</div>
-                                                                            <label class="fs-6 pt-4" for="aspectEdit"> Nama Aspek</label>
+                                                                            <label class="fs-6 pt-4" for="aspectEdit">Masukan Nama Aspek Baru</label>
                                                                             <input value='{{ $attribute->aspect_name }}' type="text" class="form-control border border-2 p-2"
                                                                                 id="aspectEdit" name="aspect_name">
                                                                         </div>
