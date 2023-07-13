@@ -10,7 +10,6 @@
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                {{-- <h6 class="text-white text-capitalize ps-3">Authors table</h6> --}}
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Data Dukung</h6>
                                     <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
@@ -48,31 +47,16 @@
                                             <tr>
                                                 {{-- Domain --}}
                                                 <td>
-                                                    {{-- <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="{{ asset('assets') }}/img/team-2.jpg"
-                                                                class="avatar avatar-sm me-3 border-radius-lg"
-                                                                alt="user1">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm">John Michael</h6>
-                                                            <p class="text-xs text-secondary mb-0">john@creative-tim.com
-                                                            </p>
-                                                        </div>
-                                                    </div> --}}
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
                                                 {{-- Aspect --}}
                                                 <td>
-                                                    {{-- <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                                    <p class="text-xs text-secondary mb-0">Organization</p> --}}
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
                                                 </td>
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-center text-sm">
-                                                    {{-- <span class="badge badge-sm bg-gradient-success">Online</span> --}}
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
                                                 </td>
@@ -82,12 +66,48 @@
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->doc_name }}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;"
-                                                        class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal" data-bs-target="#editDataModal"
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                        data-bs-toggle="modal" data-bs-target="#editDataModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
                                                         Edit
                                                     </a>
+                                                    <!-- Modal Edit Data -->
+                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}" tabindex="-1"
+                                                        aria-labelledby="editModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="editModalLabel">Form
+                                                                        Edit</h5>
+                                                                    <button type="button"
+                                                                        class="btn-close btn-close-white  "
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="{{ route('document.update') }}" method="post">
+                                                                        <div class="container">
+                                                                            <div class="form-group mt-2">
+                                                                                <label for="doc_name">Nama
+                                                                                    Indikator</label>
+                                                                                <input type="text"
+                                                                                    value="{{ $attribute->doc_name }}"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="doc_name"
+                                                                                    name="doc_name">
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                        class="btn btn-danger">Hapus</button>
+                                                                    <button type="button" class="btn btn-success">Ubah
+                                                                        Data</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -108,35 +128,6 @@
                     <!-- Tombol untuk membuka pop-up -->
                     {{-- <div class="container"> --}}
                     {{-- </div> --}}
-
-                    <!-- Modal Edit Data -->
-                    <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
-                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="form.php" method="post">
-                                        <div class="container">
-                                            <div class="form-group mt-2">
-                                                <label for="domain">Nama Dokumen</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="domain" name="domain">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                    <button type="button" class="btn btn-success">Ubah Data</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Modal Tambah Data Domain -->
                     <div class="modal fade" id="inputDataDomainModal" tabindex="-1" aria-labelledby="inputModalLabel"
@@ -167,8 +158,8 @@
                     </div>
 
                     <!-- Modal Tambah Data Aspek -->
-                    <div class="modal fade" id="inputDataAspekModal" tabindex="-1"
-                        aria-labelledby="inputModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="inputDataAspekModal" tabindex="-1" aria-labelledby="inputModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
