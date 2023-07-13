@@ -165,32 +165,35 @@
                                     <button type="button" class="btn-close btn-close-white  "
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <form action="form.php" method="post">
+                                <form action="{{ route('indicator.store') }}" method="post">
+                                    <div class="modal-body">
+                                        @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
                                                 <div>
-                                                    <label for="aspek">Nama Aspek</label>
+                                                    <label for="aspect_id">Nama Aspek</label>
                                                 </div>
                                                 <div>
-                                                    <select id="aspek" name="aspek"
+                                                    <select id="aspect_id" name="aspect_id"
                                                         class="form-control border border-2 p-2" ">
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                         @forelse ($aspects as $aspect)
+                                                        <option value="{{ $aspect->id }}">{{ $aspect->aspect_name }}
+                                                        </option>
+                                                        @empty
+                                                        <div class='alert alert-danger'>
+                                                            Tidak ada data
+                                                        </div>
+                                                        @endforelse
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="indikator">Nama Indikator</label>
+                                                <label for="indicator_name">Nama Indikator</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="indikator" name="indikator">
+                                                    id="indicator_name" name="indicator_name">
                                             </div>
-                                            <div>
-                                                <label for="deskripsi">Deskripsi</label>
-                                            </div>
-                                            <div>
+                                            <div class="form-group mt-2">
+                                                <label for="description">Deskripsi</label>
                                                 <textarea
                                                     style="
                                                     width: 50%;
@@ -203,14 +206,14 @@
                                                     font-size: 16px;
                                                     resize: none;
                                                 "
-                                                    name="deskripsi" class="form-control border border-2 p-2">Masukkan Deskripsi</textarea>
+                                                    name="description" id="description" class="form-control border border-2 p-2"></textarea>
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Tambah Data</button>
-                                </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -218,16 +221,16 @@
     </main>
     <x-plugins></x-plugins>
     @push('js')
-    <script>
-        //message with toastr
-        @if (session()->has('success'))
+        <script>
+            //message with toastr
+            @if (session()->has('success'))
 
-            toastr.success('{{ session('success') }}', 'BERHASIL!');
-        @elseif (session()->has('error'))
+                toastr.success('{{ session('success') }}', 'BERHASIL!');
+            @elseif (session()->has('error'))
 
-            toastr.error('{{ session('error') }}', 'GAGAL!');
-        @endif
-    </script>
-@endpush
+                toastr.error('{{ session('error') }}', 'GAGAL!');
+            @endif
+        </script>
+    @endpush
 
 </x-layout>

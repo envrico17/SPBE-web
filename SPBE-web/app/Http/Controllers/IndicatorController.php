@@ -18,7 +18,8 @@ class IndicatorController extends Controller
         $attributes = DB::table('indicators')
             ->join('aspects','indicators.aspect_id','=','aspects.id')
             ->paginate(10);
-        return view('pages.indicator', compact('attributes'));
+        $aspects = DB::table('aspects')->get();
+        return view('pages.indicator', compact('attributes', 'aspects'));
     }
 
     /**
@@ -36,7 +37,8 @@ class IndicatorController extends Controller
     {
         $request->validate([
             'indicator_name' => 'required',
-            'description'=> 'required'
+            'aspect_id' => 'required',
+            'description' => 'nullable'
         ]);
         Indicator::create($request->all());
         return redirect()->route('indicator')
