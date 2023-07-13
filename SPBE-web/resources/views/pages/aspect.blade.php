@@ -93,25 +93,9 @@
                                     <form action="form.php" method="post">
                                         <div class="container">
                                             <div class="form-group mt-2">
-                                                <label for="domain">Domain</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="domain" name="domain">
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="aspek">Aspek</label>
+                                                <label for="aspek"> Nama Aspek</label>
                                                 <input type="text" class="form-control border border-2 p-2"
                                                     id="aspek" name="aspek">
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="indikator">Indikator</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="indikator" name="indikator">
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="data-dukung">Upload Data Dukung</label>
-                                                <input type="file" class="form-control border border-2"
-                                                    id="data-dukung" name="data-dukung" aria-describedby="fileHelp"
-                                                    placeholder="Upload Data Dukung(PDF)">
                                             </div>
                                         </div>
                                     </form>
