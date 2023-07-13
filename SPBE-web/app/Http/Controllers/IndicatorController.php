@@ -38,7 +38,7 @@ class IndicatorController extends Controller
         $request->validate([
             'indicator_name' => 'required',
             'aspect_id' => 'required',
-            'description' => 'nullable'
+            'description' => 'required'
         ]);
         Indicator::create($request->all());
         return redirect()->route('indicator')

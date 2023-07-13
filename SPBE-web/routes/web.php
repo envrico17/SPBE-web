@@ -55,9 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('document');
     Route::post('document', [DocumentController::class, 'store'])
     ->name('document.store');
-    Route::put('document', [DocumentController::class, 'update'])
+    Route::put('document/{document}', [DocumentController::class, 'update'])
     ->name('document.update');
-    Route::delete('document/{id}', [DocumentController::class, 'destroy'])
+    Route::delete('document/{document}', [DocumentController::class, 'destroy'])
     ->name('document.destroy');
 
     // Domain CRUD routes
@@ -65,9 +65,9 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('domain');
     Route::post('domain', [DomainController::class, 'store'])
     ->name('domain.store');
-    Route::put('domain/{id}', [DomainController::class, 'update'])
+    Route::put('domain/{domain}', [DomainController::class, 'update'])
     ->name('domain.update');
-    Route::delete('domain/{id}', [DomainController::class, 'destroy'])
+    Route::delete('domain/{domain}', [DomainController::class, 'destroy'])
     ->name('domain.destroy');
 
     // Aspect CRUD routes
@@ -75,9 +75,9 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('aspect');
     Route::post('aspect', [AspectController::class, 'store'])
     ->name('aspect.store');
-    Route::put('aspect/{id}', [AspectController::class, 'update'])
+    Route::put('aspect/{aspect}', [AspectController::class, 'update'])
     ->name('aspect.update');
-    Route::delete('aspect/{id}', [AspectController::class, 'destroy'])
+    Route::delete('aspect/{aspect}', [AspectController::class, 'destroy'])
     ->name('aspect.destroy');
 
     // Indicator CRUD routes
@@ -85,9 +85,9 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('indicator');
     Route::post('indicator', [IndicatorController::class, 'store'])
     ->name('indicator.store');
-    Route::put('indicator', [IndicatorController::class, 'update'])
+    Route::put('indicator/{indicator}', [IndicatorController::class, 'update'])
     ->name('indicator.update');
-    Route::delete('domain/{id}', [IndicatorController::class, 'destroy'])
+    Route::delete('domain/{indicator}', [IndicatorController::class, 'destroy'])
     ->name('indicator.destroy');
 
 	Route::get('rtl', function () {

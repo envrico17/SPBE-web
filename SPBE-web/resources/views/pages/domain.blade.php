@@ -52,10 +52,46 @@
                                                 <td class="align-middle text-center">
                                                     <a href="javascript:;"
                                                         class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal" data-bs-target="#editDataModal"
+                                                        data-bs-toggle="modal" data-bs-target="#editModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
                                                         Edit
                                                     </a>
+                                                    <!-- Modal Edit Data -->
+                                                    <div class="modal fade" id="editModal{{ $attribute->id }}" tabindex="-1" aria-labelledby="editModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
+                                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('domain.update', ['domain' => $attribute->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="container">
+                                                                        <div class="form-group mt-2">
+                                                                            <div class="text-info">Nama Domain Lama</div>
+                                                                            <div class="text-warning">{{ $attribute->domain_name }}</div>
+                                                                            <label class="fs-6 pt-4" for="domainUpdate">Masukan Nama Domain Baru</label>
+                                                                            <input type="text" class="form-control border border-2 p-2"
+                                                                                id="domainUpdate" name="domain_name" value="{{ $attribute->domain_name }}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <form action="{{ route('domain.destroy', ['domain' => $attribute->id]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                    </form>
+                                                                    <button type="submit" class="btn btn-success">Ubah Data</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -68,35 +104,6 @@
                             </div>
                             <div class="container mt-3">
                                 {{ $attributes->onEachSide(2)->links() }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal Edit Data -->
-                    <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
-                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="form.php" method="post">
-                                        <div class="container">
-                                            <div class="form-group mt-2">
-                                                <label for="domain">Nama Domain</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="domain" name="domain">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                    <button type="button" class="btn btn-success">Ubah Data</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,9 +123,9 @@
                                         @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
-                                                <label for="domain_name">Nama Domain</label>
+                                                <label for="domainCreate">Nama Domain</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="domain_name" name="domain_name" required>
+                                                    id="domainCreate" name="domain_name" required>
                                                 <div class="invalid-feedback">
                                                     Nama Domain Tidak Boleh Kosong
                                                 </div>

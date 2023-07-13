@@ -60,9 +60,41 @@
                                                 <td class="align-middle text-center">
                                                     <a class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
-                                                        data-bs-target="#editDataModal" data-original-title="Edit user">
+                                                        data-bs-target="#editDataModal{{ $attribute->id }}" data-original-title="Edit user">
                                                         Edit
                                                     </a>
+                                                    <!-- Modal Edit Data -->
+                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}" tabindex="-1" aria-labelledby="editModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
+                                                                <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form action="{{ route('aspect.update', ['aspect' => $attribute->id ]) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <div class="container">
+                                                                        <div class="form-group mt-2">
+                                                                            <div class="text-info">Nama Aspek Lama</div>
+                                                                            <div class="text-warning">{{ $attribute->aspect_name }}</div>
+                                                                            <label class="fs-6 pt-4" for="aspectEdit"> Nama Aspek</label>
+                                                                            <input value='{{ $attribute->aspect_name }}' type="text" class="form-control border border-2 p-2"
+                                                                                id="aspectEdit" name="aspect_name">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-danger">Hapus</button>
+                                                                    <button type="submit" class="btn btn-success">Ubah Data</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -75,35 +107,6 @@
                             </div>
                             <div class="container mt-3">
                                 {{ $attributes->onEachSide(2)->links() }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal Edit Data -->
-                    <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
-                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="form.php" method="post">
-                                        <div class="container">
-                                            <div class="form-group mt-2">
-                                                <label for="aspek"> Nama Aspek</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="aspek" name="aspek">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger">Hapus</button>
-                                    <button type="button" class="btn btn-success">Ubah Data</button>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -115,39 +115,24 @@
                                                                         aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="{{ route('indicator.update') }}" method="post">
+                                                                    <form action="{{ route('indicator.update', ['indicator' => $attribute->id]) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('PUT')
                                                                         <div class="container">
                                                                             <div class="form-group mt-2">
-                                                                                <div>
-                                                                                    <label for="aspect_id">Nama
-                                                                                        Aspek</label>
-                                                                                </div>
-                                                                                <div>
-                                                                                    <select id="aspect_id"
-                                                                                        name="aspect_id"
-                                                                                        class="form-control border border-2 p-2">
-                                                                                        <option
-                                                                                            value="{{ $attribute->id }}">
-                                                                                            {{ $attribute->aspect_name }}
-                                                                                        </option>
-                                                                                    </select>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group mt-2">
-                                                                                <label for="indicator_name">Nama
-                                                                                    Indikator</label>
+                                                                                <label for="indicatorNameEdit">Nama Indikator</label>
                                                                                 <input type="text"
                                                                                     value="{{ $attribute->indicator_name }}"
                                                                                     class="form-control border border-2 p-2"
-                                                                                    id="indicator_name"
+                                                                                    id="indicatorNameEdit"
                                                                                     name="indicator_name">
                                                                             </div>
                                                                             <div class="form-group mt-2">
                                                                                 <label
-                                                                                    for="description">Deskripsi</label>
+                                                                                    for="descriptionField">Deskripsi</label>
                                                                                 <textarea
-                                                                                    style="width: 50%; height: 150px; padding: 12px 20px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; background-color: #f8f8f8; font-size: 16px; resize: none;"
-                                                                                    name="description" id="description" class="form-control border border-2 p-2">{{ $attribute->description }}</textarea>
+                                                                                    style="width: 50%; height: 150px; padding: 12px 20px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; background-color: #f8f8f8; resize: none;"
+                                                                                    name="description" id="descriptionField" class="form-control border border-2 p-2">{{ $attribute->description }}</textarea>
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">
