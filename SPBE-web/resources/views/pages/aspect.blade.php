@@ -135,7 +135,8 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="{{ route('aspect.store') }}" method="POST">
+                                    <form class="needs-validation" novalidate action="{{ route('aspect.store') }}"
+                                        method="POST">
                                         @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
@@ -205,7 +206,7 @@
                     });
                 }, false);
             })();
-    </script>
+        </script>
     @endpush
 
 </x-layout>

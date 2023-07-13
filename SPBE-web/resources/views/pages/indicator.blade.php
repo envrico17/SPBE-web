@@ -63,12 +63,14 @@
                                                 <td class="align-middle text-center">
                                                     <a class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
-                                                        data-bs-target="#detail-{{ $attribute->id }}" data-original-title="Edit user">
+                                                        data-bs-target="#detail-{{ $attribute->id }}"
+                                                        data-original-title="Edit user">
                                                         Detail
                                                     </a>
                                                     <!-- Modal Detail Indicator -->
-                                                    <div class="modal fade" id="detail-{{ $attribute->id }}" tabindex="-1"
-                                                        aria-labelledby="detailModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="detail-{{ $attribute->id }}"
+                                                        tabindex="-1" aria-labelledby="detailModalLabel"
+                                                        aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -165,8 +167,9 @@
                                     <button type="button" class="btn-close btn-close-white  "
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form action="{{ route('indicator.store') }}" method="post">
-                                    <div class="modal-body">
+                                <div class="modal-body">
+                                    <form class="needs-validation" novalidate action="{{ route('indicator.store') }}"
+                                        method="POST">
                                         @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
@@ -175,11 +178,11 @@
                                                 </div>
                                                 <div>
                                                     <select id="aspect_id" name="aspect_id"
-                                                        class="form-control border border-2 p-2" ">
-                                                         @forelse ($aspects as $aspect)
+                                                        class="form-control border border-2 p-2">
+                                                    @forelse ($aspects as $aspect)
                                                         <option value="{{ $aspect->id }}">{{ $aspect->aspect_name }}
                                                         </option>
-                                                        @empty
+                                                    @empty
                                                         <div class='alert alert-danger'>
                                                             Tidak ada data
                                                         </div>
@@ -190,7 +193,10 @@
                                             <div class="form-group mt-2">
                                                 <label for="indicator_name">Nama Indikator</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="indicator_name" name="indicator_name">
+                                                    id="indicator_name" name="indicator_name" required>
+                                                <div class="invalid-feedback">
+                                                    Nama Indikator Tidak Boleh Kosong
+                                                </div>
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for="description">Deskripsi</label>
@@ -209,10 +215,10 @@
                                                     name="description" id="description" class="form-control border border-2 p-2"></textarea>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
-                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Tambah Data</button>
+                                </div>
                                 </form>
                             </div>
                         </div>
@@ -230,6 +236,25 @@
 
                 toastr.error('{{ session('error') }}', 'GAGAL!');
             @endif
+        </script>
+        <script>
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
         </script>
     @endpush
 
