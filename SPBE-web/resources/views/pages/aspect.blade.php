@@ -135,7 +135,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('aspect.store') }}" method="POST">
+                                    <form class="needs-validation" novalidate action="{{ route('aspect.store') }}" method="POST">
                                         @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
@@ -146,7 +146,8 @@
                                                     <select id="domain_id" name="domain_id"
                                                         class="form-control border border-2 p-2">
                                                         @forelse ($domains as $domain)
-                                                        <option value="{{ $domain->id }}">{{ $domain->domain_name }}</option>
+                                                            <option value="{{ $domain->id }}">
+                                                                {{ $domain->domain_name }}</option>
                                                         @empty
                                                             <div class='alert alert-danger'>
                                                                 Tidak ada data
@@ -158,13 +159,16 @@
                                             <div class="form-group mt-2">
                                                 <label for="aspect_name">Nama Aspek</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="aspect_name" name="aspect_name">
+                                                    id="aspect_name" name="aspect_name" required>
+                                                <div class="invalid-feedback">
+                                                    Nama Aspek Tidak Boleh Kosong
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
-                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Tambah Data</button>
+                                </div>
                                 </form>
                             </div>
                         </div>
@@ -173,16 +177,35 @@
     </main>
     <x-plugins></x-plugins>
     @push('js')
-    <script>
-        //message with toastr
-        @if (session()->has('success'))
+        <script>
+            //message with toastr
+            @if (session()->has('success'))
 
-            toastr.success('{{ session('success') }}', 'BERHASIL!');
-        @elseif (session()->has('error'))
+                toastr.success('{{ session('success') }}', 'BERHASIL!');
+            @elseif (session()->has('error'))
 
-            toastr.error('{{ session('error') }}', 'GAGAL!');
-        @endif
+                toastr.error('{{ session('error') }}', 'GAGAL!');
+            @endif
+        </script>
+        <script>
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
     </script>
-@endpush
+    @endpush
 
 </x-layout>

@@ -128,19 +128,22 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{{ route('domain.store') }}" method="POST">
+                                    <form class="needs-validation" novalidate action="{{ route('domain.store') }}" method="POST">
                                         @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
                                                 <label for="domain_name">Nama Domain</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="domain_name" name="domain_name">
+                                                    id="domain_name" name="domain_name" required>
+                                                <div class="invalid-feedback">
+                                                    Nama Domain Tidak Boleh Kosong
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
-                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Tambah Data</button>
+                                </div>
                                 </form>
                             </div>
                         </div>
@@ -158,6 +161,25 @@
 
                 toastr.error('{{ session('error') }}', 'GAGAL!');
             @endif
+        </script>
+        <script>
+                (function() {
+                    'use strict';
+                    window.addEventListener('load', function() {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function(form) {
+                            form.addEventListener('submit', function(event) {
+                                if (form.checkValidity() === false) {
+                                    event.preventDefault();
+                                    event.stopPropagation();
+                                }
+                                form.classList.add('was-validated');
+                            }, false);
+                        });
+                    }, false);
+                })();
         </script>
     @endpush
 
