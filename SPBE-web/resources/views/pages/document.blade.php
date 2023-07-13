@@ -83,7 +83,7 @@
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <a href="javascript:;"
-                                                        class="text-secondary font-weight-bold text-xs"
+                                                        class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal" data-bs-target="#editDataModal"
                                                         data-original-title="Edit user">
                                                         Edit

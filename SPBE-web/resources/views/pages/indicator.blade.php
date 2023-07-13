@@ -61,13 +61,13 @@
                                                 </td>
                                                 {{-- Details of the Indicator --}}
                                                 <td class="align-middle text-center">
-                                                    <a class="text-secondary font-weight-bold text-xs"
+                                                    <a class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
-                                                        data-bs-target="#detailModal" data-original-title="Edit user">
+                                                        data-bs-target="#detail-{{ $attribute->id }}" data-original-title="Edit user">
                                                         Detail
                                                     </a>
                                                     <!-- Modal Detail Indicator -->
-                                                    <div class="modal fade" id="detailModal" tabindex="-1"
+                                                    <div class="modal fade" id="detail-{{ $attribute->id }}" tabindex="-1"
                                                         aria-labelledby="detailModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
@@ -89,7 +89,7 @@
 
                                                 {{-- Document of the Indicator --}}
                                                 <td class="align-middle text-center">
-                                                    <a class="text-secondary font-weight-bold text-xs"
+                                                    <a class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
                                                         data-bs-target="#editDataModal" data-original-title="Edit user">
                                                         Edit

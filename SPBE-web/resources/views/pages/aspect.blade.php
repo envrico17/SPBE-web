@@ -58,7 +58,7 @@
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a class="text-secondary font-weight-bold text-xs"
+                                                    <a class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
                                                         data-bs-target="#editDataModal" data-original-title="Edit user">
                                                         Edit
