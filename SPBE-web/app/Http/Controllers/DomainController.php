@@ -15,8 +15,7 @@ class DomainController extends Controller
      */
     public function index():View
     {
-        $attributes = DB::table('domains')
-            ->paginate(10);
+        $attributes = Domain::paginate(10);
         return view('pages.domain', compact('attributes'));
     }
 

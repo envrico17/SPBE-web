@@ -137,12 +137,17 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <form action="{{ route('indicator.destroy', ['indicator' => $attribute->id]) }}" method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                                                        <div class="order-1">
+                                                                            <button type="submit" class="btn btn-success">Ubah Data</button>
                                                                         </form>
-                                                                        <button type="submit" class="btn btn-success">Ubah Data</button>
+                                                                        </div>
+                                                                        <div class="order-0">
+                                                                        <form action="{{ route('indicator.destroy', ['indicator' => $attribute->id]) }}" method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="btn btn-danger">Hapus Indikator</button>
+                                                                        </form>
+                                                                        </div>
                                                                     </div>
                                                                 </form>
                                                                 </div>

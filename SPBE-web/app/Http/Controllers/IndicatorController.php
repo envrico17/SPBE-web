@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aspect;
 use App\Models\Indicator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,11 +16,10 @@ class IndicatorController extends Controller
      */
     public function index():View
     {
-        $attributes = DB::table('indicators')
-            ->join('aspects','indicators.aspect_id','=','aspects.id')
+        $attributes = Indicator::join('aspects','indicators.aspect_id','=','aspects.id')
             ->select('indicators.*','aspects.aspect_name')
             ->paginate(10);
-        $aspects = DB::table('aspects')->get();
+        $aspects = Aspect::all();
         return view('pages.indicator', compact('attributes', 'aspects'));
     }
 

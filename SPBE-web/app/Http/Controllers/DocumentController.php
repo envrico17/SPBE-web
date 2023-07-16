@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\Indicator;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -11,19 +13,18 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): View
     {
-        $attributes = DB::table('documents')
-            ->join('indicators','documents.indicator_id','=','indicators.id')
+        $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
             ->join('aspects','indicators.aspect_id','=','aspects.id')
             ->join('domains','aspects.domain_id','=','domains.id')
             ->join('users','documents.user_id','=','users.id')
-            ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name')
+            ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','users.name as username')
+            ->orderBy('updated_at','desc')
             ->paginate(10);
-    return view('pages.document', compact('attributes'));
+        $usernames = User::all();
+        $indicators = Indicator::all();
+    return view('pages.document', compact('attributes','usernames','indicators'));
     }
 
     /**
@@ -41,15 +42,21 @@ class DocumentController extends Controller
     {
         $request->validate([
             'doc_name'=>'required',
-            'file'=>'nullable'
+            'user_id'=>'required',
+            'indicator_id'=>'required',
+            'file'=>'nullable|file'
         ]);
 
         $document = new Document();
         $document->doc_name = $request->input('doc_name');
+        $document->indicator_id = $request->input('indicator_id');
+        $document->user_id = $request->input('user_id');
 
         if ($request->hasFile('file')) {
+            Storage::makeDirectory(public_path('uploads'));
             $file = $request->file('file');
-            $path = $file->store('documents');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $filename, 'public');
             $document->upload_path = $path;
         }
 
@@ -77,19 +84,19 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Document $document): RedirectResponse
     {
         $request->validate([
             'doc_name'=>'required',
             'file'=>'nullable|file'
         ]);
 
-        $document = Document::findOrFail($id);
         $document->doc_name = $request->input('doc_name');
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $path = $file->store('documents');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $filename, 'public');
 
             if ($document->upload_path) {
                 Storage::delete($document->upload_path);
@@ -107,16 +114,12 @@ class DocumentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Document $document, $id)
+    public function destroy(Document $document): RedirectResponse
     {
-        $document = Document::findOrFail($id);
-
         if ($document->upload_path) {
-            Storage::delete($document->upload_path);
+            Storage::disk('public')->delete($document->upload_path);
         }
-
         $document->delete();
-
         return redirect()->route('document')
             ->with('success', 'Dokumen berhasil dihapus');
     }

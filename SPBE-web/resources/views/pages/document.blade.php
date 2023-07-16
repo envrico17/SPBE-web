@@ -25,10 +25,10 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Domain</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Aspek</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -46,12 +46,12 @@
                                         @forelse ($attributes as $attribute)
                                             <tr>
                                                 {{-- Domain --}}
-                                                <td>
+                                                <td class="align-middle text-center text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
                                                 {{-- Aspect --}}
-                                                <td>
+                                                <td class="align-middle text-center text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
                                                 </td>
@@ -65,6 +65,21 @@
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->doc_name }}</span>
                                                 </td>
+                                                {{-- Lihat Dokumen --}}
+                                                <td class="align-middle text-center">
+                                                    @if ($attribute->upload_path)
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">
+                                                        <a class="link-info" href="{{ $attribute->file_path_url }}" target="_blank">
+                                                            Lihat Data Dukung
+                                                        </a>
+                                                    </span>
+                                                    @else
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">N/A</span>
+                                                    @endif
+                                                </td>
+                                                {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal" data-bs-target="#editDataModal{{ $attribute->id }}"
@@ -77,34 +92,48 @@
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editModalLabel">Form
-                                                                        Edit</h5>
+                                                                    <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
                                                                     <button type="button"
                                                                         class="btn-close btn-close-white  "
                                                                         data-bs-dismiss="modal"
                                                                         aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form action="{{ route('document.update') }}" method="post">
+                                                                    <form action="{{ route('document.update', ['document' => $attribute->id]) }}" method="POST" enctype="multipart/form-data">
+                                                                        @csrf
+                                                                        @method('PUT')
                                                                         <div class="container">
                                                                             <div class="form-group mt-2">
-                                                                                <label for="doc_name">Nama
-                                                                                    Indikator</label>
+                                                                                <div class="text-info">Nama Dokumen Lama</div>
+                                                                                <div class="text-warning">{{ $attribute->doc_name }}</div>
+                                                                                <label class="fs-6 pt-4" for="doc_name">Masukan Nama Dokumen Baru</label>
                                                                                 <input type="text"
                                                                                     value="{{ $attribute->doc_name }}"
                                                                                     class="form-control border border-2 p-2"
                                                                                     id="doc_name"
                                                                                     name="doc_name">
                                                                             </div>
+                                                                            <div class="form-group mt-2">
+                                                                                <label class="fs-6 pt-4" for="fileEdit" >Upload Data Dukung</label>
+                                                                                <input type="file" class="form-control border border-2"
+                                                                                    id="fileEdit" name="file">
+                                                                            </div>
                                                                         </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button"
-                                                                        class="btn btn-danger">Hapus</button>
-                                                                    <button type="button" class="btn btn-success">Ubah
-                                                                        Data</button>
-                                                                </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <div class="order-1">
+                                                                            <button type="submit" class="btn btn-success">Ubah Data</button>
+                                                                        </form>
+                                                                        </div>
+                                                                        <div class="order-0">
+                                                                        <form action="{{ route('document.destroy', ['document' => $attribute->id]) }}" method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="btn btn-danger">Hapus Dokumen</button>
+                                                                        </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -123,142 +152,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active" data-toggle="modal" data-target="#exampleModal"
-                        onclick="">Tambah Data</button> --}}
-                    <!-- Tombol untuk membuka pop-up -->
-                    {{-- <div class="container"> --}}
-                    {{-- </div> --}}
-
-                    <!-- Modal Tambah Data Domain -->
-                    <div class="modal fade" id="inputDataDomainModal" tabindex="-1" aria-labelledby="inputModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="inputModalLabel">Form Input Domain</h5>
-                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="form.php" method="post">
-                                        <div class="container">
-                                            <div class="form-group mt-2">
-                                                <label for="domain">Domain</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="domain" name="domain">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Tambah Data</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal Tambah Data Aspek -->
-                    <div class="modal fade" id="inputDataAspekModal" tabindex="-1" aria-labelledby="inputModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="inputModalLabel">Form Input Aspek</h5>
-                                    <button type="button" class="btn-close btn-close-white  "
-                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="form.php" method="post">
-                                        <div class="container">
-                                            <div class="form-group mt-2">
-                                                <div>
-                                                    <label for="domain">Domain</label>
-                                                </div>
-                                                <div>
-                                                    <select id="domain" name="domain"
-                                                        class="form-control border border-2 p-2" ">
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="aspek">Aspek</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="aspek" name="aspek">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Tambah Data</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal Tambah Data Indikator -->
-                    <div class="modal fade" id="inputDataIndikatorModal" tabindex="-1" aria-labelledby="inputModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="inputModalLabel">Form Input Indikator</h5>
-                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="form.php" method="post">
-                                        <div class="container">
-                                            <div class="form-group mt-2">
-                                                <div>
-                                                    <label for="aspek">Aspek</label>
-                                                    </div>
-                                                <div>
-                                                    <select id="aspek" name="aspek"
-                                                    class="form-control border border-2 p-2"
-                                                    ">
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="indikator">Indikator</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="indikator" name="indikator">
-                                            </div>
-                                            <div>
-                                                <label for="deskripsi">Deskripsi</label>
-                                            </div>
-                                            <div>
-                                                <textarea
-                                                    style="
-                                                    width: 50%;
-                                                    height: 150px;
-                                                    padding: 12px 20px;
-                                                    box-sizing: border-box;
-                                                    border: 2px solid #ccc;
-                                                    border-radius: 4px;
-                                                    background-color: #f8f8f8;
-                                                    font-size: 16px;
-                                                    resize: none;
-                                                "
-                                                    name="deskripsi" class="form-control border border-2 p-2">Masukkan Deskripsi</textarea>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Tambah Data</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Modal Tambah Data Dukung -->
                     <div class="modal fade" id="inputDataDukungModal" tabindex="-1"
@@ -271,19 +164,19 @@
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="form.php" method="post">
+                                    <form action="{{ route('document.store') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
                                                 <div>
                                                     <label for="indikator">Nama Indikator</label>
                                                 </div>
                                                 <div>
-                                                    <select id="indikator" name="indikator"
-                                                        class="form-control border border-2 p-2" ">
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                    <select id="indikator" name="indicator_id"
+                                                        class="form-control border border-2 p-2">
+                                                        @foreach ($indicators as $indicator)
+                                                        <option value="{{$indicator->id}}">{{$indicator->indicator_name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -292,33 +185,30 @@
                                                     <label for="upd">Nama UPD</label>
                                                     </div>
                                                 <div>
-                                                    <select id="upd" name="upd"
-                                                    class="form-control border border-2 p-2"
-                                                    ">
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
-                                                        <option value="Kebijakan SPBE">Kebijakan SPBE</option>
+                                                    <select id="upd" name="user_id"
+                                                    class="form-control border border-2 p-2">
+                                                        @foreach ($usernames as $username)
+                                                        <option value="{{$username->id}}">{{$username->name}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for="data-dukung">Nama Dokumen</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="data-dukung" name="data-dukung">
+                                                    id="data-dukung" name="doc_name">
                                             </div>
-                                            {{-- <div class="form-group mt-2">
-                                                <label for="data-dukung">Upload Data Dukung</label></br>
+                                            <div class="form-group mt-2">
+                                                <label for="fileUpload">Upload Data Dukung</label>
                                                 <input type="file" class="form-control border border-2"
-                                                    id="data-dukung" name="data-dukung" aria-describedby="fileHelp"
-                                                    placeholder="Upload Data Dukung(PDF)">
-                                            </div> --}}
+                                                    id="fileUpload" name="file">
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">Tambah Data</button>
-                                </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

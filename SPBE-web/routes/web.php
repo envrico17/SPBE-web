@@ -55,9 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
     ->name('document');
     Route::post('document', [DocumentController::class, 'store'])
     ->name('document.store');
-    Route::put('document', [DocumentController::class, 'update'])
+    Route::put('document/{document}', [DocumentController::class, 'update'])
     ->name('document.update');
-    Route::delete('document', [DocumentController::class, 'destroy'])
+    Route::delete('document/{document}', [DocumentController::class, 'destroy'])
     ->name('document.destroy');
 
     // Domain CRUD routes

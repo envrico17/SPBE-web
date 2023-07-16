@@ -66,29 +66,32 @@
                                                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                                                                     aria-label="Close"></button>
                                                             </div>
-                                                            <div class="modal-body">
-                                                                <form action="{{ route('domain.update', ['domain' => $attribute->id]) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <div class="container">
-                                                                        <div class="form-group mt-2">
-                                                                            <div class="text-info">Nama Domain Lama</div>
-                                                                            <div class="text-warning">{{ $attribute->domain_name }}</div>
-                                                                            <label class="fs-6 pt-4" for="domainUpdate">Masukan Nama Domain Baru</label>
-                                                                            <input type="text" class="form-control border border-2 p-2"
-                                                                                id="domainUpdate" name="domain_name" value="{{ $attribute->domain_name }}">
-                                                                        </div>
-                                                                    </div>
+                                                        <div class="modal-body">
+                                                            <form action="{{ route('domain.update', ['domain' => $attribute->id]) }}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="container">
+                                                                <div class="form-group mt-2">
+                                                                    <div class="text-info">Nama Domain Lama</div>
+                                                                    <div class="text-warning">{{ $attribute->domain_name }}</div>
+                                                                    <label class="fs-6 pt-4" for="domainUpdate">Masukan Nama Domain Baru</label>
+                                                                    <input type="text" class="form-control border border-2 p-2"
+                                                                    id="domainUpdate" name="domain_name" value="{{ $attribute->domain_name }}">
                                                                 </div>
-                                                                <div class="modal-footer">
-                                                                    <form action="{{ route('domain.destroy', ['domain' => $attribute->id]) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                                                    </form>
-                                                                    <button type="submit" class="btn btn-success">Ubah Data</button>
-                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <div class="order-1">
+                                                                <button type="submit" class="btn btn-success">Ubah Data</button>
                                                             </form>
+                                                            </div>
+                                                            <div class="order-0">
+                                                            <form action="{{ route('domain.destroy', ['domain' => $attribute->id]) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="btn btn-danger">Hapus Domain</button>
+                                                            </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
