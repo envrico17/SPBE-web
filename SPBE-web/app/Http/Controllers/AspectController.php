@@ -84,4 +84,13 @@ class AspectController extends Controller
         return redirect()->route('aspect')
             ->with('success','Aspek berhasil dihapus');
     }
+
+    public function searchAspect(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $attributes = Aspect::where('aspect_name', 'LIKE', '%' . $keyword . '%')->paginate(10);
+
+        $domains = Domain::all();
+        return view('pages.aspect', compact('attributes','domains'));
+    }
 }

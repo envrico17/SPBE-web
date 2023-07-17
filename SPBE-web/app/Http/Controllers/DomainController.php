@@ -6,6 +6,7 @@ use App\Models\Domain;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 
 class DomainController extends Controller
@@ -78,5 +79,13 @@ class DomainController extends Controller
         $domain->delete();
         return redirect()->route('domain')
             ->with('success','Domain berhasil dihapus');
+    }
+
+    public function searchDomain(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $attributes = Domain::where('domain_name', 'LIKE', '%' . $keyword . '%')->paginate(10);
+
+        return view('pages.domain', compact('attributes'));
     }
 }

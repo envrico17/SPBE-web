@@ -12,6 +12,15 @@
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Indikator</h6>
+                                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                                        <form action="{{route("indicator.search")}}" method="GET">
+                                         @csrf
+                                        <div class="input-group input-group-outline">
+                                            <label class="form-label text-white">Type here...</label>
+                                            <input type="text" class="text-white form-control" name="keyword">
+                                        </div>
+                                        </form>
+                                    </div>
                                     <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
                                         data-bs-toggle="modal" data-bs-target="#inputDataIndikatorModal">
                                         Tambah Indikator

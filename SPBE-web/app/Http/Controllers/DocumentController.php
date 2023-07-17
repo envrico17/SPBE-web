@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Domain;
+use App\Models\Aspect;
 use App\Models\Document;
 use App\Models\Indicator;
 use App\Models\User;
@@ -22,9 +24,12 @@ class DocumentController extends Controller
             ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','users.name as username')
             ->orderBy('updated_at','desc')
             ->paginate(10);
-        $usernames = User::all();
-        $indicators = Indicator::all();
-    return view('pages.document', compact('attributes','usernames','indicators'));
+            $usernames = User::all();
+            $domains = Domain::all();
+            $aspects = Aspect::all();
+            $documents = Document::all();
+            $indicators = Indicator::all();
+            return view('pages.document', compact('attributes','usernames','indicators','domains','aspects','documents'));
     }
 
     /**
@@ -123,4 +128,31 @@ class DocumentController extends Controller
         return redirect()->route('document')
             ->with('success', 'Dokumen berhasil dihapus');
     }
+
+    public function searchDocument(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        // Search indicators by indicator_name
+        $indicatorIds = Indicator::where('indicator_name', 'LIKE', '%' . $keyword . '%')->pluck('id');
+
+        // Get all documents that are related to the matching indicators
+        $attributes = Document::join('indicators', 'documents.indicator_id', '=', 'indicators.id')
+            ->join('aspects', 'indicators.aspect_id', '=', 'aspects.id')
+            ->join('domains', 'aspects.domain_id', '=', 'domains.id')
+            ->join('users', 'documents.user_id', '=', 'users.id')
+            ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username')
+            ->whereIn('documents.indicator_id', $indicatorIds)
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
+
+        $usernames = User::all();
+        $domains = Domain::all();
+        $aspects = Aspect::all();
+        $documents = Document::all();
+        $indicators = Indicator::all();
+
+        return view('pages.document', compact('attributes', 'usernames', 'indicators', 'domains', 'aspects', 'documents'));
+    }
+
 }
