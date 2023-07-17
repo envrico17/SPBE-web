@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('document', [DocumentController::class, 'index'])
     ->name('document');
+    Route::get('/document/search', [DocumentController::class, 'searchDocument'])
+    ->name('document.search');
     Route::post('document', [DocumentController::class, 'store'])
     ->name('document.store');
     Route::put('document/{document}', [DocumentController::class, 'update'])
@@ -63,6 +65,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Domain CRUD routes
     Route::get('domain', [DomainController::class, 'index'])
     ->name('domain');
+    Route::get('/domain/search', [DomainController::class, 'searchDomain'])
+    ->name('domain.search');
     Route::post('domain', [DomainController::class, 'store'])
     ->name('domain.store');
     Route::put('domain/{domain}', [DomainController::class, 'update'])
@@ -73,6 +77,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Aspect CRUD routes
     Route::get('aspect', [AspectController::class, 'index'])
     ->name('aspect');
+    Route::get('/aspect/search', [AspectController::class, 'searchAspect'])
+    ->name('aspect.search');
     Route::post('aspect', [AspectController::class, 'store'])
     ->name('aspect.store');
     Route::put('aspect/{aspect}', [AspectController::class, 'update'])
@@ -83,6 +89,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Indicator CRUD routes
     Route::get('indicator', [IndicatorController::class, 'index'])
     ->name('indicator');
+    Route::get('/aspect/search', [IndicatorController::class, 'searchIndicator'])
+    ->name('indicator.search');
     Route::post('indicator', [IndicatorController::class, 'store'])
     ->name('indicator.store');
     Route::put('indicator/{indicator}', [IndicatorController::class, 'update'])

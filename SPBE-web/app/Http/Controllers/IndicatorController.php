@@ -84,4 +84,13 @@ class IndicatorController extends Controller
         return redirect()->route('indicator')
             ->with('success','Indikator berhasil dihapus');
     }
+
+    public function searchIndicator(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $attributes = Indicator::where('indicator_name', 'LIKE', '%' . $keyword . '%')->paginate(10);
+
+        $aspects = Aspect::all();
+        return view('pages.indicator', compact('attributes','aspects'));
+    }
 }
