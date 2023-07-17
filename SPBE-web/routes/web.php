@@ -89,7 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Indicator CRUD routes
     Route::get('indicator', [IndicatorController::class, 'index'])
     ->name('indicator');
-    Route::get('/aspect/search', [IndicatorController::class, 'searchIndicator'])
+    Route::get('/indicator/search', [IndicatorController::class, 'searchIndicator'])
     ->name('indicator.search');
     Route::post('indicator', [IndicatorController::class, 'store'])
     ->name('indicator.store');
