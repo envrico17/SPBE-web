@@ -64,4 +64,10 @@ class User extends Authenticatable
         return $this->hasMany(Document::class);
     }
 
+    public function hasRole(String $role)
+    {
+        return $this->user_type == $role;
+    }
+
+
 }

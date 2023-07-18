@@ -21,21 +21,21 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Admin',
-            'user_type' => 0,
+            'user_type' => 'admin',
             'email' => 'admin@material.com',
             'password' => ('secret'),
         ]);
 
         User::factory()->create([
             'name' => 'User 1',
-            'user_type' => 1,
+            'user_type' => 'user',
             'email' => 'user@material.com',
             'password' => ('secret'),
         ]);
 
         User::factory()->create([
             'name' => 'Supervisor',
-            'user_type' => 2,
+            'user_type' => 'supervisor',
             'email' => 'supervisor@material.com',
             'password' => ('secret'),
         ]);
