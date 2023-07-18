@@ -8,7 +8,7 @@
                 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
                 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{ $titlePage }}</li>
             </ol>
-            <h6 class="font-weight-bolder mb-0">{{ $titlePage }}</h6>
+            <h6 class="font-weight-bolder mb-0 fs-5">{{ $titlePage }}</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -20,16 +20,16 @@
             <form method="POST" action="{{ route('logout') }}" class="d-none" id="logout-form">
                 @csrf
             </form>
-            <ul class="navbar-nav  justify-content-end">
-                <li class="nav-item d-flex align-items-center">
+            <ul class="navbar-nav justify-content-end">
+                {{-- <li class="nav-item d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
                         <i class="fa fa-user me-sm-1"></i>
-                        <span class="d-sm-inline d-none"
-                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
-                            Out</span>
+                        <span>
+                            {{ Auth::user()->name }}
+                        </span>
                     </a>
-                </li>
-                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                </li> --}}
+                {{-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                         <div class="sidenav-toggler-inner">
                             <i class="sidenav-toggler-line"></i>
@@ -37,11 +37,34 @@
                             <i class="sidenav-toggler-line"></i>
                         </div>
                     </a>
-                </li>
-                <li class="nav-item px-3 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-body p-0">
-                        <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                </li> --}}
+                <li class="nav-item px-3 d-flex align-items-center dropdown">
+                    <a href="javascript:;" class="nav-link text-body px-0 fs-6" type="button" id="dropdownProfile"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <span>
+                            Selamat Datang,
+                        </span>
+                        <span class="text-primary font-weight-bold">
+                            {{ Auth::user()->name }}
+                        </span>
+                        <i class="fa fa-user ms-sm-1"></i>
                     </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownProfile">
+                        <a class="dropdown-item fs-6" href="#">Ganti Password</a>
+                        <a class="dropdown-item fs-6"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
+                            Out</a>
+                    </div>
+                    {{-- <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Dropdown button
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                      </div> --}}
                 </li>
                 {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
