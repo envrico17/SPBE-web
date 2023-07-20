@@ -134,7 +134,7 @@ class DocumentController extends Controller
         $keyword = $request->input('keyword');
 
         // Search indicators by indicator_name
-        $indicatorIds = Indicator::where('indicator_name', 'LIKE', '%' . $keyword . '%')->pluck('id');
+        // $indicatorIds = Indicator::where('indicator_name', 'LIKE', '%' . $keyword . '%')->pluck('id');
 
         // Get all documents that are related to the matching indicators
         $attributes = Document::join('indicators', 'documents.indicator_id', '=', 'indicators.id')
@@ -142,8 +142,11 @@ class DocumentController extends Controller
             ->join('domains', 'aspects.domain_id', '=', 'domains.id')
             ->join('users', 'documents.user_id', '=', 'users.id')
             ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username')
-            ->whereIn('documents.indicator_id', $indicatorIds)
-            ->orderBy('updated_at', 'desc')
+            ->where(function ($query) use ($keyword) {
+                $query->where('indicators.indicator_name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('documents.doc_name', 'LIKE', '%' . $keyword . '%');
+            })
+            // ->whereIn('documents.indicator_id', $indicatorIds)
             ->paginate(10);
 
         $usernames = User::all();

@@ -41,7 +41,16 @@ class IndicatorController extends Controller
             'aspect_id' => 'required',
             'description' => 'required'
         ]);
-        Indicator::create($request->all());
+
+        $plainText = strip_tags($request->input('description'));
+
+        // Simpan data ke database
+        Indicator::create([
+            'indicator_name' => $request->input('indicator_name'),
+            'aspect_id' => $request->input('aspect_id'),
+            'description' => $plainText, // Gunakan variabel yang telah diolah menggunakan strip_tags()
+        ]);
+
         return redirect()->route('indicator')
             ->with('success','Indikator berhasil dibuat');
     }
@@ -70,9 +79,18 @@ class IndicatorController extends Controller
         $request->validate([
             'indicator_name' => 'required'
         ]);
-        $indicator->update($request->all());
+
+        // Proses menghapus tag HTML dari deskripsi sebelum disimpan ke database
+        $plainText = strip_tags($request->input('description'));
+
+        // Update data di database
+        $indicator->update([
+            'indicator_name' => $request->input('indicator_name'),
+            'description' => $plainText, // Gunakan variabel yang telah diolah menggunakan strip_tags()
+        ]);
+
         return redirect()->route('indicator')
-            ->with('success','Indikator berhasil dibuat');
+            ->with('success','Indikator berhasil diubah');
     }
 
     /**
