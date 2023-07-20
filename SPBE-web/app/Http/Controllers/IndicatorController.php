@@ -42,13 +42,11 @@ class IndicatorController extends Controller
             'description' => 'required'
         ]);
 
-        $plainText = strip_tags($request->input('description'));
-
         // Simpan data ke database
         Indicator::create([
             'indicator_name' => $request->input('indicator_name'),
             'aspect_id' => $request->input('aspect_id'),
-            'description' => $plainText, // Gunakan variabel yang telah diolah menggunakan strip_tags()
+            'description' => $request->input('description'),
         ]);
 
         return redirect()->route('indicator')
@@ -80,13 +78,10 @@ class IndicatorController extends Controller
             'indicator_name' => 'required'
         ]);
 
-        // Proses menghapus tag HTML dari deskripsi sebelum disimpan ke database
-        $plainText = strip_tags($request->input('description'));
-
         // Update data di database
         $indicator->update([
             'indicator_name' => $request->input('indicator_name'),
-            'description' => $plainText, // Gunakan variabel yang telah diolah menggunakan strip_tags()
+            'description' => $request->input('description'),
         ]);
 
         return redirect()->route('indicator')
