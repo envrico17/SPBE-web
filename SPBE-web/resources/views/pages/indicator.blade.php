@@ -196,11 +196,9 @@
                                                                             <div class="text-warning">
                                                                                 {{ $attribute->indicator_name }}
                                                                             </div>
-                                                                            {{-- <div class="text-info">Deskripsi Indikator
+                                                                            <div class="text-info">Deskripsi Indikator
                                                                             </div>
-                                                                            <div class="text-warning">
-                                                                                {{ $attribute->description }}
-                                                                            </div> --}}
+                                                                            <div class="text-warning">{!! $attribute->description !!}</div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
