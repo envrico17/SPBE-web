@@ -17,7 +17,8 @@ class IndicatorController extends Controller
     public function index():View
     {
         $attributes = Indicator::join('aspects','indicators.aspect_id','=','aspects.id')
-            ->select('indicators.*','aspects.aspect_name')
+            ->join('domains','aspects.domain_id','=','domains.id')
+            ->select('indicators.*','aspects.aspect_name','domains.domain_name')
             ->paginate(10);
         $aspects = Aspect::all();
         return view('pages.indicator', compact('attributes', 'aspects'));

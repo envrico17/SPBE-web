@@ -12,13 +12,13 @@
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Aspek</h6>
-                                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                                        <form action="{{route("aspect.search")}}" method="GET">
-                                         @csrf
-                                        <div class="input-group input-group-outline">
-                                            <label class="form-label text-white">Type here...</label>
-                                            <input type="text" class="text-white form-control" name="keyword">
-                                        </div>
+                                    <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
+                                        <form action="{{ route('aspect.search') }}" method="GET">
+                                            @csrf
+                                            <div class="input-group input-group-outline">
+                                                <label class="form-label text-white">Type here...</label>
+                                                <input type="text" class="text-white form-control" name="keyword">
+                                            </div>
                                         </form>
                                     </div>
                                     <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
@@ -39,8 +39,8 @@
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Domain</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                                colspan="2">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -57,59 +57,110 @@
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
-                                                {{-- Year of the Aspect --}}
-                                                <td class="align-middle text-center text-sm">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
-                                                </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
                                                     <a class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
-                                                        data-bs-target="#editDataModal{{ $attribute->id }}" data-original-title="Edit user">
+                                                        data-bs-target="#editDataModal{{ $attribute->id }}"
+                                                        data-original-title="Edit user">
                                                         Edit
                                                     </a>
                                                     <!-- Modal Edit Data -->
-                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}" tabindex="-1" aria-labelledby="editModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
-                                                                <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="{{ route('aspect.update', ['aspect' => $attribute->id ]) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <div class="container">
-                                                                        <div class="form-group mt-2">
-                                                                            <div class="text-info">Nama Aspek Lama</div>
-                                                                            <div class="text-warning">{{ $attribute->aspect_name }}</div>
-                                                                            <label class="fs-6 pt-4" for="aspectEdit">Masukan Nama Aspek Baru</label>
-                                                                            <input value='{{ $attribute->aspect_name }}' type="text" class="form-control border border-2 p-2"
-                                                                                id="aspectEdit" name="aspect_name">
+                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}"
+                                                        tabindex="-1" aria-labelledby="editModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="editModalLabel">Form
+                                                                        Edit</h5>
+                                                                    <button type="button"
+                                                                        class="btn-close btn-close-white  "
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form
+                                                                        action="{{ route('aspect.update', ['aspect' => $attribute->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <div class="container">
+                                                                            <div class="form-group mt-2">
+                                                                                <div class="text-info">Nama Aspek Lama
+                                                                                </div>
+                                                                                <div class="text-warning">
+                                                                                    {{ $attribute->aspect_name }}</div>
+                                                                                <label class="fs-6 pt-4"
+                                                                                    for="aspectEdit">Masukan Nama Aspek
+                                                                                    Baru</label>
+                                                                                <input
+                                                                                    value='{{ $attribute->aspect_name }}'
+                                                                                    type="text"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="aspectEdit" name="aspect_name">
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                            </div>
+                                                                </div>
                                                                 <div class="modal-footer">
                                                                     <div class="order-1">
-                                                                        <button type="submit" class="btn btn-success">Ubah Data</button>
-                                                                    </form>
-                                                                    </div>
-                                                                    <div class="order-0">
-                                                                    <form action="{{ route('aspect.destroy', ['aspect' => $attribute->id]) }}" method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit" class="btn btn-danger">Hapus Aspek</button>
-                                                                    </form>
+                                                                        <button type="submit"
+                                                                            class="btn btn-success">Ubah Data</button>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </td>
+                                                {{-- Delete Button --}}
+                                                <td class="align-middle text-center">
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                        data-original-title="Delete user">
+                                                        Delete
+                                                    </a>
+                                                    <!-- Modal Delete Data -->
+                                                    <div class="modal fade" id="deleteModal{{ $attribute->id }}"
+                                                        tabindex="-1" aria-labelledby="deleteModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header justify-between">
+                                                                    <h5 class="modal-title" id="deleteModalLabel">Hapus
+                                                                        Aspek ini?</h5>
+                                                                    <button type="button"
+                                                                        class="btn-close btn-close-white"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="container">
+                                                                        <div class="form-group mt-2">
+                                                                            <div class="text-info">Nama Aspek
+                                                                            </div>
+                                                                            <div class="text-warning">
+                                                                                {{ $attribute->aspect_name }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <div class="order-0">
+                                                                        <form method="POST"
+                                                                            action="{{ route('aspect.destroy', ['aspect' => $attribute->id]) }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Hapus
+                                                                                Aspek</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -127,14 +178,14 @@
                     </div>
 
                     <!-- Modal Tambah Data Aspek -->
-                    <div class="modal fade" id="inputDataAspekModal" tabindex="-1" aria-labelledby="inputModalLabel"
-                        aria-hidden="true">
+                    <div class="modal fade" id="inputDataAspekModal" tabindex="-1"
+                        aria-labelledby="inputModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="inputModalLabel">Form Input Aspek</h5>
-                                    <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                    <button type="button" class="btn-close btn-close-white  "
+                                        data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <form class="needs-validation" novalidate action="{{ route('aspect.store') }}"
