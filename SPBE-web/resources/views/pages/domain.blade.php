@@ -156,16 +156,6 @@
     <x-plugins></x-plugins>
     @push('js')
         <script>
-            //message with toastr
-            @if (session()->has('success'))
-
-                toastr.success('{{ session('success') }}', 'BERHASIL!');
-            @elseif (session()->has('error'))
-
-                toastr.error('{{ session('error') }}', 'GAGAL!');
-            @endif
-        </script>
-        <script>
                 (function() {
                     'use strict';
                     window.addEventListener('load', function() {

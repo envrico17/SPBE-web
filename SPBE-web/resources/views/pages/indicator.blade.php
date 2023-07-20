@@ -220,6 +220,7 @@
                                             <div class="form-group mt-2">
                                                 <label for="descriptionEdit">Deskripsi</label>
                                                 <textarea
+                                                    id="descriptionEdit"
                                                     style="
                                                     width: 50%;
                                                     height: 150px;
@@ -229,7 +230,7 @@
                                                     border-radius: 4px;
                                                     background-color: #f8f8f8;
                                                     resize: none;"
-                                                    name="description" id="descriptionEdit" class="form-control border border-2 p-2"></textarea>
+                                                    name="description" class="form-control border border-2 p-2"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -241,6 +242,15 @@
                         </div>
                     </div>
                 </div>
+    <!-- Tambahkan stylesheet TinyMCE (jika menggunakan CDN) -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#descriptionEdit',
+            plugins: 'advlist autolink lists link image charmap print preview anchor textcolor',
+            toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+        });
+    </script>
     </main>
     <x-plugins></x-plugins>
     @push('js')
