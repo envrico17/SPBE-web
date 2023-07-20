@@ -12,13 +12,13 @@
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Indikator</h6>
-                                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-                                        <form action="{{route("indicator.search")}}" method="GET">
-                                         @csrf
-                                        <div class="input-group input-group-outline">
-                                            <label class="form-label text-white">Type here...</label>
-                                            <input type="text" class="text-white form-control" name="keyword">
-                                        </div>
+                                    <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
+                                        <form action="{{ route('indicator.search') }}" method="GET">
+                                            @csrf
+                                            <div class="input-group input-group-outline">
+                                                <label class="form-label text-white">Search</label>
+                                                <input type="text" class="text-white form-control" name="keyword">
+                                            </div>
                                         </form>
                                     </div>
                                     <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
@@ -41,9 +41,12 @@
                                                 Aspek</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Deskripsi</th>
+                                                Domain</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Deskripsi</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                                colspan="2">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -59,6 +62,10 @@
                                                 <td class="align-middle text-center text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
+                                                </td>
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
                                                 {{-- Details of the Indicator --}}
                                                 <td class="align-middle text-center">
@@ -90,7 +97,7 @@
                                                     </div>
                                                 </td>
 
-                                                {{-- Document of the Indicator --}}
+                                                {{-- Edit Indicator --}}
                                                 <td class="">
                                                     <div class="align-middle text-center">
                                                         <a href="javascript:;"
@@ -102,31 +109,41 @@
                                                         </a>
                                                     </div>
                                                     <!-- Modal Edit Data -->
-                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}" tabindex="-1" aria-labelledby="editModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
-                                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form action="{{ route('indicator.update', ['indicator' => $attribute->id]) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <div class="container pb-3">
-                                                                        <div class="form-group mt-2">
-                                                                            <label for="indicatorNameEdit">Masukan Nama Indikator Baru</label>
-                                                                            <input type="text" value="{{ $attribute->indicator_name }}" class="form-control border border-2 p-2"
-                                                                                id="indicatorNameEdit"
-                                                                                name="indicator_name">
-                                                                        </div>
-                                                                        <div class="form-group mt-2">
-                                                                            <label for="descriptionEdit2_{{ $attribute->id }}">Masukan Deskripsi Baru</label>
-                                                                            <textarea
-                                                                                id="descriptionEdit2_{{ $attribute->id }}"
-                                                                                style="width: 50%;
+                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}"
+                                                        tabindex="-1" aria-labelledby="editModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="editModalLabel">Form
+                                                                        Edit</h5>
+                                                                    <button type="button"
+                                                                        class="btn-close btn-close-white"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form
+                                                                        action="{{ route('indicator.update', ['indicator' => $attribute->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <div class="container pb-3">
+                                                                            <div class="form-group mt-2">
+                                                                                <label for="indicatorNameEdit">Masukan
+                                                                                    Nama Indikator Baru</label>
+                                                                                <input type="text"
+                                                                                    value="{{ $attribute->indicator_name }}"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="indicatorNameEdit"
+                                                                                    name="indicator_name">
+                                                                            </div>
+                                                                            <div class="form-group mt-2">
+                                                                                <label
+                                                                                    for="descriptionEdit2_{{ $attribute->id }}">Masukan
+                                                                                    Deskripsi Baru</label>
+                                                                                <textarea id="descriptionEdit2_{{ $attribute->id }}"
+                                                                                    style="width: 50%;
                                                                                 height: 150px;
                                                                                 padding: 12px 20px;
                                                                                 box-sizing: border-box;
@@ -134,86 +151,135 @@
                                                                                 border-radius: 4px;
                                                                                 background-color: #f8f8f8;
                                                                                 resize: none;"
-                                                                                name="description" class="form-control border border-2 p-2">{!! $attribute->description !!}</textarea>
+                                                                                    name="description" class="form-control border border-2 p-2">{!! $attribute->description !!}</textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <div class="order-1">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-success">Ubah
+                                                                                    Data</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                {{-- Delete Button --}}
+                                                <td class="align-middle text-center">
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                        data-original-title="Delete user">
+                                                        Delete
+                                                    </a>
+                                                    <!-- Modal Delete Data -->
+                                                    <div class="modal fade" id="deleteModal{{ $attribute->id }}"
+                                                        tabindex="-1" aria-labelledby="deleteModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header justify-between">
+                                                                    <h5 class="modal-title" id="deleteModalLabel">
+                                                                        Hapus
+                                                                        Indikator ini?</h5>
+                                                                    <button type="button"
+                                                                        class="btn-close btn-close-white"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="container">
+                                                                        <div class="form-group mt-2">
+                                                                            <div class="text-info">Nama Indikator
+                                                                            </div>
+                                                                            <div class="text-warning">
+                                                                                {{ $attribute->indicator_name }}
+                                                                            </div>
+                                                                            {{-- <div class="text-info">Deskripsi Indikator
+                                                                            </div>
+                                                                            <div class="text-warning">
+                                                                                {{ $attribute->description }}
+                                                                            </div> --}}
                                                                         </div>
                                                                     </div>
-                                                                    <div class="modal-footer">
-                                                                        <div class="order-1">
-                                                                            <button type="submit" class="btn btn-success">Ubah Data</button>
-                                                                        </form>
-                                                                        </div>
-                                                                        <div class="order-0">
-                                                                        <form action="{{ route('indicator.destroy', ['indicator' => $attribute->id]) }}" method="POST">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <div class="order-0">
+                                                                        <form
+                                                                            action="{{ route('indicator.destroy', ['indicator' => $attribute->id]) }}"
+                                                                            method="POST">
                                                                             @csrf
                                                                             @method('DELETE')
-                                                                            <button type="submit" class="btn btn-danger">Hapus Indikator</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Hapus
+                                                                                Indikator</button>
                                                                         </form>
-                                                                        </div>
                                                                     </div>
-                                                                </form>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <div class='alert alert-danger'>
-                                                Tidak ada data
-                                            </div>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="container mt-3">
-                                {{ $attributes->onEachSide(2)->links() }}
                             </div>
                         </div>
+                    @empty
+                        <div class='alert alert-danger'>
+                            Tidak ada data
+                        </div>
+                        @endforelse
+                        </tbody>
+                        </table>
                     </div>
+                    <div class="container mt-3">
+                        {{ $attributes->onEachSide(2)->links() }}
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Modal Tambah Data Indikator -->
-                    <div class="modal fade" id="inputDataIndikatorModal" tabindex="-1"
-                        aria-labelledby="inputModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="inputModalLabel">Form Input Indikator</h5>
-                                    <button type="button" class="btn-close btn-close-white  "
-                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form action="{{ route('indicator.store') }}" method="post">
-                                    <div class="modal-body">
-                                        @csrf
-                                        <div class="container">
-                                            <div class="form-group mt-2">
-                                                <div>
-                                                    <label for="aspect_id">Nama Aspek</label>
-                                                </div>
-                                                <div>
-                                                    <select id="aspect_id" name="aspect_id"
-                                                        class="form-control border border-2 p-2">
-                                                        @forelse ($aspects as $aspect)
-                                                        <option value="{{ $aspect->id }}">
-                                                            {{ $aspect->aspect_name }}
-                                                        </option>
-                                                    @empty
-                                                        <div class='alert alert-danger'>
-                                                            Tidak ada data
-                                                        </div>
-                                                        @endforelse
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="indicator_name">Nama Indikator</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="indicator_name" name="indicator_name">
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="descriptionEdit">Deskripsi</label>
-                                                <textarea
-                                                    id="descriptionEdit"
-                                                    style="
+            <!-- Modal Tambah Data Indikator -->
+            <div class="modal fade" id="inputDataIndikatorModal" tabindex="-1" aria-labelledby="inputModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="inputModalLabel">Form Input Indikator</h5>
+                            <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <form action="{{ route('indicator.store') }}" method="post">
+                            <div class="modal-body">
+                                @csrf
+                                <div class="container">
+                                    <div class="form-group mt-2">
+                                        <div>
+                                            <label for="aspect_id">Nama Aspek</label>
+                                        </div>
+                                        <div>
+                                            <select id="aspect_id" name="aspect_id"
+                                                class="form-control border border-2 p-2">
+                                                @forelse ($aspects as $aspect)
+                                                    <option value="{{ $aspect->id }}">
+                                                        {{ $aspect->aspect_name }}
+                                                    </option>
+                                                @empty
+                                                    <div class='alert alert-danger'>
+                                                        Tidak ada data
+                                                    </div>
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label for="indicator_name">Nama Indikator</label>
+                                        <input type="text" class="form-control border border-2 p-2"
+                                            id="indicator_name" name="indicator_name">
+                                    </div>
+                                    <div class="form-group mt-2">
+                                        <label for="descriptionEdit">Deskripsi</label>
+                                        <textarea id="descriptionEdit"
+                                            style="
                                                     width: 50%;
                                                     height: 150px;
                                                     padding: 12px 20px;
@@ -222,34 +288,35 @@
                                                     border-radius: 4px;
                                                     background-color: #f8f8f8;
                                                     resize: none;"
-                                                    name="description" class="form-control border border-2 p-2"></textarea>
-                                            </div>
-                                        </div>
+                                            name="description" class="form-control border border-2 p-2"></textarea>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Tambah Data</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-    <!-- Tambahkan stylesheet TinyMCE (jika menggunakan CDN) -->
-    <script src="https://cdn.tiny.cloud/1/m5qijcc36wgnreuxu9sqpw3jsaelf3euqu4gsb85pn56ti5w/tinymce/5/tinymce.min.js"></script>
-    <script>
-        tinymce.init({
-            selector: '#descriptionEdit',
-            plugins: 'advlist autolink lists link image charmap print preview anchor textcolor',
-            toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-        });
-        @foreach ($attributes as $attribute)
-        tinymce.init({
-            selector: '#descriptionEdit2_{{ $attribute->id }}',
-            plugins: 'advlist autolink lists link image charmap print preview anchor textcolor',
-            toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
-        });
-        @endforeach
-    </script>
+            </div>
+        </div>
+        <!-- Tambahkan stylesheet TinyMCE (jika menggunakan CDN) -->
+        <script src="https://cdn.tiny.cloud/1/m5qijcc36wgnreuxu9sqpw3jsaelf3euqu4gsb85pn56ti5w/tinymce/5/tinymce.min.js">
+        </script>
+        <script>
+            tinymce.init({
+                selector: '#descriptionEdit',
+                plugins: 'advlist autolink lists link image charmap print preview anchor textcolor',
+                toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+            });
+            @foreach ($attributes as $attribute)
+                tinymce.init({
+                    selector: '#descriptionEdit2_{{ $attribute->id }}',
+                    plugins: 'advlist autolink lists link image charmap print preview anchor textcolor',
+                    toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+                });
+            @endforeach
+        </script>
     </main>
     <x-plugins></x-plugins>
     @push('js')
