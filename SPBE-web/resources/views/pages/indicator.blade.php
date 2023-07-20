@@ -91,7 +91,7 @@
                                                                         aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    {{ $attribute->description }}
+                                                                    {!! $attribute->description !!}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -131,9 +131,9 @@
                                                                                 name="indicator_name">
                                                                         </div>
                                                                         <div class="form-group mt-2">
-                                                                            <label
-                                                                                for="descriptionField">Masukan Deskripsi Baru</label>
+                                                                            <label for="descriptionEdit2_{{ $attribute->id }}">Masukan Deskripsi Baru</label>
                                                                             <textarea
+                                                                                id="descriptionEdit2_{{ $attribute->id }}"
                                                                                 style="width: 50%;
                                                                                 height: 150px;
                                                                                 padding: 12px 20px;
@@ -142,7 +142,7 @@
                                                                                 border-radius: 4px;
                                                                                 background-color: #f8f8f8;
                                                                                 resize: none;"
-                                                                                name="description" id="descriptionField" class="form-control border border-2 p-2">{{ $attribute->description }}</textarea>
+                                                                                name="description" class="form-control border border-2 p-2">{!! $attribute->description !!}</textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
@@ -243,13 +243,20 @@
                     </div>
                 </div>
     <!-- Tambahkan stylesheet TinyMCE (jika menggunakan CDN) -->
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/m5qijcc36wgnreuxu9sqpw3jsaelf3euqu4gsb85pn56ti5w/tinymce/5/tinymce.min.js"></script>
     <script>
         tinymce.init({
             selector: '#descriptionEdit',
             plugins: 'advlist autolink lists link image charmap print preview anchor textcolor',
             toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
         });
+        @foreach ($attributes as $attribute)
+        tinymce.init({
+            selector: '#descriptionEdit2_{{ $attribute->id }}',
+            plugins: 'advlist autolink lists link image charmap print preview anchor textcolor',
+            toolbar: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+        });
+        @endforeach
     </script>
     </main>
     <x-plugins></x-plugins>
