@@ -41,9 +41,6 @@
                                                 Aspek</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Tahun</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Deskripsi</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -62,11 +59,6 @@
                                                 <td class="align-middle text-center text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
-                                                </td>
-                                                {{-- Year of the Indicator --}}
-                                                <td class="align-middle text-center text-sm">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
                                                 </td>
                                                 {{-- Details of the Indicator --}}
                                                 <td class="align-middle text-center">

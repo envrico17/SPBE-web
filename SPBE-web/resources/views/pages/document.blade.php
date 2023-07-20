@@ -74,6 +74,11 @@
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->doc_name }}</span>
                                                 </td>
+                                                {{-- Year --}}
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
+                                                </td>
                                                 {{-- Lihat Dokumen --}}
                                                 <td class="align-middle text-center">
                                                     @if ($attribute->upload_path)
