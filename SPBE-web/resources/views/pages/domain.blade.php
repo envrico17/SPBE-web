@@ -38,9 +38,6 @@
                                                 Nama Domain</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Tahun</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -51,11 +48,6 @@
                                                 <td class="align-middle text-center text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
-                                                </td>
-                                                {{-- Year of the Domain --}}
-                                                <td class="align-middle text-center text-sm">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
