@@ -22,7 +22,7 @@ class IndicatorFactory extends Factory
         return [
             'indicator_name' => fake()->words(2, true),
             'description' => fake()->sentence(4),
-            'aspect_id' => Aspect::inRandomOrder()->first()->id
+            'aspect_id' => Aspect::factory(),
         ];
     }
 }

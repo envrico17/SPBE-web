@@ -4,13 +4,12 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-use App\Models\Aspect;
-use App\Models\Domain;
+use App\Models\User;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Aspect>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Opd>
  */
-class AspectFactory extends Factory
+class OpdFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,8 +19,8 @@ class AspectFactory extends Factory
     public function definition(): array
     {
         return [
-            'aspect_name' => fake()->sentence(4),
-            'domain_id' => Domain::factory(),
+            'opd_name' => fake()->sentence(2),
+            'user_id' => User::factory()
         ];
     }
 }

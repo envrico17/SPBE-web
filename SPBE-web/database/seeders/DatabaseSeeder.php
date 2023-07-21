@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\Indicator;
 use App\Models\Aspect;
 use App\Models\Domain;
+use App\Models\Opd;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class DatabaseSeeder extends Seeder
@@ -27,13 +28,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'User 1',
-            'user_type' => 'user',
-            'email' => 'user@material.com',
-            'password' => ('secret'),
-        ]);
-
-        User::factory()->create([
             'name' => 'Supervisor',
             'user_type' => 'supervisor',
             'email' => 'supervisor@material.com',
@@ -42,36 +36,18 @@ class DatabaseSeeder extends Seeder
 
         Domain::factory()->count(4)->create();
 
-        Aspect::factory()->count(8)->sequence(
-            ['domain_id' => Domain::inRandomOrder()->get()->random()->id],
-            ['domain_id' => Domain::inRandomOrder()->get()->random()->id],
-            ['domain_id' => Domain::inRandomOrder()->get()->random()->id],
-            ['domain_id' => Domain::inRandomOrder()->get()->random()->id],
-        )->create();
+        Aspect::factory()->count(8)->state(new Sequence(
+            fn (Sequence $sequence) => ['domain_id' => Domain::all()->random()]
+        ))->create();
 
-        Indicator::factory()->count(46)->sequence(
-            ['aspect_id' => Aspect::inRandomOrder()->get()->random()->id],
-            ['aspect_id' => Aspect::inRandomOrder()->get()->random()->id],
-            ['aspect_id' => Aspect::inRandomOrder()->get()->random()->id],
-            ['aspect_id' => Aspect::inRandomOrder()->get()->random()->id],
-        )->create();
+        Indicator::factory()->count(45)->state(new Sequence(
+            fn (Sequence $sequence) => ['aspect_id' => Aspect::all()->random()]
+        ))->create();
 
-        Document::factory()->count(105)->sequence(
-            ['upload_path'=>null],
-            ['upload_path'=>'/path/to/document'],
-            ['indicator_id' => Indicator::inRandomOrder()->first()->id]
-        )
-        ->create([
-            'user_id' => 1
-        ]);
+        Opd::factory()->count(15)->create();
 
-        Document::factory()->count(105)->sequence(
-            ['upload_path'=>null],
-            ['upload_path'=>'/path/to/document'],
-            ['indicator_id' => Indicator::inRandomOrder()->first()->id]
-        )
-        ->create([
-            'user_id' => 2,
-        ]);
+        // Indicator::factory()->count(46)->sequence(
+        //     ['aspect_id' => Aspect::inRandomOrder()->first()->id]
+        // )->create();
     }
 }

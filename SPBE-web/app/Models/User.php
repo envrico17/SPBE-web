@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -21,12 +22,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'opd_id',
         'user_type',
         'email',
         'password',
-        'location',
+        'nip',
+        'pangkat',
         'phone',
-        'about',
         'password_confirmation'
     ];
 
@@ -64,10 +66,18 @@ class User extends Authenticatable
         return $this->hasMany(Document::class);
     }
 
+    /**
+     * Get the opd associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function opd(): HasOne
+    {
+        return $this->hasOne(opd::class);
+    }
+
     public function hasRole(String $role)
     {
         return $this->user_type == $role;
     }
-
-
 }

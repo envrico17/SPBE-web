@@ -22,8 +22,8 @@ class DocumentFactory extends Factory
             'id' => fake()->uuid(),
             'doc_name' => fake()->sentence(4),
             'upload_path' => null,
-            'user_id' => User::inRandomOrder()->first()->id,
-            'indicator_id' => Indicator::inRandomOrder()->first()->id
+            'user_id' => User::factory(),
+            'indicator_id' => Indicator::factory(),
         ];
     }
 }

@@ -25,6 +25,8 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\AspectController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\OpdController;
 use App\Models\Indicator;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -86,6 +88,30 @@ Route::middleware(['auth','role:admin'])->group(function () {
     ->name('indicator.update');
     Route::delete('indicator/{indicator}', [IndicatorController::class, 'destroy'])
     ->name('indicator.destroy');
+
+    // User CRUD routes
+    Route::get('user', [UserController::class, 'index'])
+    ->name('user');
+    Route::get('/user/search', [userController::class, 'searchUser'])
+    ->name('user.search');
+    Route::post('user', [userController::class, 'store'])
+    ->name('user.store');
+    Route::put('user/{user}', [userController::class, 'update'])
+    ->name('user.update');
+    Route::delete('user/{user}', [userController::class, 'destroy'])
+    ->name('user.destroy');
+
+    // OPD CRUD routes
+    Route::get('opd', [OpdController::class, 'index'])
+    ->name('opd');
+    Route::get('/opd/search', [OpdController::class, 'searchOpd'])
+    ->name('opd.search');
+    Route::post('opd', [OpdController::class, 'store'])
+    ->name('opd.store');
+    Route::put('opd/{opd}', [OpdController::class, 'update'])
+    ->name('opd.update');
+    Route::delete('opd/{opd}', [OpdController::class, 'destroy'])
+    ->name('opd.destroy');
 
     Route::get('create-data', function () {
 		return view('pages.create-data');
