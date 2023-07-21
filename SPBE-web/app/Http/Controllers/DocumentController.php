@@ -12,24 +12,33 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
     public function index(): View
     {
+        $user = Auth::user();
         $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
-            ->join('aspects','indicators.aspect_id','=','aspects.id')
-            ->join('domains','aspects.domain_id','=','domains.id')
-            ->join('users','documents.user_id','=','users.id')
-            ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','users.name as username')
-            ->orderBy('updated_at','desc')
-            ->paginate(10);
-            $usernames = User::all();
-            $domains = Domain::all();
-            $aspects = Aspect::all();
-            $documents = Document::all();
-            $indicators = Indicator::all();
+                ->join('aspects','indicators.aspect_id','=','aspects.id')
+                ->join('domains','aspects.domain_id','=','domains.id')
+                ->join('users','documents.user_id','=','users.id')
+                ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','users.name as username')
+                ->orderBy('updated_at','desc');
+        $usernames = User::all();
+        $domains = Domain::all();
+        $aspects = Aspect::all();
+        $documents = Document::all();
+        $indicators = Indicator::all();
+
+        if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
+            $attributes = $attributes->paginate(10);
             return view('pages.document', compact('attributes','usernames','indicators','domains','aspects','documents'));
+        } else {
+            $userId = $user->id;
+            $attributes = $attributes->where('user_id', $userId)->paginate(10);
+            return view('pages.document', compact('attributes','usernames','indicators','domains','aspects','documents'));
+        }
     }
 
     /**
