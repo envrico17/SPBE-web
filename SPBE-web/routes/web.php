@@ -113,21 +113,26 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::delete('opd/{opd}', [OpdController::class, 'destroy'])
     ->name('opd.destroy');
 
+
+    Route::delete('document/{document}', [DocumentController::class, 'destroy'])
+    ->name('document.destroy');
+
     Route::get('create-data', function () {
 		return view('pages.create-data');
 	})->name('create-data');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','role:user'])->group(function () {
     // Document CRUD routes
-	Route::get('document', [DocumentController::class, 'index'])
-    ->name('document');
-    Route::get('/document/search', [DocumentController::class, 'searchDocument'])
-    ->name('document.search');
     Route::post('document', [DocumentController::class, 'store'])
     ->name('document.store');
     Route::put('document/{document}', [DocumentController::class, 'update'])
     ->name('document.update');
-    Route::delete('document/{document}', [DocumentController::class, 'destroy'])
-    ->name('document.destroy');
+});
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('document', [DocumentController::class, 'index'])
+    ->name('document');
+    Route::get('/document/search', [DocumentController::class, 'searchDocument'])
+    ->name('document.search');
 });
