@@ -29,7 +29,7 @@
                         </span>
                     </a>
                 </li> --}}
-                {{-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                         <div class="sidenav-toggler-inner">
                             <i class="sidenav-toggler-line"></i>
@@ -37,7 +37,7 @@
                             <i class="sidenav-toggler-line"></i>
                         </div>
                     </a>
-                </li> --}}
+                </li>
                 <li class="nav-item px-3 d-flex align-items-center dropdown">
                     <a href="javascript:;" class="nav-link text-body px-0 fs-6" type="button" id="dropdownProfile"
                         data-bs-toggle="dropdown" aria-expanded="false">

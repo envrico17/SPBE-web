@@ -13,7 +13,9 @@ class OpdController extends Controller
      */
     public function index()
     {
-        $attributes = Opd::paginate(10);
+        $attributes = Opd::join('users','opds.user_id','=','users.id')
+        ->select('opds.*','users.name')
+        ->paginate(10);
         return view('pages.opd', compact('attributes'));
     }
 
@@ -28,7 +30,7 @@ class OpdController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreOpdRequest $request)
+    public function store( $request)
     {
         //
     }
@@ -52,7 +54,7 @@ class OpdController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateOpdRequest $request, Opd $opd)
+    public function update( $request, Opd $opd)
     {
         //
     }
