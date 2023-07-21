@@ -37,23 +37,20 @@
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama User</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
                                                 NIP</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Pangkat/Gol</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 No.Hp</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 OPD</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
-                                                Username</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
-                                                Password</th>
+                                                Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,6 +61,26 @@
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->name }}</span>
                                                 </td>
+                                                {{-- NIP --}}
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->nip }}</span>
+                                                </td>
+                                                {{-- Pangkat --}}
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->pangkat }}</span>
+                                                </td>
+                                                {{-- No Hp --}}
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->phone }}</span>
+                                                </td>
+                                                {{-- Nama OPD --}}
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_name }}</span>
+                                                </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
@@ -73,7 +90,7 @@
                                                         Edit
                                                     </a>
                                                     <!-- Modal Edit Data -->
-                                                    {{-- <div class="modal fade" id="editModal{{ $attribute->id }}"
+                                                    <div class="modal fade" id="editModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="editModalLabel"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -94,17 +111,49 @@
                                                                         @method('PUT')
                                                                         <div class="container">
                                                                             <div class="form-group mt-2">
-                                                                                <div class="text-info">Nama Domain Lama
-                                                                                </div>
-                                                                                <div class="text-warning">
-                                                                                    {{ $attribute->domain_name }}</div>
                                                                                 <label class="fs-6 pt-4"
-                                                                                    for="domainUpdate">Masukan Nama
-                                                                                    Domain Baru</label>
+                                                                                    for="nameUpdate">Masukan Nama
+                                                                                    User Baru</label>
                                                                                 <input type="text"
                                                                                     class="form-control border border-2 p-2"
-                                                                                    id="domainUpdate" name="domain_name"
-                                                                                    value="{{ $attribute->domain_name }}">
+                                                                                    id="nameUpdate" name="name"
+                                                                                    value="{{ $attribute->name }}">
+                                                                            </div>
+                                                                            <div class="form-group mt-2">
+                                                                                <label class="fs-6 pt-4"
+                                                                                    for="nipUpdate">Masukan NIP
+                                                                                    Baru</label>
+                                                                                <input type="text"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="nipUpdate" name="nip"
+                                                                                    value="{{ $attribute->nip }}">
+                                                                            </div>
+                                                                            <div class="form-group mt-2">
+                                                                                <label class="fs-6 pt-4"
+                                                                                    for="pangkatUpdate">Masukan Pangkat
+                                                                                    Baru</label>
+                                                                                <input type="text"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="pangkatUpdate" name="pangkat"
+                                                                                    value="{{ $attribute->pangkat }}">
+                                                                            </div>
+                                                                            <div class="form-group mt-2">
+                                                                                <label class="fs-6 pt-4"
+                                                                                    for="phoneUpdate">Masukan No HP
+                                                                                    Baru</label>
+                                                                                <input type="text"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="phoneUpdate" name="phone"
+                                                                                    value="{{ $attribute->phone }}">
+                                                                            </div>
+                                                                            <div class="form-group mt-2">
+                                                                                <label class="fs-6 pt-4"
+                                                                                    for="opdUpdate">Masukan OPD
+                                                                                    Baru</label>
+                                                                                <input type="text"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="opdUpdate" name="opd"
+                                                                                    value="{{ $attribute->opd_name }}">
                                                                             </div>
                                                                         </div>
                                                                 </div>
@@ -117,7 +166,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
                                                 </td>
                                                 {{-- Delete Button --}}
                                                 <td class="align-middle text-center">
@@ -128,14 +177,14 @@
                                                         Delete
                                                     </a>
                                                     <!-- Modal Delete Data -->
-                                                    {{-- <div class="modal fade" id="deleteModal{{ $attribute->id }}"
+                                                    <div class="modal fade" id="deleteModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="deleteModalLabel"
                                                         aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header justify-between">
                                                                     <h5 class="modal-title" id="deleteModalLabel">Hapus
-                                                                        Domain ini?</h5>
+                                                                        Data User Ini?</h5>
                                                                     <button type="button"
                                                                         class="btn-close btn-close-white"
                                                                         data-bs-dismiss="modal"
@@ -144,10 +193,10 @@
                                                                 <div class="modal-body">
                                                                     <div class="container">
                                                                         <div class="form-group mt-2">
-                                                                            <div class="text-info">Nama Domain
+                                                                            <div class="text-info">Nama User
                                                                             </div>
                                                                             <div class="text-warning">
-                                                                                {{ $attribute->domain_name }}
+                                                                                {{ $attribute->name }}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -155,19 +204,19 @@
                                                                 <div class="modal-footer">
                                                                     <div class="order-0">
                                                                         <form
-                                                                            action="{{ route('domain.destroy', ['domain' => $attribute->id]) }}"
+                                                                            action="{{ route('user.destroy', ['user' => $attribute->id]) }}"
                                                                             method="POST">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button type="submit"
                                                                                 class="btn btn-danger">Hapus
-                                                                                Domain</button>
+                                                                                Data User</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @empty
@@ -185,27 +234,50 @@
                     </div>
 
                     <!-- Modal Tambah Data Domain -->
-                    {{-- <div class="modal fade" id="inputDataDomainModal" tabindex="-1"
+                    <div class="modal fade" id="inputDataDomainModal" tabindex="-1"
                         aria-labelledby="inputModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="inputModalLabel">Form Input Domain</h5>
+                                    <h5 class="modal-title" id="inputModalLabel">Form Input Data User</h5>
                                     <button type="button" class="btn-close btn-close-white  "
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="{{ route('domain.store') }}"
+                                    <form class="needs-validation" novalidate action="{{ route('user.store') }}"
                                         method="POST">
                                         @csrf
                                         <div class="container">
                                             <div class="form-group mt-2">
-                                                <label for="domainCreate">Nama Domain</label>
+                                                <label for="user-name">Nama User</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="domainCreate" name="domain_name" required>
+                                                    id="user-name" name="name" required>
                                                 <div class="invalid-feedback">
-                                                    Nama Domain Tidak Boleh Kosong
+                                                    Nama User Tidak Boleh Kosong
                                                 </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="nip">NIP</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="nip" name="nip" required>
+                                                <div class="invalid-feedback">
+                                                    NIP Tidak Boleh Kosong
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="pangkat">Pangkat/Gol</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="pangkat" name="pangkat">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="phone">No.HP</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="phone" name="phone">
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="opd">OPD</label>
+                                                <input type="text" class="form-control border border-2 p-2"
+                                                    id="opd" name="opd">
                                             </div>
                                         </div>
                                 </div>
@@ -214,12 +286,12 @@
                                 </div>
                                 </form>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
     </main>
     <x-plugins></x-plugins>
-    {{-- @push('js')
+    @push('js')
         <script>
             (function() {
                 'use strict';
@@ -239,6 +311,6 @@
                 }, false);
             })();
         </script>
-    @endpush --}}
+    @endpush
 
 </x-layout>

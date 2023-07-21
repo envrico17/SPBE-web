@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Opd;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -13,8 +14,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $attributes = User::paginate(10);
-        return view('pages.user', compact('attributes'));
+        $attributes = User::join('opds','opds.user_id','=','users.id')
+            ->select('users.*','opds.opd_name')
+            ->orderBy('updated_at','desc')
+            ->paginate(10);
+            $users = User::all();
+            $opds = Opd::all();
+            return view('pages.user', compact('attributes','opds'));
     }
 
     /**
@@ -74,7 +80,7 @@ class UserController extends Controller
             'pangkat' => 'nullable',
             'phone' => 'nullable',
         ]);
-        $aspect->update($request->all());
+        $user->update($request->all());
         return redirect()->route('user')
             ->with('success','User berhasil diupdate');
     }
@@ -84,8 +90,26 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $aspect->delete();
+        $user->delete();
         return redirect()->route('user')
             ->with('success','User berhasil dihapus');
+    }
+
+    public function searchUser(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $attributes = User::join('opds','opds.user_id','=','users.id')
+            ->select('users.*','opds.opd_name')
+            ->where(function ($query) use ($keyword) {
+                $query->where('users.name', 'LIKE', '%' . $keyword . '%')
+                    ->orWhere('opds.opd_name', 'LIKE', '%' . $keyword . '%');
+            })
+            // ->whereIn('documents.indicator_id', $indicatorIds)
+            ->orderBy('updated_at','desc')
+            ->paginate(10);
+
+            $users = User::all();
+            $opds = Opd::all();
+            return view('pages.user', compact('attributes','opds'));
     }
 }
