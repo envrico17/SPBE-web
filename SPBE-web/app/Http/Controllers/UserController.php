@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $attributes = User::paginate(10);
-        return view('pages.profile', compact('attributes'));
+        return view('pages.user', compact('attributes'));
     }
 
     /**
