@@ -44,10 +44,13 @@ class DatabaseSeeder extends Seeder
             fn (Sequence $sequence) => ['aspect_id' => Aspect::all()->random()]
         ))->create();
 
-        Opd::factory()->count(15)->create();
+        User::factory()->count(15)->hasOpd(1)->create();
 
-        // Indicator::factory()->count(46)->sequence(
-        //     ['aspect_id' => Aspect::inRandomOrder()->first()->id]
-        // )->create();
+        Document::factory()->count(10)->sequence(function (){
+            return [
+                'indicator_id' => Indicator::all()->random(),
+                'user_id' => User::all()->random(),
+            ];
+        })->create();
     }
 }
