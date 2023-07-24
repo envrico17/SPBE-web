@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Opd;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreOpdRequest;
 use App\Http\Requests\UpdateOpdRequest;
+use PhpParser\Node\NullableType;
 
 class OpdController extends Controller
 {
@@ -13,7 +16,7 @@ class OpdController extends Controller
      */
     public function index()
     {
-        $attributes = Opd::join('users','opds.user_id','=','users.id')
+        $attributes = Opd::join('users','users.id','=','opds.user_id')
         ->select('opds.*','users.name')
         ->paginate(10);
         return view('pages.opd', compact('attributes'));
@@ -30,9 +33,15 @@ class OpdController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store( $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $request->validate([
+            'opd_name' => 'required',
+            'user_id' => 'nullable'
+        ]);
+        OPD::create($request->all());
+        return redirect()->route('opd')
+            ->with('success','OPD berhasil dibuat');
     }
 
     /**
@@ -40,7 +49,7 @@ class OpdController extends Controller
      */
     public function show(Opd $opd)
     {
-        //
+        return view('pages.opd', compact('opd'));
     }
 
     /**
@@ -54,16 +63,31 @@ class OpdController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update( $request, Opd $opd)
+    public function update(Request $request, Opd $opd): RedirectResponse
     {
-        //
+        $request->validate([
+            'opd_name' => 'required'
+        ]);
+        $opd->update($request->all());
+        return redirect()->route('opd')
+            ->with('success','OPD berhasil dibuat');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Opd $opd)
+    public function destroy(Opd $opd): RedirectResponse
     {
-        //
+        $opd->delete();
+        return redirect()->route('opd')
+            ->with('success','OPD berhasil dihapus');
+    }
+
+    public function searchOPD(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $attributes = OPD::where('opd_name', 'LIKE', '%' . $keyword . '%')->paginate(10);
+
+        return view('pages.opd', compact('attributes'));
     }
 }
