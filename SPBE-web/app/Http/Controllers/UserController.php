@@ -37,10 +37,10 @@ class UserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request = validate([
-            'name' => 'required|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:5|max:255',
-            'nip' => 'nullable',
+            'password' => 'required|min:8|max:255|confirmed',
+            'nip' => 'nullable|min:16',
             'pangkat' => 'nullable',
             'phone' => 'nullable',
 
@@ -74,8 +74,8 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:5|max:255',
+            // 'email' => 'required|email|max:255|unique:users,email',
+            // 'password' => 'required|min:5|max:255',
             'nip' => 'nullable',
             'pangkat' => 'nullable',
             'phone' => 'nullable',
