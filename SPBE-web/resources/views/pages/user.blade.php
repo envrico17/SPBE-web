@@ -22,7 +22,7 @@
                                         </form>
                                     </div>
                                     <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3"
-                                        data-bs-toggle="modal" data-bs-target="#inputDataDomainModal">
+                                        data-bs-toggle="modal" data-bs-target="#inputDataUserForm">
                                         Tambah Data User
                                     </button>
                                 </div>
@@ -36,6 +36,9 @@
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama User</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                E-mail</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
                                                 NIP</th>
@@ -60,6 +63,11 @@
                                                 <td class="align-middle text-center text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->name }}</span>
+                                                </td>
+                                                {{-- Email --}}
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->email }}</span>
                                                 </td>
                                                 {{-- NIP --}}
                                                 <td class="align-middle text-center text-sm">
@@ -234,7 +242,7 @@
                     </div>
 
                     <!-- Modal Tambah Data Domain -->
-                    <div class="modal fade" id="inputDataDomainModal" tabindex="-1"
+                    <div class="modal fade" id="inputDataUserForm" tabindex="-1"
                         aria-labelledby="inputModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
@@ -244,7 +252,7 @@
                                         data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="needs-validation" novalidate action="{{ route('user.store') }}"
+                                    <form class="needs-validation was validated" novalidate action="{{ route('user.store') }}"
                                         method="POST">
                                         @csrf
                                         <div class="container">
@@ -257,11 +265,36 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="nip">NIP</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="nip" name="nip" required>
+                                                <label for="user-email">Email</label>
+                                                <input type="email" class="form-control border border-2 p-2"
+                                                    id="user-email" name="email" required>
                                                 <div class="invalid-feedback">
-                                                    NIP Tidak Boleh Kosong
+                                                    Format Email Tidak Benar
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="user-passwprd">Password</label>
+                                                <input type="password" class="form-control border border-2 p-2" id="user-password" name="password" required>
+                                                <div class="invalid-feedback">
+                                                    Password Tidak Boleh Kosong
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="user-confirm-password">Konfirmasi Password</label>
+                                                <input type="password" class="form-control border border-2 p-2" id="user-confirm-password" name="confirm-password" required>
+                                                <div class="invalid-feedback">
+                                                    Password Tidak Boleh Kosong
+                                                </div>
+                                                <div id="password-error-message" class="invalid-feedback">
+                                                    Password Tidak Sesuai
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label for="nip">NIP</label>
+                                                <input type="text" class="form-control border border-2 p-2" id="nip" name="nip" required
+                                                    pattern="[0-9]{16}" title="NIP harus terdiri dari 16 angka">
+                                                <div class="invalid-feedback">
+                                                    NIP harus terdiri dari 16 angka
                                                 </div>
                                             </div>
                                             <div class="form-group mt-2">
@@ -272,12 +305,28 @@
                                             <div class="form-group mt-2">
                                                 <label for="phone">No.HP</label>
                                                 <input type="text" class="form-control border border-2 p-2"
-                                                    id="phone" name="phone">
+                                                    id="phone" name="phone" pattern="[0-9]{10,12}" title="Format No.HP tidak sesuai" required>
+                                                <div class="invalid-feedback">
+                                                    Format NO.Hp tidak sesuai
+                                                </div>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="opd">OPD</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="opd" name="opd">
+                                                <div>
+                                                    <label for="opd">OPD</label>
+                                                </div>
+                                                <div>
+                                                    <select id="opd" name="opd"
+                                                        class="form-control border border-2 p-2">
+                                                        @forelse ($attributes as $attribute)
+                                                            <option value="{{ $attribute->id }}">
+                                                                {{ $attribute->opd_name }}</option>
+                                                        @empty
+                                                            <div class='alert alert-danger'>
+                                                                Tidak ada data
+                                                            </div>
+                                                        @endforelse
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                 </div>
@@ -308,6 +357,49 @@
                             form.classList.add('was-validated');
                         }, false);
                     });
+                }, false);
+            })();
+        </script>
+        <script>
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    // Fetch the form we want to apply custom Bootstrap validation to
+                    var form = document.getElementById('inputDataUserForm');
+
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+
+                        // Custom email validation
+                        var emailInput = document.getElementById('user-email');
+                        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailRegex.test(emailInput.value)) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            emailInput.classList.add('is-invalid');
+                        } else {
+                            emailInput.classList.remove('is-invalid');
+                        }
+
+                        // Custom password confirmation validation
+                        var passwordInput = document.getElementById('user-password');
+                        var confirmPasswordInput = document.getElementById('user-confirm-password');
+                        var passwordErrorMessage = document.getElementById('password-error-message');
+                        if (passwordInput.value !== confirmPasswordInput.value) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            confirmPasswordInput.classList.add('is-invalid');
+                            passwordErrorMessage.innerText = 'Password tidak sesuai.';
+                        } else {
+                            confirmPasswordInput.classList.remove('is-invalid');
+                            passwordErrorMessage.innerText = ''; // Clear the error message when passwords match.
+                        }
+
+                        form.classList.add('was-validated');
+                    }, false);
                 }, false);
             })();
         </script>
