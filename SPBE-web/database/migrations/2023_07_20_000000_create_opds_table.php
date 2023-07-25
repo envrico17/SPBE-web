@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('opd_name');
+            $table->string('opd_alias');
             $table->timestamps();
             $table->foreign('user_id')
                 ->references('id')->on('users')->onDelete('cascade');

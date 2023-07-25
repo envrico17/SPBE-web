@@ -16,9 +16,7 @@ class OpdController extends Controller
      */
     public function index()
     {
-        $attributes = Opd::join('users','users.id','=','opds.user_id')
-        ->select('opds.*','users.name')
-        ->paginate(10);
+        $attributes = Opd::paginate(10);
         return view('pages.opd', compact('attributes'));
     }
 

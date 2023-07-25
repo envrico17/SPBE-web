@@ -12,6 +12,7 @@ class Opd extends Model
 
     protected $fillable = [
         'opd_name',
+        'opd_alias',
         'user_id'
    ];
 
