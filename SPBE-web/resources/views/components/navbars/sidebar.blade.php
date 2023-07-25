@@ -3,7 +3,7 @@
 <aside
     class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark"
     id="sidenav-main">
-    <div class="sidenav-header">
+    <div class="sidenav-header sticky-top bg-gradient-dark">
         <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href=" {{ route('dashboard') }} ">
@@ -12,11 +12,11 @@
         </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
-    <div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
+    <div class="collapse navbar-collapse mb-4 w-auto h-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <h6 class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pages</h6>
-                </li>
+            <h6 class="nav-item"></h6>
+                {{-- <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Pages</h6> --}}
+                {{-- </li> --}}
                 <li class="nav-item">
                     <a class="nav-link text-white {{ $activePage == 'dashboard' ? ' active bg-gradient-primary' : '' }} "
                         href="{{ route('dashboard') }}">
