@@ -38,7 +38,7 @@
                                                 Nama OPD</th>
                                             <th
                                                 class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
-                                                Nama Pengguna</th>
+                                                Alias OPD</th>
                                             <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"
                                                 colspan="2">
                                                 Aksi</th>
@@ -62,7 +62,7 @@
                                                 <td>
                                                     <div class="d-flex flex-column text-center justify-content-center">
                                                         <span
-                                                            class="text-secondary text-xs font-weight-bold">{{ $attribute->name }}</span>
+                                                            class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_alias }}</span>
                                                     </div>
                                                 </td>
                                                 {{-- <td class="align-middle text-center">
@@ -84,7 +84,7 @@
                                                     <div class="ripple-container"></div>
                                                 </button>
                                             </td> --}}
-                                                {{-- Edit Indicator --}}
+                                                {{-- Edit OPD --}}
                                                 <td class="">
                                                     <div class="align-middle text-center">
                                                         <a href="javascript:;"
@@ -117,17 +117,28 @@
                                                                         @method('PUT')
                                                                         <div class="container">
                                                                             <div class="form-group mt-2">
-                                                                                <div class="text-info">Nama OPD Lama
+                                                                                <div class="text-info text-center">Nama OPD Lama
                                                                                 </div>
-                                                                                <div class="text-warning">
+                                                                                <div class="text-warning text-center">
                                                                                     {{ $attribute->opd_name }}</div>
-                                                                                <label class="fs-6 pt-4"
+                                                                                <label class="fs-6"
                                                                                     for="opdUpdate">Masukan Nama
                                                                                     OPD Baru</label>
                                                                                 <input type="text"
                                                                                     class="form-control border border-2 p-2"
                                                                                     id="opdUpdate" name="opd_name"
                                                                                     value="{{ $attribute->opd_name }}">
+                                                                                <div class="text-info text-center pt-3">Alias OPD Lama
+                                                                                </div>
+                                                                                <div class="text-warning text-center">
+                                                                                    {{ $attribute->opd_alias }}</div>
+                                                                                <label class="fs-6"
+                                                                                    for="opdUpdate">Masukan Alias
+                                                                                    OPD Baru</label>
+                                                                                <input type="text"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="opdUpdate" name="opd_alias"
+                                                                                    value="{{ $attribute->opd_alias }}">
                                                                             </div>
                                                                         </div>
                                                                 </div>
@@ -158,7 +169,7 @@
                                                                 <div class="modal-header justify-between">
                                                                     <h5 class="modal-title" id="deleteModalLabel">
                                                                         Hapus
-                                                                        Indikator ini?</h5>
+                                                                        OPD ini?</h5>
                                                                     <button type="button"
                                                                         class="btn-close btn-close-white"
                                                                         data-bs-dismiss="modal"
@@ -167,7 +178,7 @@
                                                                 <div class="modal-body">
                                                                     <div class="container">
                                                                         <div class="form-group mt-2">
-                                                                            <div class="text-info">Nama Indikator
+                                                                            <div class="text-info">Nama OPD
                                                                             </div>
                                                                             <div class="text-warning">
                                                                                 {{ $attribute->opd_name }}
@@ -184,7 +195,7 @@
                                                                             @method('DELETE')
                                                                             <button type="submit"
                                                                                 class="btn btn-danger">Hapus
-                                                                                Indikator</button>
+                                                                                OPD</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
@@ -219,6 +230,12 @@
                                                             <input type="text"
                                                                 class="form-control border border-2 p-2"
                                                                 id="opd_name" name="opd_name">
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                            <label for="opd_alias">Alias OPD</label>
+                                                            <input type="text"
+                                                                class="form-control border border-2 p-2"
+                                                                id="opd_alias" name="opd_alias">
                                                         </div>
                                                     </div>
                                                 </div>
