@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('aspect_id');
             $table->string('indicator_name');
-            $table->text('description');
+            $table->text('description')->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
             $table->foreign('aspect_id')
                 ->references('id')->on('aspects')->onDelete('cascade');

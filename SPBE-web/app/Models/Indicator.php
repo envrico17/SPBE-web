@@ -12,7 +12,7 @@ class Indicator extends Model
     use HasFactory;
 
     protected $fillable = [
-        'aspect_id','indicator_name','description'
+        'aspect_id','indicator_name','score','description'
    ];
 
    /**

@@ -22,6 +22,7 @@ class IndicatorFactory extends Factory
         return [
             'indicator_name' => fake()->words(2, true),
             'description' => fake()->sentence(4),
+            'score' => null,
             'aspect_id' => Aspect::factory(),
         ];
     }
