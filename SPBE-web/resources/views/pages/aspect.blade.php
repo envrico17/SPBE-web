@@ -34,12 +34,12 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-45 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Aspek</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="w-35 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Domain</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            <th class="w-20 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                                 colspan="2">
                                                 Action</th>
                                         </tr>
@@ -164,9 +164,11 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <div class='alert alert-danger'>
-                                                Tidak ada data
-                                            </div>
+                                        </tbody>
+                                        </table>
+                                        <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
+                                            Tidak ada data
+                                        </div>
                                         @endforelse
                                     </tbody>
                                 </table>

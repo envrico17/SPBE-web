@@ -34,25 +34,25 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama User</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 E-mail</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
+                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
                                                 NIP</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Pangkat/Gol</th>
+                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Gol</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 No.Hp</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 OPD</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -228,9 +228,11 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <div class='alert alert-danger'>
-                                                Tidak ada data
-                                            </div>
+                                        </tbody>
+                                        </table>
+                                        <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
+                                            Tidak ada data
+                                        </div>
                                         @endforelse
                                     </tbody>
                                 </table>

@@ -6,6 +6,7 @@ use App\Models\Domain;
 use App\Models\Aspect;
 use App\Models\Document;
 use App\Models\Indicator;
+use App\Models\Opd;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class DocumentController extends Controller
                 ->join('users','documents.user_id','=','users.id')
                 ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','users.name as username')
                 ->orderBy('updated_at','desc');
-        $usernames = User::all();
+        $opds = Opd::all();
         $domains = Domain::all();
         $aspects = Aspect::all();
         $documents = Document::all();
@@ -33,11 +34,11 @@ class DocumentController extends Controller
 
         if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
             $attributes = $attributes->paginate(10);
-            return view('pages.document', compact('attributes','usernames','indicators','domains','aspects','documents'));
+            return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
         } else {
             $userId = $user->id;
             $attributes = $attributes->where('user_id', $userId)->paginate(10);
-            return view('pages.document', compact('attributes','usernames','indicators','domains','aspects','documents'));
+            return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
         }
     }
 
@@ -159,12 +160,13 @@ class DocumentController extends Controller
             ->paginate(10);
 
         $usernames = User::all();
+        $opds = Opd::all();
         $domains = Domain::all();
         $aspects = Aspect::all();
         $documents = Document::all();
         $indicators = Indicator::all();
 
-        return view('pages.document', compact('attributes', 'usernames', 'indicators', 'domains', 'aspects', 'documents'));
+        return view('pages.document', compact('attributes', 'usernames', 'opds', 'indicators', 'domains', 'aspects', 'documents'));
     }
 
 }

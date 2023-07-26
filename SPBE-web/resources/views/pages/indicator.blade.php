@@ -34,18 +34,18 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-30 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Indikator</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-20 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Aspek</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Domain</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-20 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Deskripsi</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            <th class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                                 colspan="2">
                                                 Action</th>
                                         </tr>
@@ -69,11 +69,13 @@
                                                 </td>
                                                 {{-- Details of the Indicator --}}
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{!! $attribute->description !!}</span>
+                                                    {{-- <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
                                                         data-bs-target="#detailModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        Detail
+                                                        {!! $attribute->description !!}
                                                     </a>
                                                     <!-- Modal Detail Indicator -->
                                                     <div class="modal fade" id="detailModal{{ $attribute->id }}"
@@ -94,7 +96,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </td>
 
                                                 {{-- Edit Indicator --}}
@@ -223,8 +225,10 @@
                             </div>
                         </div>
                     @empty
-                        <div class='alert alert-danger'>
-                            Tidak ada data
+                        </tbody>
+                        </table>
+                        <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
+                        Tidak ada data
                         </div>
                         @endforelse
                         </tbody>

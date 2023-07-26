@@ -37,34 +37,45 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets') }}/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+    <style>
+        td {
+            white-space: normal !important;
+            word-wrap: break-word;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+    </style>
 </head>
+
 <body class="{{ $bodyClass }}">
 
-{{ $slot }}
+    {{ $slot }}
 
-<script src="{{ asset('assets') }}/js/core/popper.min.js"></script>
-<script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
-<script src="{{ asset('assets') }}/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="{{ asset('assets') }}/js/plugins/smooth-scrollbar.min.js"></script>
-@stack('js')
-<script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
-            damping: '0.5'
+    <script src="{{ asset('assets') }}/js/core/popper.min.js"></script>
+    <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
+    <script src="{{ asset('assets') }}/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="{{ asset('assets') }}/js/plugins/smooth-scrollbar.min.js"></script>
+    @stack('js')
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-
-</script>
-{{-- jQuery --}}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-{{-- Select2 plugin --}}
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<!-- Github buttons -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="{{ asset('assets') }}/js/material-dashboard.min.js?v=3.0.0"></script>
+    </script>
+    {{-- jQuery --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    {{-- Select2 plugin --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="{{ asset('assets') }}/js/material-dashboard.min.js?v=3.0.0"></script>
 </body>
+
 </html>

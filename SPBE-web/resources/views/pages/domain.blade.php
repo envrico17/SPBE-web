@@ -34,10 +34,10 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-80 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Domain</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="w-20 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -45,12 +45,12 @@
                                         @forelse ($attributes as $attribute)
                                             <tr>
                                                 {{-- Domain --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="w-80 align-middle text-center text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
-                                                <td class="align-middle text-center">
+                                                <td class="w-10 align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#editModal{{ $attribute->id }}"
@@ -105,7 +105,7 @@
                                                     </div>
                                                 </td>
                                                 {{-- Delete Button --}}
-                                                <td class="align-middle text-center">
+                                                <td class="w-10 align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
@@ -156,9 +156,11 @@
                                                 </td>
                                             </tr>
                                         @empty
-                                            <div class='alert alert-danger'>
-                                                Tidak ada data
-                                            </div>
+                                        </tbody>
+                                        </table>
+                                        <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
+                                        Tidak ada data
+                                        </div>
                                         @endforelse
                                     </tbody>
                                 </table>

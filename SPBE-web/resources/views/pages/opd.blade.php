@@ -34,12 +34,12 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
+                                                class="w-40 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
                                                 Nama OPD</th>
                                             <th
-                                                class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
+                                                class="w-40 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
                                                 Alias OPD</th>
-                                            <th class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"
+                                            <th class="w-20 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"
                                                 colspan="2">
                                                 Aksi</th>
                                             {{-- <th
@@ -53,13 +53,13 @@
                                     <tbody>
                                         @forelse ($attributes as $attribute)
                                             <tr>
-                                                <td>
+                                                <td class="w-40">
                                                     <div class="d-flex flex-column text-center justify-content-center">
                                                         <span
                                                             class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_name }}</span>
                                                     </div>
                                                 </td>
-                                                <td>
+                                                <td class="w-40">
                                                     <div class="d-flex flex-column text-center justify-content-center">
                                                         <span
                                                             class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_alias }}</span>
@@ -85,7 +85,7 @@
                                                 </button>
                                             </td> --}}
                                                 {{-- Edit OPD --}}
-                                                <td class="">
+                                                <td class="w-10">
                                                     <div class="align-middle text-center">
                                                         <a href="javascript:;"
                                                             class="link-info font-weight-bold text-xs"
@@ -153,7 +153,7 @@
                                                     </div>
                                                 </td>
                                                 {{-- Delete Button --}}
-                                                <td class="align-middle text-center">
+                                                <td class="w-10 align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"

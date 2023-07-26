@@ -34,25 +34,24 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Domain</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-20 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Aspek</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-25 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Indikator</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Data Dukung</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Tahun</th>
                                             @if (!Auth::user()->hasRole('supervisor'))
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
                                                 Action</th>
-                                            <th class="text-secondary opacity-7"></th>
                                             @endif
                                         </tr>
                                     </thead>
@@ -85,7 +84,7 @@
                                                         class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
                                                 </td>
                                                 {{-- Lihat Dokumen --}}
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle text-center text-break">
                                                     @if ($attribute->upload_path)
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">
@@ -159,14 +158,16 @@
                                                     </div>
                                                 </td>
                                                 @endif
+                                                @empty
+                                                    </tbody>
+                                                    </table>
+                                                    <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
+                                                        Tidak ada data
+                                                    </div>
+                                                @endforelse
                                             </tr>
-                                        @empty
-                                            <div class='alert alert-danger'>
-                                                Tidak ada data
-                                            </div>
-                                        @endforelse
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
                             </div>
                             <div class="container mt-3">
                                 {{ $attributes->onEachSide(2)->links() }}
@@ -203,13 +204,13 @@
                                             </div>
                                             <div class="form-group mt-2">
                                                 <div>
-                                                    <label for="upd">Nama UPD</label>
+                                                    <label for="upd">Nama OPD</label>
                                                     </div>
                                                 <div>
-                                                    <select id="upd" name="user_id"
+                                                    <select id="opd" name="user_id"
                                                     class="form-control border border-2 p-2">
-                                                        @foreach ($usernames as $username)
-                                                        <option value="{{$username->id}}">{{$username->name}}</option>
+                                                        @foreach ($opds as $opd)
+                                                        <option value="{{$opd->user_id}}">{{$opd->opd_name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
