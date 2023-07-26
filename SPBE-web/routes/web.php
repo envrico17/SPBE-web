@@ -27,6 +27,7 @@ use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\AspectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OpdController;
+use App\Http\Controllers\ScoreController;
 use App\Models\Indicator;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
@@ -113,6 +114,9 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::delete('opd/{opd}', [OpdController::class, 'destroy'])
     ->name('opd.destroy');
 
+    // SCORE CRUD ROUTES
+    Route::get('score', [ScoreController::class, 'index'])
+    ->name('score');
 
     Route::delete('document/{document}', [DocumentController::class, 'destroy'])
     ->name('document.destroy');

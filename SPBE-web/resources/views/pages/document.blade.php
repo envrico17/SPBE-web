@@ -47,8 +47,13 @@
                                                 Data Dukung</th>
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Tahun</th>
+                                            @if (!Auth::user()->hasRole('supervisor'))
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                             <th class="text-secondary opacity-7"></th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,6 +98,7 @@
                                                         class="text-secondary text-xs font-weight-bold">N/A</span>
                                                     @endif
                                                 </td>
+                                                @if (!Auth::user()->hasRole('supervisor'))
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
@@ -152,6 +158,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @empty
                                             <div class='alert alert-danger'>
