@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Indicator extends Model
 {
@@ -34,4 +35,12 @@ class Indicator extends Model
    {
        return $this->belongsTo(Aspect::class);
    }
+
+   public function getFilePathUrlAttribute()
+   {
+        /** @var \Illuminate\Filesystem\FilesystemManager $disk */
+        $disk = Storage::disk('public');
+        $url = $disk->url($this->upload_path);
+        return $url;
+    }
 }
