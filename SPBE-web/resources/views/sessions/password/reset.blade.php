@@ -30,14 +30,6 @@
                                 <form role="form" method="POST" action="{{ route('password.update', ['password' => $user->id]) }}" class="text-start">
                                     @csrf
                                     @method('PUT')
-                                    {{-- <input type="hidden" name="token" value="{{ $token }}"> --}}
-                                    {{-- <div class="input-group input-group-outline mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email">
-                                    </div>
-                                    @error('email')
-                                    <p class='text-danger inputerror'>{{ $message }} </p>
-                                    @enderror --}}
                                     <div class="input-group input-group-outline my-3">
                                         <label class="form-label">New password</label>
                                         <input type="password" class="form-control" name="password">
