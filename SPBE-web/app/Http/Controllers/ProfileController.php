@@ -29,14 +29,14 @@ class ProfileController extends Controller
         ]);
 
         // Debug the new password before hashing
-        dump('New Password Before Hashing: ' . $request->password);
+        // dump('New Password Before Hashing: ' . $request->password);
 
         $user->update([
             'password' => $request->password,
         ]);
 
         // Debug the new password after hashing
-        dd('New Password After Hashing: ' . $user->password);
+        // dd('New Password After Hashing: ' . $user->password);
 
         return redirect()->route('dashboard')
         ->with('success','Password berhasil diupdate');
