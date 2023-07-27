@@ -50,7 +50,8 @@
                         <i class="fa fa-user ms-sm-1"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownProfile">
-                        <a class="dropdown-item fs-6" href="#">Ganti Password</a>
+                        <a class="dropdown-item fs-6" href="{{ route('password.edit')
+                         }}">Ganti Password</a>
                         <a class="dropdown-item fs-6"
                             onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
                             Out</a>

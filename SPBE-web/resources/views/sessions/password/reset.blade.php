@@ -24,16 +24,20 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form role="form" method="POST" action="{{ route('password.update', ['token' => $token]) }}" class="text-start">
+                                <form method="POST" action="{{ route('logout') }}" class="d-none" id="logout-form">
                                     @csrf
-                                    <input type="hidden" name="token" value="{{ $token }}">
-                                    <div class="input-group input-group-outline mb-3">
+                                </form>
+                                <form role="form" method="POST" action="{{ route('password.update', ['password' => $user->id]) }}" class="text-start">
+                                    @csrf
+                                    @method('PUT')
+                                    {{-- <input type="hidden" name="token" value="{{ $token }}"> --}}
+                                    {{-- <div class="input-group input-group-outline mb-3">
                                         <label class="form-label">Email</label>
                                         <input type="email" class="form-control" name="email">
                                     </div>
                                     @error('email')
                                     <p class='text-danger inputerror'>{{ $message }} </p>
-                                    @enderror
+                                    @enderror --}}
                                     <div class="input-group input-group-outline my-3">
                                         <label class="form-label">New password</label>
                                         <input type="password" class="form-control" name="password">
@@ -53,9 +57,10 @@
                                             password</button>
                                     </div>
                                     <p class="mt-4 text-sm text-center">
-                                        Don't have an account?
-                                        <a href="{{ route('register') }}"
-                                            class="text-primary text-gradient font-weight-bold">Sign up</a>
+                                        Ingin ganti akun lain?
+                                        <a href="{{ route('login') }}"
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+                                            class="text-primary text-gradient font-weight-bold">Ganti akun</a>
                                     </p>
                                 </form>
                             </div>

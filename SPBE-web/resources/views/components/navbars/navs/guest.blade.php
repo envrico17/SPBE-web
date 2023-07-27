@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav ms-auto">
                 @auth
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link d-flex align-items-center me-2 active" aria-current="page"
                         href="{{ route('dashboard') }}">
                         <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
@@ -30,18 +30,18 @@
                         <i class="fa fa-user opacity-6 text-dark me-1"></i>
                         Profile
                     </a>
-                </li>
+                </li> --}}
                 @endauth
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link me-2" href="{{ route($signup) }}">
                         <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                         Sign Up
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link me-2" href="{{ route($signin) }}">
-                        <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                        Sign In
+                        <i class="fas fa-bars opacity-6 text-dark me-1"></i>
+                        Dashboard
                     </a>
                 </li>
             </ul>

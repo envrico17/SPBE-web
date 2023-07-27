@@ -50,8 +50,8 @@ Route::middleware(['guest'])->group(function () {
 });
 
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
-Route::get('profile', [ProfileController::class, 'create'])->middleware('auth')->name('profile');
-Route::post('user-profile', [ProfileController::class, 'update'])->middleware('auth');
+// Route::get('profile', [ProfileController::class, 'create'])->middleware('auth')->name('profile');
+// Route::post('user-profile', [ProfileController::class, 'update'])->middleware('auth');
 
 Route::middleware(['auth','role:admin'])->group(function () {
     // Domain CRUD routes
@@ -139,4 +139,9 @@ Route::middleware(['auth'])->group(function(){
     ->name('document');
     Route::get('/document/search', [DocumentController::class, 'searchDocument'])
     ->name('document.search');
+
+    Route::get('change-password', [ProfileController::class, 'create'])
+    ->name('password.edit');
+    Route::put('change-password/{password}', [ProfileController::class, 'update'])
+    ->name('password.update');
 });
