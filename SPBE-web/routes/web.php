@@ -117,6 +117,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     // SCORE CRUD ROUTES
     Route::get('score', [ScoreController::class, 'index'])
     ->name('score');
+    Route::put('score/{score}', [ScoreController::class, 'update'])
+    ->name('score.update');
 
     Route::delete('document/{document}', [DocumentController::class, 'destroy'])
     ->name('document.destroy');

@@ -36,27 +36,6 @@ class ScoreController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'indicator_name' => 'required',
-            'aspect_id' => 'required',
-            'description' => 'required'
-        ]);
-
-        // Simpan data ke database
-        Indicator::create([
-            'indicator_name' => $request->input('indicator_name'),
-            'aspect_id' => $request->input('aspect_id'),
-            'description' => $request->input('description'),
-        ]);
-
-        return redirect()->route('indicator')
-            ->with('success','Indikator berhasil dibuat');
-    }
 
     /**
      * Display the specified resource.
@@ -80,17 +59,18 @@ class ScoreController extends Controller
     public function update(Request $request, Indicator $indicator): RedirectResponse
     {
         $request->validate([
-            'indicator_name' => 'required'
+            'score' => 'required'
         ]);
 
         // Update data di database
         $indicator->update([
-            'indicator_name' => $request->input('indicator_name'),
-            'description' => $request->input('description'),
+            'score' => $request->input('score'),
         ]);
 
-        return redirect()->route('indicator')
-            ->with('success','Indikator berhasil diubah');
+        // return dd($request, $indicator->score);
+
+        return redirect()->route('score')
+            ->with('success','Score berhasil diubah');
     }
 
     /**
