@@ -2,7 +2,7 @@
     <x-navbars.sidebar activePage="user"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage="user"></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage="User"></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
@@ -243,7 +243,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal Tambah Data Domain -->
+                    <!-- Modal Tambah Data User -->
                     <div class="modal fade" id="inputDataUserForm" tabindex="-1"
                         aria-labelledby="inputModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">

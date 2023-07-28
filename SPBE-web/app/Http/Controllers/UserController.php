@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request = validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:8|max:255|confirmed',
@@ -46,7 +46,7 @@ class UserController extends Controller
 
         ]);
 
-        $user = User::create($attributes);
+        $user = User::create($request->all());
         return redirect()->route('user')
             ->with('success','User berhasil dibuat');
     }
