@@ -243,7 +243,7 @@
                         </div>
                     </div>
 
-                    <!-- Modal Tambah Data Domain -->
+                    <!-- Modal Tambah Data User -->
                     <div class="modal fade" id="inputDataUserForm" tabindex="-1"
                         aria-labelledby="inputModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">

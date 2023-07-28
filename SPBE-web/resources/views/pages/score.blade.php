@@ -100,6 +100,15 @@
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
+                                                                    <h5 class="modal-title" id="detailModalLabel">Beri
+                                                                        Penilaian</h5>
+                                                                    <button type="button" style="align-self: flex-start; margin: 0;"
+                                                                        class="btn-close btn-close-white  "
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
                                                                         <div class="container">
                                                                             <div class="row">
                                                                                 <div class="col-sm-3 text-start fw-bold">Domain :</div>
@@ -116,18 +125,14 @@
                                                                                 <div class="col-sm-9">{{ $attribute->indicator_name }}</div>
                                                                             </div>
                                                                         </div>
-                                                                        <button type="button" style="align-self: flex-start; margin: 0;"
-                                                                            class="btn-close btn-close-white  "
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close">
-                                                                        </button>
                                                                 </div>
-                                                                <form action="{{ route('score.update', ['score' => $attribute->id]) }}" method="POST">
+                                                                <form action="{{ route('score.update', ['indicator' => $attribute->id]) }}" method="POST">
                                                                     <div class="modal-body">
                                                                         @csrf
                                                                         @method('PUT')
                                                                         <div class="container">
                                                                             <div class="row">
+                                                                            <hr size="3">
                                                                                 <div class="col-sm-3 text-start fw-bold">Level :</div>
                                                                                 <div class="col-9">
                                                                                     <select id="score" name="score"
