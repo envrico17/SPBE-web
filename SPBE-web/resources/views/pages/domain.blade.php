@@ -34,28 +34,35 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="w-80 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-1 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                No</th>
+                                            <th
+                                                class="w-10 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Domain</th>
                                             <th
-                                                class="w-20 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="w-2 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($attributes as $attribute)
+                                        @forelse ($attributes as $index => $attribute)
                                             <tr>
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
+                                                </td>
                                                 {{-- Domain --}}
-                                                <td class="w-80 align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
-                                                <td class="w-10 align-middle text-center">
+                                                <td class="align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#editModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        Edit
+                                                        <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editModal{{ $attribute->id }}"
@@ -105,12 +112,12 @@
                                                     </div>
                                                 </td>
                                                 {{-- Delete Button --}}
-                                                <td class="w-10 align-middle text-center">
+                                                <td class="align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
                                                         data-original-title="Delete user">
-                                                        Delete
+                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Delete Data -->
                                                     <div class="modal fade" id="deleteModal{{ $attribute->id }}"

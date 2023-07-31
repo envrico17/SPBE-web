@@ -34,26 +34,33 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="w-45 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-1 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                No</th>
+                                            <th
+                                                class="w-10 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Aspek</th>
                                             <th
-                                                class="w-35 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                class="w-7 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                                 Domain</th>
-                                            <th class="w-20 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            <th class="w-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                                 colspan="2">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($attributes as $attribute)
+                                        @forelse ($attributes as $index => $attribute)
                                             <tr>
-                                                {{-- Aspect --}}
                                                 <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
+                                                </td>
+                                                {{-- Aspect --}}
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
                                                 </td>
                                                 {{-- Domain of the Aspect --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
@@ -63,7 +70,7 @@
                                                         style="cursor: pointer" data-bs-toggle="modal"
                                                         data-bs-target="#editDataModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        Edit
+                                                        <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editDataModal{{ $attribute->id }}"
@@ -119,7 +126,7 @@
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
                                                         data-original-title="Delete user">
-                                                        Delete
+                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Delete Data -->
                                                     <div class="modal fade" id="deleteModal{{ $attribute->id }}"

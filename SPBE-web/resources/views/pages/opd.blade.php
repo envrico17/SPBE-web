@@ -34,14 +34,17 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="w-40 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
+                                                class="w-1 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
+                                                No</th>
+                                            <th
+                                                class="w-10 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama OPD</th>
                                             <th
-                                                class="w-40 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
+                                                class="w-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Alias OPD</th>
-                                            <th class="w-20 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"
+                                            <th class="w-3 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"
                                                 colspan="2">
-                                                Aksi</th>
+                                                Action</th>
                                             {{-- <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 EMAIL</th>
@@ -51,16 +54,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($attributes as $attribute)
+                                        @forelse ($attributes as $index => $attribute)
                                             <tr>
-                                                <td class="w-40">
+                                                <td class="">
                                                     <div class="d-flex flex-column text-center justify-content-center">
+                                                        <span
+                                                            class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
+                                                    </div>
+                                                </td>
+                                                <td class="">
+                                                    <div class="d-flex flex-column justify-content-center">
                                                         <span
                                                             class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_name }}</span>
                                                     </div>
                                                 </td>
-                                                <td class="w-40">
-                                                    <div class="d-flex flex-column text-center justify-content-center">
+                                                <td class="">
+                                                    <div class="d-flex flex-column justify-content-center">
                                                         <span
                                                             class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_alias }}</span>
                                                     </div>
@@ -92,7 +101,7 @@
                                                             style="cursor: pointer" data-bs-toggle="modal"
                                                             data-bs-target="#editDataModal{{ $attribute->id }}"
                                                             data-original-title="Edit user">
-                                                            Edit
+                                                            <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
                                                         </a>
                                                     </div>
                                                     <!-- Modal Edit Data -->
@@ -158,7 +167,7 @@
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
                                                         data-original-title="Delete user">
-                                                        Delete
+                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Delete Data -->
                                                     <div class="modal fade" id="deleteModal{{ $attribute->id }}"

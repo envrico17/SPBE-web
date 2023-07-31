@@ -34,58 +34,65 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-1 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                No</th>
+                                            <th
+                                                class="w-6 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama User</th>
                                             <th
-                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 E-mail</th>
                                             <th
-                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
+                                                class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
                                                 NIP</th>
                                             <th
-                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-3 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Gol</th>
                                             <th
-                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 No.Hp</th>
                                             <th
-                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 OPD</th>
                                             <th
-                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="w-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($attributes as $attribute)
+                                        @forelse ($attributes as $index => $attribute)
                                             <tr>
-                                                {{-- User --}}
                                                 <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
+                                                </td>
+                                                {{-- User --}}
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->name }}</span>
                                                 </td>
                                                 {{-- Email --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->email }}</span>
                                                 </td>
                                                 {{-- NIP --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->nip }}</span>
                                                 </td>
                                                 {{-- Pangkat --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->pangkat }}</span>
                                                 </td>
                                                 {{-- No Hp --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->phone }}</span>
                                                 </td>
                                                 {{-- Nama OPD --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_name }}</span>
                                                 </td>
@@ -96,7 +103,7 @@
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#editModal{{ $attribute->id }}"
                                                             data-original-title="Edit user">
-                                                            Edit
+                                                            <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
                                                         </a>
                                                     </div>
                                                     <!-- Modal Edit Data -->
@@ -210,7 +217,7 @@
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
                                                         data-original-title="Delete user">
-                                                        Delete
+                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Delete Data -->
                                                     <div class="modal fade" id="deleteModal{{ $attribute->id }}"
