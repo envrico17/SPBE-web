@@ -90,6 +90,10 @@ Route::middleware(['auth','role:admin'])->group(function () {
     Route::delete('indicator/{indicator}', [IndicatorController::class, 'destroy'])
     ->name('indicator.destroy');
 
+    // Document CRUD routes
+    Route::post('document', [DocumentController::class, 'store'])
+    ->name('document.store');
+
     // User CRUD routes
     Route::get('user', [UserController::class, 'index'])
     ->name('user');
@@ -129,9 +133,6 @@ Route::middleware(['auth','role:admin'])->group(function () {
 });
 
 Route::middleware(['auth','role:user'])->group(function () {
-    // Document CRUD routes
-    Route::post('document', [DocumentController::class, 'store'])
-    ->name('document.store');
     Route::put('document/{document}', [DocumentController::class, 'update'])
     ->name('document.update');
 });

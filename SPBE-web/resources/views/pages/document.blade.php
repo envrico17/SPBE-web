@@ -173,12 +173,12 @@
                                                 @elseif (Auth::user()->hasRole('user'))
                                                 <td class="align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal" data-bs-target="#editDataModal{{ $attribute->id }}"
+                                                        data-bs-toggle="modal" data-bs-target="#uploadDataModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        Upload
+                                                        Upload Data
                                                     </a>
                                                     <!-- Modal Edit Data -->
-                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}" tabindex="-1"
+                                                    <div class="modal fade" id="uploadDataModal{{ $attribute->id }}" tabindex="-1"
                                                         aria-labelledby="editModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
