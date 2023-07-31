@@ -37,6 +37,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('assets') }}/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <style>
         td {
             white-space: normal !important;
@@ -67,6 +69,7 @@
             Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
     </script>
+
     {{-- jQuery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     {{-- Select2 plugin --}}
@@ -76,6 +79,34 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets') }}/js/material-dashboard.min.js?v=3.0.0"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        // Toastr options
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-bottom-right', // Set the position to bottom-right
+            extendedTimeOut: 1000 // Additional time for the notification when the mouse is over it (in milliseconds)
+        };
+
+        // Function to show Toastr alerts for validation errors and success messages
+        function showToastrMessages(messages, type) {
+          for (let message of messages) {
+            toastr[type](message);
+          }
+        }
+
+        // Check for validation errors and display Toastr alerts if any
+        @if ($errors->any())
+          showToastrMessages({!! json_encode($errors->all()) !!}, 'error');
+        @endif
+
+        // Check for success message and display Toastr alert if exists
+        @if (session('success'))
+          showToastrMessages(['{{ session('success') }}'], 'success');
+        @endif
+      </script>
 </body>
 
 </html>

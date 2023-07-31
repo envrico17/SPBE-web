@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class DomainController extends Controller
@@ -33,12 +34,22 @@ class DomainController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'domain_name' => 'required'
-        ]);
-        Domain::create($request->all());
-        return redirect()->route('domain')
-            ->with('success','Domain berhasil dibuat');
+        try {
+            $request->validate([
+                'domain_name' => 'required'
+            ]);
+            Domain::create($request->all());
+            return redirect()->route('domain')
+                ->with('success','Domain berhasil dibuat');
+        } catch (ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Domain gagal dibuat. Silahkan coba lagi.')
+                ->withInput();
+        }
     }
 
     /**
@@ -63,12 +74,22 @@ class DomainController extends Controller
      */
     public function update(Request $request, Domain $domain): RedirectResponse
     {
-        $request->validate([
-            'domain_name' => 'required'
-        ]);
-        $domain->update($request->all());
-        return redirect()->route('domain')
-            ->with('success','Domain berhasil dibuat');
+        try {
+            $request->validate([
+                'domain_name' => 'required'
+            ]);
+            $domain->update($request->all());
+            return redirect()->route('domain')
+                ->with('success','Domain berhasil diupdate');
+        } catch (ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Domain gagal diupdate. Silahkan coba lagi.')
+                ->withInput();
+        }
     }
 
     /**
@@ -76,9 +97,18 @@ class DomainController extends Controller
      */
     public function destroy(Domain $domain): RedirectResponse
     {
-        $domain->delete();
-        return redirect()->route('domain')
-            ->with('success','Domain berhasil dihapus');
+        try {
+            // Attempt to delete the domain
+            $domain->delete();
+
+            // If deletion is successful, redirect with success message
+            return redirect()->route('domain')
+                ->with('success', 'Domain berhasil dihapus');
+        } catch (\Exception $e) {
+            // If an exception occurs (e.g., database error), redirect back with error message
+            return redirect()->back()
+                ->with('error', 'Gagal menghapus domain. Silahkan coba lagi.');
+        }
     }
 
     public function searchDomain(Request $request)

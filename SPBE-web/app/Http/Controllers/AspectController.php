@@ -37,13 +37,28 @@ class AspectController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'aspect_name' => 'required',
-            'domain_id' => 'required'
-        ]);
-        Aspect::create($request->all());
-        return redirect()->route('aspect')
-            ->with('success','Aspek berhasil dibuat');
+        try {
+            $request->validate([
+                'aspect_name' => 'required',
+                'domain_id' => 'required'
+            ]);
+
+            // Perform other actions or additional validations if needed before creating the aspect
+
+            Aspect::create($request->all());
+
+            return redirect()->route('aspect')
+                ->with('success', 'Aspek berhasil dibuat');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal membuat aspek. Silahkan coba lagi.');
+        }
     }
 
     /**
