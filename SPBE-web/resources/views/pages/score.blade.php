@@ -86,13 +86,15 @@
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->score}}</span>
                                                 </td>
                                                 {{-- Beri Penilaian --}}
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        style="cursor: pointer" data-bs-toggle="modal"
-                                                        data-bs-target="#detailModal{{ $attribute->id }}"
-                                                        data-original-title="Edit user">
-                                                        Beri Penilaian
-                                                    </a>
+                                                <td class="w-10">
+                                                    <div class="align-middle text-center">
+                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                            style="cursor: pointer" data-bs-toggle="modal"
+                                                            data-bs-target="#detailModal{{ $attribute->id }}"
+                                                            data-original-title="Edit user">
+                                                            Beri Penilaian
+                                                        </a>
+                                                    </div>
                                                     <!-- Modal Beri Penilaian -->
                                                     <div class="modal fade" id="detailModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="detailModalLabel"
@@ -149,13 +151,31 @@
                                                                     </div>
                                                                     <hr size="3">
                                                                     <div class="modal-body">
-                                                                            <ul>
-                                                                                @foreach ($attribute->documents as $document)
-                                                                                    <a class="link-info" href="{{ $document->file_path_url }}" target="_blank">
-                                                                                        <li>{{ $document->doc_name }}</li>
-                                                                                    </a>
-                                                                                @endforeach
-                                                                            </ul>
+                                                                        <div class="container">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-3 text-start fw-bold">Penjelasan Indikator :</div>
+                                                                                <div class="col-sm-9">{{ $attribute->description }}</div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <hr size="3">
+                                                                    <div class="modal-body">
+                                                                        <ul style="list-style: none; padding-left: 0; display: flex; flex-direction: column;">
+                                                                            @foreach ($attribute->documents as $document)
+                                                                                @if (! is_null($document->upload_path))
+                                                                                    <li>
+                                                                                        <a class="link-info" href="{{ $document->file_path_url }}" target="_blank">
+                                                                                            {{ $document->doc_name }}
+                                                                                        </a>
+                                                                                    </li>
+                                                                                @else
+                                                                                    <li>
+                                                                                        <span class='text-secondary fw-bold'>
+                                                                                            {{ $document->doc_name }}
+                                                                                        </span>
+                                                                                    </li>
+                                                                                @endif
+                                                                            @endforeach
+                                                                        </ul>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -276,12 +296,6 @@
                         }
                     });
                 }
-
-                // if (selectedYear === '') {
-                //     this.style.color = 'white';
-                // } else {
-                //     this.style.color = 'black';
-                // }
             });
         </script>
     @endpush
