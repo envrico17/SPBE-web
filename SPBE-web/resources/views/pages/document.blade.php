@@ -36,62 +36,77 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-1">
+                                                No</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3">
                                                 Domain</th>
                                             <th
-                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-4">
                                                 Aspek</th>
                                             <th
-                                                class="w-20 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                                                 Indikator</th>
                                             <th
-                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                                                 Data Dukung</th>
                                             <th
-                                                class="w-10 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
                                                 Tahun</th>
                                             @if (!Auth::user()->hasRole('user'))
                                             <th
-                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3">
                                                 OPD</th>
                                             @endif
-                                            @if (!Auth::user()->hasRole('supervisor'))
+                                            @if (Auth::user()->hasRole('admin'))
                                             <th
-                                                class="w-15 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3" colspan="3">
+                                                Action</th>
+                                            @elseif (Auth::user()->hasRole('user'))
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3" colspan="2">
+                                                Action</th>
+                                            @else
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
                                                 Action</th>
                                             @endif
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($attributes as $attribute)
+                                        @forelse ($attributes as $index =>$attribute)
                                             <tr>
+                                                <td class="align-middle text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $index +1 }}</span>
+                                                </td>
                                                 {{-- Domain --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
                                                 </td>
                                                 {{-- Aspect --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
                                                 </td>
                                                 {{-- Indicator --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
                                                 </td>
                                                 {{-- Document --}}
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->doc_name }}</span>
                                                 </td>
                                                 {{-- Year --}}
-                                                <td class="align-middle text-center text-sm">
+                                                <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
                                                 </td>
                                                 @if (!Auth::user()->hasRole('user'))
-                                                <td class="align-middle text-center">
+                                                <td class="align-middle">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_name }}</span>
                                                 </td>
@@ -102,7 +117,7 @@
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">
                                                         <a class="link-info" href="{{ $attribute->file_path_url }}" target="_blank">
-                                                            Lihat Data Dukung
+                                                            <i class="bi bi-folder-symlink" style="font-size: 1.1rem"></i>
                                                         </a>
                                                     </span>
                                                     @else
@@ -116,7 +131,7 @@
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal" data-bs-target="#editDataModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        Edit
+                                                        <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editDataModal{{ $attribute->id }}" tabindex="-1"
@@ -170,12 +185,62 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                {{-- Delete Button --}}
+                                                <td class="w-10 align-middle text-center">
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                        data-original-title="Delete user">
+                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
+                                                    </a>
+                                                    <!-- Modal Delete Data -->
+                                                    <div class="modal fade" id="deleteModal{{ $attribute->id }}"
+                                                        tabindex="-1" aria-labelledby="deleteModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header justify-between">
+                                                                    <h5 class="modal-title" id="deleteModalLabel">Hapus
+                                                                        Dokumen?</h5>
+                                                                    <button type="button"
+                                                                        class="btn-close btn-close-white"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="container">
+                                                                        <div class="form-group mt-2">
+                                                                            <div class="text-info">Nama Dokumen
+                                                                            </div>
+                                                                            <div class="text-warning">
+                                                                                {{ $attribute->doc_name }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <div class="order-0">
+                                                                        <form
+                                                                            action="{{ route('document.destroy', ['document' => $attribute->id]) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Hapus
+                                                                                Dokumen</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 @elseif (Auth::user()->hasRole('user'))
                                                 <td class="align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal" data-bs-target="#uploadDataModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        Upload Data
+                                                        <i class="bi bi-upload" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="uploadDataModal{{ $attribute->id }}" tabindex="-1"
