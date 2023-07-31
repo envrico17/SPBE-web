@@ -30,7 +30,7 @@
                     <a class="nav-link text-white {{ $activePage == 'document' ? ' active bg-gradient-primary' : '' }} "
                         href="{{ route('document') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">table_view</i>
+                            <i class="material-icons opacity-10">description</i>
                         </div>
                         <span class="nav-link-text ms-1">Data Dukung</span>
                     </a>
@@ -44,7 +44,7 @@
                         <a class="nav-link text-white {{ $activePage == 'opd' ? ' active bg-gradient-primary' : '' }} "
                             href="{{ route('opd') }}">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">person</i>
+                                <i class="material-icons opacity-10">work</i>
                             </div>
                             <span class="nav-link-text ms-1">Menu OPD</span>
                         </a>
@@ -53,7 +53,7 @@
                         <a class="nav-link text-white {{ $activePage == 'user' ? ' active bg-gradient-primary' : '' }} "
                             href="{{ route('user') }}">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">table_view</i>
+                                <i class="material-icons opacity-10">person</i>
                             </div>
                             <span class="nav-link-text ms-1">Menu Pengguna</span>
                         </a>
@@ -66,7 +66,7 @@
                         <a class="nav-link text-white {{ $activePage == 'domain' ? ' active bg-gradient-primary' : '' }} "
                             href="{{ route('domain') }}">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">table_view</i>
+                                <i class="material-icons opacity-10">domain</i>
                             </div>
                             <span class="nav-link-text ms-1">Domain</span>
                         </a>
@@ -93,7 +93,7 @@
                         <a class="nav-link text-white {{ $activePage == 'score' ? ' active bg-gradient-primary' : '' }} "
                             href="{{ route('score') }}">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                                <i class="material-icons opacity-10">table_view</i>
+                                <i class="material-icons opacity-10">credit_score</i>
                             </div>
                             <span class="nav-link-text ms-1">Penilaian</span>
                         </a>
