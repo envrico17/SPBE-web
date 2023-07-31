@@ -90,13 +90,15 @@
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_name }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#editModal{{ $attribute->id }}"
-                                                        data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
+                                                <td class="w-10">
+                                                    <div class="align-middle text-center">
+                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#editModal{{ $attribute->id }}"
+                                                            data-original-title="Edit user">
+                                                            Edit
+                                                        </a>
+                                                    </div>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="editModalLabel"
