@@ -45,6 +45,7 @@ class UserController extends Controller
             'pangkat' => 'nullable',
             'phone' => 'nullable',
         ]);
+
         $input = $request->collect()->forget('password_confirmation');
         $user = User::create($input->all());
 
@@ -76,12 +77,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             // 'email' => 'required|email|max:255|unique:users,email',
-            // 'password' => 'required|min:5|max:255',
+            'password' => 'nullable|min:8|max:255',
             'nip' => 'nullable',
             'pangkat' => 'nullable',
             'phone' => 'nullable',
         ]);
-        $user->update($request->all());
+        $input = $request->collect()->forget('password_confirmation');
+        $user->update($input->all());
         return redirect()->route('user')
             ->with('success','User berhasil diupdate');
     }

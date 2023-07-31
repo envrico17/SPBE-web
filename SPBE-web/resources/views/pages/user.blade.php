@@ -128,6 +128,32 @@
                                                                                     class="form-control border border-2 p-2"
                                                                                     id="nameUpdate" name="name"
                                                                                     value="{{ $attribute->name }}">
+                                                                                @error('nameUpdate')
+                                                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                                                @enderror
+                                                                            </div>
+                                                                            <div class="form-group mt-2">
+                                                                                <label class="fs-6 pt-4"
+                                                                                    for="passwordUpdate">Masukan Password Baru</label>
+                                                                                <input type="password"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="passwordUpdate" name="password"
+                                                                                    value="">
+                                                                                @error('passwordUpdate')
+                                                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                                                @enderror
+                                                                            </div>
+                                                                            <div class="form-group mt-2">
+                                                                                <label class="fs-6 pt-4"
+                                                                                    for="passwordUpdate_confirmation">Ketik Password Baru Lagi
+                                                                                </label>
+                                                                                <input type="password"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="passwordUpdate_confirmation" name="password_confirmation"
+                                                                                    value="">
+                                                                                @error('passwordUpdateConfirmation')
+                                                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                                                @enderror
                                                                             </div>
                                                                             <div class="form-group mt-2">
                                                                                 <label class="fs-6 pt-4"
@@ -137,6 +163,9 @@
                                                                                     class="form-control border border-2 p-2"
                                                                                     id="nipUpdate" name="nip"
                                                                                     value="{{ $attribute->nip }}">
+                                                                                @error('nipUpdate')
+                                                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                                                @enderror
                                                                             </div>
                                                                             <div class="form-group mt-2">
                                                                                 <label class="fs-6 pt-4"
@@ -146,6 +175,9 @@
                                                                                     class="form-control border border-2 p-2"
                                                                                     id="pangkatUpdate" name="pangkat"
                                                                                     value="{{ $attribute->pangkat }}">
+                                                                                @error('pangkatUpdate')
+                                                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                                                @enderror
                                                                             </div>
                                                                             <div class="form-group mt-2">
                                                                                 <label class="fs-6 pt-4"
@@ -155,6 +187,9 @@
                                                                                     class="form-control border border-2 p-2"
                                                                                     id="phoneUpdate" name="phone"
                                                                                     value="{{ $attribute->phone }}">
+                                                                                @error('phoneUpdate')
+                                                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                                                @enderror
                                                                             </div>
                                                                         </div>
                                                                 </div>
@@ -398,15 +433,19 @@
                         }
 
                         // Custom password confirmation validation
-                        var passwordInput = document.getElementById('user-password');
-                        var confirmPasswordInput = document.getElementById('user-confirm-password');
+                        var passwordInput = document.getElementById('password');
+                        var confirmPasswordInput = document.getElementById('password_confirmation');
                         var passwordErrorMessage = document.getElementById('password-error-message');
-                        if (passwordInput.value !== confirmPasswordInput.value) {
+
+                        var password = passwordInput.value;
+                        var confirmPassword = confirmPasswordInput.value;
+
+                        if (password !== confirmPassword) {
                             event.preventDefault();
                             event.stopPropagation();
                             confirmPasswordInput.classList.add('is-invalid');
                             passwordErrorMessage.innerText = 'Password tidak sesuai.';
-                        } else {
+                        } else if(password === confirmPassword) {
                             confirmPasswordInput.classList.remove('is-invalid');
                             passwordErrorMessage.innerText = ''; // Clear the error message when passwords match.
                         }
