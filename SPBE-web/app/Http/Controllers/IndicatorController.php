@@ -102,9 +102,15 @@ class IndicatorController extends Controller
     public function searchIndicator(Request $request)
     {
         $keyword = $request->input('keyword');
-        $attributes = Indicator::where('indicator_name', 'LIKE', '%' . $keyword . '%')->paginate(10);
+        $attributes = Indicator::join('aspects','indicators.aspect_id','=','aspects.id')
+            ->join('domains','aspects.domain_id','=','domains.id')
+            ->select('indicators.*','aspects.aspect_name','domains.domain_name')
+            ->where(function ($query) use ($keyword) {
+            $query->where('indicator_name', 'LIKE', '%' . $keyword . '%')->paginate(10);
+            })
+            ->paginate(10);
 
-        $aspects = Aspect::all();
-        return view('pages.indicator', compact('attributes','aspects'));
-    }
+            $aspects = Aspect::all();
+            return view('pages.indicator', compact('attributes','aspects'));
+        }
 }

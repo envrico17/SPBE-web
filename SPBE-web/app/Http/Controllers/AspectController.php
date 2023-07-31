@@ -103,9 +103,15 @@ class AspectController extends Controller
     public function searchAspect(Request $request)
     {
         $keyword = $request->input('keyword');
-        $attributes = Aspect::where('aspect_name', 'LIKE', '%' . $keyword . '%')->paginate(10);
+
+        $attributes = Aspect::join('domains', 'domains.id', '=', 'aspects.domain_id')
+            ->select('aspects.*', 'domains.domain_name')
+            ->where(function ($query) use ($keyword) {
+                $query->where('aspect_name', 'LIKE', '%' . $keyword . '%'); // Add a semicolon at the end of this line
+            })
+            ->paginate(10);
 
         $domains = Domain::all();
-        return view('pages.aspect', compact('attributes','domains'));
+        return view('pages.aspect', compact('attributes', 'domains'));
     }
 }

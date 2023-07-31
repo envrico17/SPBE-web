@@ -16,7 +16,7 @@
                                         <form action="{{ route('user.search') }}" method="GET">
                                             @csrf
                                             <div class="input-group input-group-outline">
-                                                <label class="form-label text-white">Search</label>
+                                                <label class="form-label text-white">Cari user atau OPD</label>
                                                 <input type="text" class="text-white form-control" name="keyword">
                                             </div>
                                         </form>

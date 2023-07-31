@@ -141,16 +141,13 @@ class DocumentController extends Controller
     {
         $keyword = $request->input('keyword');
 
-        // Search indicators by indicator_name
-        // $indicatorIds = Indicator::where('indicator_name', 'LIKE', '%' . $keyword . '%')->pluck('id');
-
         // Get all documents that are related to the matching indicators
         $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
             ->join('aspects','indicators.aspect_id','=','aspects.id')
             ->join('domains','aspects.domain_id','=','domains.id')
             ->join('opds','documents.opd_id','=','opds.id')
-            // ->join('users','users.opd_id','=','opds.id')
-            ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username')
+            ->join('users','users.opd_id','=','opds.id')
+            ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username', 'opds.opd_name')
             ->where(function ($query) use ($keyword) {
                 $query->where('indicators.indicator_name', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('documents.doc_name', 'LIKE', '%' . $keyword . '%');

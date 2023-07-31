@@ -16,7 +16,7 @@
                                         <form action="{{ route('opd.search') }}" method="GET">
                                             @csrf
                                             <div class="input-group input-group-outline">
-                                                <label class="form-label text-white">Search</label>
+                                                <label class="form-label text-white">Cari OPD</label>
                                                 <input type="text" class="text-white form-control" name="keyword">
                                             </div>
                                         </form>

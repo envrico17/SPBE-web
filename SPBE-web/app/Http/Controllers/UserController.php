@@ -101,7 +101,7 @@ class UserController extends Controller
     public function searchUser(Request $request)
     {
         $keyword = $request->input('keyword');
-        $attributes = User::join('opds','opds.user_id','=','users.id')
+        $attributes = User::join('opds','opds.id','=','users.opd_id')
             ->select('users.*','opds.opd_name')
             ->where(function ($query) use ($keyword) {
                 $query->where('users.name', 'LIKE', '%' . $keyword . '%')
