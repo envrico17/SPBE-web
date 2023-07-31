@@ -22,6 +22,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'user_type' => 'user',
+            'opd_id' => Opd::factory(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => 'secret', // password

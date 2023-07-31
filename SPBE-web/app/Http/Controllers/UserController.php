@@ -14,9 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $attributes = User::join('opds','opds.user_id','=','users.id')
-            ->select('users.*','opds.opd_name')
-            ->orderBy('updated_at','desc')
+        $attributes = User::join('opds','opds.id','=','users.opd_id')
+            ->select('users.*','opds.opd_name','opds.id as id_opd')
+            // ->orderBy('updated_at','asc')
             ->paginate(10);
             $users = User::all();
             $opds = Opd::all();
@@ -38,15 +38,16 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'opd_id' => 'required',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|min:8|max:255|confirmed',
-            'nip' => 'nullable|min:16',
+            'nip' => 'required|min:16',
             'pangkat' => 'nullable',
             'phone' => 'nullable',
-
         ]);
+        $input = $request->collect()->forget('password_confirmation');
+        $user = User::create($input->all());
 
-        $user = User::create($request->all());
         return redirect()->route('user')
             ->with('success','User berhasil dibuat');
     }

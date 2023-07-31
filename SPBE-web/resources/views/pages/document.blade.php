@@ -207,10 +207,10 @@
                                                     <label for="upd">Nama OPD</label>
                                                     </div>
                                                 <div>
-                                                    <select id="opd" name="user_id"
+                                                    <select id="opd" name="opd_id"
                                                     class="form-control border border-2 p-2">
                                                         @foreach ($opds as $opd)
-                                                        <option value="{{$opd->user_id}}">{{$opd->opd_name}}</option>
+                                                        <option value="{{$opd->id}}">{{$opd->opd_name}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

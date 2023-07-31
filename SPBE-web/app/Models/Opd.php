@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Opd extends Model
 {
@@ -13,16 +14,15 @@ class Opd extends Model
     protected $fillable = [
         'opd_name',
         'opd_alias',
-        'user_id'
    ];
 
    /**
-    * Get the user that owns the Opd
+    * Get all of the users for the Opd
     *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
     */
-   public function user(): BelongsTo
+   public function users(): HasMany
    {
-       return $this->belongsTo(User::class);
+       return $this->hasMany(User::class);
    }
 }

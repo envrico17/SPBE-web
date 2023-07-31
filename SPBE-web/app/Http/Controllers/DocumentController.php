@@ -23,8 +23,8 @@ class DocumentController extends Controller
         $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
                 ->join('aspects','indicators.aspect_id','=','aspects.id')
                 ->join('domains','aspects.domain_id','=','domains.id')
-                ->join('users','documents.user_id','=','users.id')
-                ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','users.name as username')
+                ->join('opds','documents.opd_id','=','opds.id')
+                ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','opds.opd_name as opd_name')
                 ->orderBy('updated_at','desc');
         $opds = Opd::all();
         $domains = Domain::all();
@@ -57,7 +57,7 @@ class DocumentController extends Controller
     {
         $request->validate([
             'doc_name'=>'required',
-            'user_id'=>'required',
+            'opd_id'=>'required',
             'indicator_id'=>'required',
             'file'=>'nullable|file'
         ]);
@@ -65,7 +65,7 @@ class DocumentController extends Controller
         $document = new Document();
         $document->doc_name = $request->input('doc_name');
         $document->indicator_id = $request->input('indicator_id');
-        $document->user_id = $request->input('user_id');
+        $document->opd_id = $request->input('opd_id');
 
         if ($request->hasFile('file')) {
             Storage::makeDirectory(public_path('uploads'));
@@ -150,7 +150,7 @@ class DocumentController extends Controller
         $attributes = Document::join('indicators', 'documents.indicator_id', '=', 'indicators.id')
             ->join('aspects', 'indicators.aspect_id', '=', 'aspects.id')
             ->join('domains', 'aspects.domain_id', '=', 'domains.id')
-            ->join('users', 'documents.user_id', '=', 'users.id')
+            ->join('users', 'users.opd_id', '=', 'opds.id')
             ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username')
             ->where(function ($query) use ($keyword) {
                 $query->where('indicators.indicator_name', 'LIKE', '%' . $keyword . '%')

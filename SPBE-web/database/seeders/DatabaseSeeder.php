@@ -20,28 +20,60 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->hasOpd(1, [
-            'opd_name' => 'Kominfo Admin',
-            'opd_alias' => 'Admin'
-        ])
-        ->create([
-            'name' => 'Bu Rista',
-            'user_type' => 'admin',
-            'email' => 'admin@material.com',
-            'pangkat' => 'Gol IV/B',
-            'password' => ('secret'),
+        $kominfo = Opd::factory()->create([
+            'opd_name' => 'Dinas Komunikasi dan Informatika',
+            'opd_alias' => 'Diskominfo'
         ]);
 
-        User::factory()->hasOpd(1, [
-            'opd_name' => 'Kominfo Supervisor',
-            'opd_alias' => 'Supervisor'
-        ])
+        User::factory()->for($kominfo)
+            ->create([
+                'name' => 'Bu Rista',
+                'user_type' => 'admin',
+                'email' => 'admin@material.com',
+                'pangkat' => 'Gol IV/B',
+                'password' => ('secret')
+        ]);
+
+        User::factory()->for($kominfo)
         ->create([
-            'name' => 'Pak Nugroho',
-            'user_type' => 'supervisor',
-            'email' => 'supervisor@material.com',
-            'pangkat' => 'Gol IV/B',
+                'name' => 'Pak Nugroho',
+                'user_type' => 'supervisor',
+                'email' => 'supervisor@material.com',
+                'pangkat' => 'Gol IV/B',
+                'password' => ('secret'),
+        ]);
+
+        Opd::factory()->hasUsers(1, [
+            'name' => 'Alvian Rahmadani Saputra',
+            'user_type' => 'user',
+            'email' => 'alvian123@gmail.com',
+            'pangkat' => 'Gol III/A',
             'password' => ('secret'),
+        ])->create([
+            'opd_name' => 'Dinas Kesehatan',
+            'opd_alias' => 'Dinkes'
+        ]);
+
+        Opd::factory()->hasUsers(1,[
+            'name' => 'Fahmi Zulkarnain Habib',
+            'user_type' => 'user',
+            'email' => 'fahmi123@gmail.com',
+            'pangkat' => 'Gol IV/A',
+            'password' => ('secret'),
+        ])->create([
+            'opd_name' => 'Badan Pendapatan Daerah',
+            'opd_alias' => 'Bapenda'
+        ]);
+
+        Opd::factory()->hasUsers(1,[
+            'name' => 'Enrico Sakti Dwi Yohanna',
+            'user_type' => 'user',
+            'email' => 'enrico123@gmail.com',
+            'pangkat' => 'Sersan Mayor',
+            'password' => ('secret'),
+        ])->create([
+            'opd_name' => 'Dinas Kependudukan',
+            'opd_alias' => 'Dispenduk'
         ]);
 
         $domain = Domain::factory()->create([
@@ -53,22 +85,6 @@ class DatabaseSeeder extends Seeder
         ->create([
             'aspect_name' => 'Kebijakan Internal terkait Tata Kelola SPBE'
         ]);
-
-        // Aspect::factory()->count(8)->state(new Sequence(
-        //     fn (Sequence $sequence) => ['domain_id' => Domain::all()->random()]
-        // ))->create();
-
-        // Aspect::factory()->count(5)->forDomain([
-        //     'domain_name' => 'Kebijakan SPBE',
-        // ])
-        // ->create();
-
-        // Aspect::factory()->forDomain([
-        //     'domain_name' => 'Kebijakan SPBE',
-        // ])
-        // ->create([
-        //     'aspect_name' => 'Kebijakan Internal terkait Tata Kelola SPBE'
-        // ]);
 
         Indicator::factory()->count(10)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Arsitektur SPBE Instansi Pusat/Pemerintah Daerah'],
@@ -83,41 +99,5 @@ class DatabaseSeeder extends Seeder
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Tim Koordinasi SPBE Instansi Pusat/Pemerintah Daerah'],
         )->for($aspect)
         ->create();
-
-        User::factory()->hasOpd(1, [
-            'opd_name' => 'Dinas Kesehatan',
-            'opd_alias' => 'Dinkes'
-        ])
-        ->create([
-            'name' => 'Alvian Rahmadani Saputra',
-            'user_type' => 'user',
-            'email' => 'alvian123@gmail.com',
-            'pangkat' => 'Gol III/A',
-            'password' => ('secret'),
-        ]);
-
-        User::factory()->hasOpd(1, [
-            'opd_name' => 'Badan Pendapatan Daerah',
-            'opd_alias' => 'Bapenda'
-        ])
-        ->create([
-            'name' => 'Fahmi Zulkarnain Habib',
-            'user_type' => 'user',
-            'email' => 'fahmi123@gmail.com',
-            'pangkat' => 'Gol IV/A',
-            'password' => ('secret'),
-        ]);
-
-        User::factory()->hasOpd(1, [
-            'opd_name' => 'Dinas Kependudukan',
-            'opd_alias' => 'Dispenduk'
-        ])
-        ->create([
-            'name' => 'Enrico Sakti Dwi Yohanna',
-            'user_type' => 'user',
-            'email' => 'enrico123@gmail.com',
-            'pangkat' => 'Sersan Mayor',
-            'password' => ('secret'),
-        ]);
     }
 }

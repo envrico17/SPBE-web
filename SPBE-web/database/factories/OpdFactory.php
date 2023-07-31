@@ -21,7 +21,6 @@ class OpdFactory extends Factory
         return [
             'opd_name' => fake()->sentence(2),
             'opd_alias' => fake()->words(1, true),
-            'user_id' => User::factory()
         ];
     }
 }

@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('opd_id');
             $table->unsignedBigInteger('indicator_id');
             $table->string('doc_name');
             $table->string('upload_path')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')
-                ->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('opd_id')
+                ->references('id')->on('opds')->onDelete('cascade');
             $table->foreign('indicator_id')
                 ->references('id')->on('indicators')->onDelete('cascade');
         });

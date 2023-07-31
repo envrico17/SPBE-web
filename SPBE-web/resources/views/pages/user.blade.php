@@ -154,15 +154,6 @@
                                                                                     id="phoneUpdate" name="phone"
                                                                                     value="{{ $attribute->phone }}">
                                                                             </div>
-                                                                            <div class="form-group mt-2">
-                                                                                <label class="fs-6 pt-4"
-                                                                                    for="opdUpdate">Masukan OPD
-                                                                                    Baru</label>
-                                                                                <input type="text"
-                                                                                    class="form-control border border-2 p-2"
-                                                                                    id="opdUpdate" name="opd"
-                                                                                    value="{{ $attribute->opd_name }}">
-                                                                            </div>
                                                                         </div>
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -265,6 +256,9 @@
                                                 <div class="invalid-feedback">
                                                     Nama User Tidak Boleh Kosong
                                                 </div>
+                                                @error('user-name')
+                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                @enderror
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for="user-email">Email</label>
@@ -273,23 +267,32 @@
                                                 <div class="invalid-feedback">
                                                     Format Email Tidak Benar
                                                 </div>
+                                                @error('user-email')
+                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                @enderror
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="user-passwprd">Password</label>
-                                                <input type="password" class="form-control border border-2 p-2" id="user-password" name="password" required>
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control border border-2 p-2" id="password" name="password" required>
                                                 <div class="invalid-feedback">
                                                     Password Tidak Boleh Kosong
                                                 </div>
+                                                @error('password')
+                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                @enderror
                                             </div>
                                             <div class="form-group mt-2">
-                                                <label for="user-confirm-password">Konfirmasi Password</label>
-                                                <input type="password" class="form-control border border-2 p-2" id="user-confirm-password" name="confirm-password" required>
+                                                <label for="password_confirmation">Konfirmasi Password</label>
+                                                <input type="password" class="form-control border border-2 p-2" id="password_confirmation" name="password_confirmation" required>
                                                 <div class="invalid-feedback">
                                                     Password Tidak Boleh Kosong
                                                 </div>
                                                 <div id="password-error-message" class="invalid-feedback">
                                                     Password Tidak Sesuai
                                                 </div>
+                                                @error('password_confirmation')
+                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                @enderror
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for="nip">NIP</label>
@@ -298,6 +301,9 @@
                                                 <div class="invalid-feedback">
                                                     NIP harus terdiri dari 16 angka
                                                 </div>
+                                                @error('nip')
+                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                @enderror
                                             </div>
                                             <div class="form-group mt-2">
                                                 <label for="pangkat">Pangkat/Gol</label>
@@ -311,17 +317,20 @@
                                                 <div class="invalid-feedback">
                                                     Format NO.Hp tidak sesuai
                                                 </div>
+                                                @error('phone')
+                                                <p class='text-danger inputerror'>{{ $message }} </p>
+                                                @enderror
                                             </div>
                                             <div class="form-group mt-2">
                                                 <div>
                                                     <label for="opd">OPD</label>
                                                 </div>
                                                 <div>
-                                                    <select id="opd" name="opd"
+                                                    <select id="opd" name="opd_id"
                                                         class="form-control border border-2 p-2">
-                                                        @forelse ($attributes as $attribute)
-                                                            <option value="{{ $attribute->id }}">
-                                                                {{ $attribute->opd_name }}</option>
+                                                        @forelse ($opds as $opd)
+                                                            <option value="{{ $opd->id }}">
+                                                                {{ $opd->opd_name }}</option>
                                                         @empty
                                                             <div class='alert alert-danger'>
                                                                 Tidak ada data
