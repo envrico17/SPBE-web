@@ -112,19 +112,20 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                         <div class="container">
-                                                                            <div class="row">
-                                                                                <div class="col-sm-3 text-start fw-bold">Domain :</div>
-                                                                                <div class="col-sm-9">{{ $attribute->domain_name }}</div>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-sm-3 text-start fw-bold">Domain</div>
+                                                                                {{-- <div class="col-sm-auto fw-bold">:</div> --}}
+                                                                                <div class="col-sm-8">{{ $attribute->domain_name }}</div>
                                                                             </div>
-                                                                            <hr size="3">
-                                                                            <div class="row">
-                                                                                <div class="col-sm-3 text-start fw-bold">Aspek :</div>
-                                                                                <div class="col-sm-9">{{ $attribute->aspect_name }}</div>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-sm-3 text-start fw-bold">Aspek</div>
+                                                                                {{-- <div class="col-sm-auto fw-bold">:</div> --}}
+                                                                                <div class="col-sm-8">{{ $attribute->aspect_name }}</div>
                                                                             </div>
-                                                                            <hr size="3">
-                                                                            <div class="row">
-                                                                                <div class="col-sm-3 text-start fw-bold">Indikator :</div>
-                                                                                <div class="col-sm-9">{{ $attribute->indicator_name }}</div>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-sm-3 text-start fw-bold">Indikator</div>
+                                                                                {{-- <div class="col-sm-auto fw-bold">:</div> --}}
+                                                                                <div class="col-sm-8">{{ $attribute->indicator_name }}</div>
                                                                             </div>
                                                                         </div>
                                                                 </div>
@@ -134,32 +135,37 @@
                                                                         @method('PUT')
                                                                         <div class="container">
                                                                             <div class="row">
-                                                                            <hr size="3">
-                                                                                <div class="col-sm-3 text-start fw-bold">Level :</div>
-                                                                                <div class="col-9">
+                                                                                <div class="col-sm-3 text-start fw-bold">Tingkat Capaian</div>
+                                                                                {{-- <div class="col-sm-auto fw-bold"></div> --}}
+                                                                                <div class="col-sm-8">
                                                                                     <select id="score" name="score"
                                                                                         class="form-control border border-2 p-2">
-                                                                                            <option value="1">1</option>
-                                                                                            <option value="2">2</option>
-                                                                                            <option value="3">3</option>
-                                                                                            <option value="4">4</option>
-                                                                                            <option value="5">5</option>
+                                                                                            <option value=""></option>
+                                                                                            <option value="1">Sangat Kurang</option>
+                                                                                            <option value="2">Kurang</option>
+                                                                                            <option value="3">Cukup</option>
+                                                                                            <option value="4">Baik</option>
+                                                                                            <option value="5">Sangat Baik</option>
                                                                                     </select>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <hr size="3">
                                                                     <div class="modal-body">
                                                                         <div class="container">
                                                                             <div class="row">
-                                                                                <div class="col-sm-3 text-start fw-bold">Penjelasan Indikator :</div>
-                                                                                <div class="col-sm-9">{{ $attribute->description }}</div>
+                                                                                <div class="col-sm-3 text-start fw-bold">Penjelasan Indikator</div>
+                                                                                <div class="col-sm-auto fw-bold">:</div>
+                                                                                <div class="col-sm-5">{{ $attribute->description }}</div>
                                                                             </div>
+                                                                        </div>
                                                                     </div>
-                                                                    <hr size="3">
                                                                     <div class="modal-body">
-                                                                        <ul style="list-style: none; padding-left: 0; display: flex; flex-direction: column;">
+                                                                        <hr>
+                                                                        <div class="container">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-3 text-start fw-bold">Daftar Data Dukung</div>                                                                            </div>
+                                                                        <ul>
                                                                             @foreach ($attribute->documents as $document)
                                                                                 @if (! is_null($document->upload_path))
                                                                                     <li>
@@ -170,12 +176,13 @@
                                                                                 @else
                                                                                     <li>
                                                                                         <span class='text-secondary fw-bold'>
-                                                                                            {{ $document->doc_name }}
+                                                                                            {{ $document->doc_name }} <span style="color:red;">(Belum Upload)</span>
                                                                                         </span>
                                                                                     </li>
                                                                                 @endif
                                                                             @endforeach
                                                                         </ul>
+                                                                        </div>
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="submit" class="btn btn-primary">Submit</button>
