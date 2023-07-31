@@ -24,6 +24,7 @@ class DocumentController extends Controller
                 ->join('aspects','indicators.aspect_id','=','aspects.id')
                 ->join('domains','aspects.domain_id','=','domains.id')
                 ->join('opds','documents.opd_id','=','opds.id')
+                ->join('users','users.opd_id','=','opds.id')
                 ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','opds.opd_name as opd_name')
                 ->orderBy('updated_at','desc');
         $opds = Opd::all();
@@ -37,7 +38,7 @@ class DocumentController extends Controller
             return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
         } else {
             $userId = $user->id;
-            $attributes = $attributes->where('user_id', $userId)->paginate(10);
+            $attributes = $attributes->where('users.id', $userId)->paginate(10);
             return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
         }
     }
@@ -147,10 +148,11 @@ class DocumentController extends Controller
         // $indicatorIds = Indicator::where('indicator_name', 'LIKE', '%' . $keyword . '%')->pluck('id');
 
         // Get all documents that are related to the matching indicators
-        $attributes = Document::join('indicators', 'documents.indicator_id', '=', 'indicators.id')
-            ->join('aspects', 'indicators.aspect_id', '=', 'aspects.id')
-            ->join('domains', 'aspects.domain_id', '=', 'domains.id')
-            ->join('users', 'users.opd_id', '=', 'opds.id')
+        $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
+            ->join('aspects','indicators.aspect_id','=','aspects.id')
+            ->join('domains','aspects.domain_id','=','domains.id')
+            ->join('opds','documents.opd_id','=','opds.id')
+            ->join('users','users.opd_id','=','opds.id')
             ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username')
             ->where(function ($query) use ($keyword) {
                 $query->where('indicators.indicator_name', 'LIKE', '%' . $keyword . '%')
