@@ -58,8 +58,8 @@
                                         </div>
                                         @endif
                                         <div class="input-group input-group-outline mt-3">
-                                            <label class="form-label">Email</label>
-                                            <input type="email" class="form-control" name="email" value="{{ 'admin@material.com' }}">
+                                            <label class="form-label">Email/NIP</label>
+                                            <input type="text" class="form-control" name="username" value="{{ 'admin@material.com' }}">
                                         </div>
                                         @error('email')
                                         <p class='text-danger inputerror'>{{ $message }} </p>
