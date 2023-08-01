@@ -58,7 +58,7 @@ class ScoreController extends Controller
      */
     public function show(Indicator $indicator)
     {
-        //
+        
     }
 
     /**

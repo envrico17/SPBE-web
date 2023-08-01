@@ -14,7 +14,7 @@
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Data Dukung</h6>
                                     <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
                                         <form action="{{route("document.search")}}" method="GET">
-                                         @csrf
+                                        @csrf
                                         <div class="input-group input-group-outline">
                                             <label class="form-label text-white">Cari dokumen atau indikator</label>
                                             <input type="text" class="text-white form-control" name="keyword">
@@ -36,83 +36,52 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-1">
+                                                class="text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7 w-1">
                                                 No</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3">
-                                                Domain</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-4">
-                                                Aspek</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                                                 Indikator</th>
-                                            <th
+                                            {{-- <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
-                                                Data Dukung</th>
+                                                Data Dukung</th> --}}
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
                                                 Tahun</th>
-                                            @if (!Auth::user()->hasRole('user'))
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3">
-                                                OPD</th>
-                                            @endif
-                                            @if (Auth::user()->hasRole('admin'))
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3" colspan="3">
-                                                Action</th>
-                                            @elseif (Auth::user()->hasRole('user'))
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3" colspan="2">
-                                                Action</th>
-                                            @else
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
                                                 Action</th>
-                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                            $uniqueIndicators = [];
+                                        @endphp
                                         @forelse ($attributes as $index =>$attribute)
+                                            @php
+                                            $year = date('Y', strtotime($attribute->updated_at));
+                                            $indicatorName = $attribute->indicator_name;
+                                            @endphp
+                                            @if (!in_array($indicatorName, $uniqueIndicators))
+                                                @php
+                                                    $uniqueIndicators[] = $indicatorName; // Tambahkan nama indikator ke array jika belum ada
+                                                @endphp
                                             <tr>
-                                                <td class="align-middle text-sm">
+                                                <td class="align-middle text-sm text-center">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $index +1 }}</span>
-                                                </td>
-                                                {{-- Domain --}}
-                                                <td class="align-middle text-sm">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
-                                                </td>
-                                                {{-- Aspect --}}
-                                                <td class="align-middle text-sm">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
                                                 </td>
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
-                                                </td>
-                                                {{-- Document --}}
-                                                <td class="align-middle">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->doc_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $indicatorName }}</span>
                                                 </td>
                                                 {{-- Year --}}
                                                 <td class="align-middle text-sm">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
                                                 </td>
-                                                @if (!Auth::user()->hasRole('user'))
-                                                <td class="align-middle">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_name }}</span>
-                                                </td>
-                                                @endif
                                                 {{-- Lihat Dokumen --}}
-                                                <td class="align-middle text-center text-break">
+                                                {{-- <td class="align-middle text-center text-break">
                                                     @if ($attribute->upload_path)
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">
@@ -124,69 +93,16 @@
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">N/A</span>
                                                     @endif
-                                                </td>
-                                                @if (Auth::user()->hasRole('admin'))
+                                                </td> --}}
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal" data-bs-target="#editDataModal{{ $attribute->id }}"
-                                                        data-original-title="Edit user">
-                                                        <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
+                                                    <a href="{{ route('document.upload', $attribute->id) }}" class="btn btn-info font-weight-bold text-xs align-middle my-1">
+                                                        Lihat Dokumen
+                                                        {{-- <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i> --}}
                                                     </a>
-                                                    <!-- Modal Edit Data -->
-                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}" tabindex="-1"
-                                                        aria-labelledby="editModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editModalLabel">Form Edit</h5>
-                                                                    <button type="button"
-                                                                        class="btn-close btn-close-white  "
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form action="{{ route('document.update', ['document' => $attribute->id]) }}" method="POST" enctype="multipart/form-data">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="container">
-                                                                            <div class="form-group mt-2">
-                                                                                <div class="text-info">Nama Dokumen Lama</div>
-                                                                                <div class="text-warning">{{ $attribute->doc_name }}</div>
-                                                                                <label class="fs-6 pt-4" for="doc_name">Masukan Nama Dokumen Baru</label>
-                                                                                <input type="text"
-                                                                                    value="{{ $attribute->doc_name }}"
-                                                                                    class="form-control border border-2 p-2"
-                                                                                    id="doc_name"
-                                                                                    name="doc_name">
-                                                                            </div>
-                                                                            <div class="form-group mt-2">
-                                                                                <label class="fs-6 pt-4" for="fileEdit" >Upload Data Dukung</label>
-                                                                                <input type="file" class="form-control border border-2"
-                                                                                    id="fileEdit" name="file">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <div class="order-1">
-                                                                            <button type="submit" class="btn btn-success">Ubah Data</button>
-                                                                        </form>
-                                                                        </div>
-                                                                        <div class="order-0">
-                                                                        <form action="{{ route('document.destroy', ['document' => $attribute->id]) }}" method="POST">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="btn btn-danger">Hapus Dokumen</button>
-                                                                        </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </td>
                                                 {{-- Delete Button --}}
-                                                <td class="w-10 align-middle text-center">
+                                                {{-- <td class="w-10 align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
@@ -234,53 +150,15 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                @elseif (Auth::user()->hasRole('user'))
+                                                </td> --}}
+                                                {{-- @elseif (Auth::user()->hasRole('user'))
                                                 <td class="align-middle text-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal" data-bs-target="#uploadDataModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
                                                         <i class="bi bi-upload" style="font-size: 1.1rem"></i>
                                                     </a>
-                                                    <!-- Modal Edit Data -->
-                                                    <div class="modal fade" id="uploadDataModal{{ $attribute->id }}" tabindex="-1"
-                                                        aria-labelledby="editModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editModalLabel">Form Upload</h5>
-                                                                    <button type="button"
-                                                                        class="btn-close btn-close-white  "
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form action="{{ route('document.update', ['document' => $attribute->id]) }}" method="POST" enctype="multipart/form-data">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="container">
-                                                                            <div class="form-group mt-2">
-                                                                                <div class="text-info">Nama Dokumen</div>
-                                                                                <div class="text-warning">{{ $attribute->doc_name }}</div>
-                                                                            </div>
-                                                                            <div class="form-group mt-2">
-                                                                                <label class="fs-6 pt-1" for="fileEdit" >Upload Data Dukung</label>
-                                                                                <input type="file" class="form-control border border-2"
-                                                                                    id="fileEdit" name="file">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <div class="order-1">
-                                                                            <button type="submit" class="btn btn-success">Upload Data</button>
-                                                                        </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                </td> --}}
                                                 @endif
                                                 @empty
                                                     </tbody>
@@ -358,6 +236,45 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- <!-- Modal Edit Data -->
+                    <div class="modal fade" id="uploadDataModal{{ $attribute->id }}" tabindex="-1"
+                        aria-labelledby="editModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Form Upload</h5>
+                                    <button type="button"
+                                        class="btn-close btn-close-white  "
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{ route('document.update', ['document' => $attribute->id]) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="container">
+                                            <div class="form-group mt-2">
+                                                <div class="text-info">Nama Dokumen</div>
+                                                <div class="text-warning">{{ $attribute->doc_name }}</div>
+                                            </div>
+                                            <div class="form-group mt-2">
+                                                <label class="fs-6 pt-1" for="fileEdit" >Upload Data Dukung</label>
+                                                <input type="file" class="form-control border border-2"
+                                                    id="fileEdit" name="file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="order-1">
+                                            <button type="submit" class="btn btn-success">Upload Data</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div> --}}
 
                     {{-- <div class="row">
                     <div class="col-12">

@@ -142,6 +142,8 @@ Route::middleware(['auth','role:user'])->group(function () {
 Route::middleware(['auth'])->group(function(){
     Route::get('document', [DocumentController::class, 'index'])
     ->name('document');
+    Route::get('document-upload/{indicator}', [DocumentController::class, 'show'])
+    ->name('document.upload');
     Route::get('/document/search', [DocumentController::class, 'searchDocument'])
     ->name('document.search');
 

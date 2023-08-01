@@ -21,13 +21,13 @@ class Document extends Model
    ];
 
    /**
-    * Get the user that owns the Document
+    * Get the opd that owns the Document
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-   public function user(): BelongsTo
+   public function opd(): BelongsTo
    {
-       return $this->belongsTo(User::class);
+       return $this->belongsTo(Opd::class);
    }
 
    /**

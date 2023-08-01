@@ -76,15 +76,53 @@ class DatabaseSeeder extends Seeder
             'opd_alias' => 'Dispenduk'
         ]);
 
-        $domain = Domain::factory()->create([
+        $domain_one = Domain::factory()->create([
             'domain_name' => 'Kebijakan SPBE'
         ]);
+        $domain_two = Domain::factory()->create([
+            'domain_name' => 'Tata Kelola SPBE'
+        ]);
+        $domain_three = Domain::factory()->create([
+            'domain_name' => 'Manajemen SPBE'
+        ]);
+        $domain_four = Domain::factory()->create([
+            'domain_name' => 'Layanan SPBE'
+        ]);
 
-        $aspect = Aspect::factory()
-        ->for($domain)
+
+        $aspect_one = Aspect::factory()->for($domain_one)
         ->create([
             'aspect_name' => 'Kebijakan Internal terkait Tata Kelola SPBE'
         ]);
+        $aspect_two = Aspect::factory()->for($domain_two)
+        ->create([
+            'aspect_name' => 'Perencanaan Strategis SPBE'
+        ]);
+        $aspect_three = Aspect::factory()->for($domain_two)
+        ->create([
+            'aspect_name' => 'Teknologi Informasi dan Komunikasi'
+        ]);
+        $aspect_four = Aspect::factory()->for($domain_two)
+        ->create([
+            'aspect_name' => 'Penyelenggara SPBE'
+        ]);
+        $aspect_five = Aspect::factory()->for($domain_three)
+        ->create([
+            'aspect_name' => 'Penerapan Manajemen SPBE'
+        ]);
+        $aspect_six = Aspect::factory()->for($domain_three)
+        ->create([
+            'aspect_name' => 'Audit TIK'
+        ]);
+        $aspect_seven = Aspect::factory()->for($domain_four)
+        ->create([
+            'aspect_name' => 'Layanan Administrasi Pemerintahan Berbasis Elektronik'
+        ]);
+        $aspect_eight = Aspect::factory()->for($domain_four)
+        ->create([
+            'aspect_name' => 'Layanan Publik Berbasis Elektronik'
+        ]);
+
 
         Indicator::factory()->count(10)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Arsitektur SPBE Instansi Pusat/Pemerintah Daerah'],
@@ -97,7 +135,64 @@ class DatabaseSeeder extends Seeder
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Manajemen Keamanan Informasi'],
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Audit TIK'],
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Tim Koordinasi SPBE Instansi Pusat/Pemerintah Daerah'],
-        )->for($aspect)
-        ->create();
+        )->for($aspect_one)->create();
+
+        Indicator::factory()->count(5)->sequence(
+            ['indicator_name' => 'Tingkat Kematangan Arsitektur SPBE Instansi Pusat/Pemerintah Daerah'],
+            ['indicator_name' => 'Tingkat Kematangan Arsitektur SPBE Instansi Pusat/Pemerintah Daerah'],
+            ['indicator_name' => 'Tingkat Kematangan Rencana dan Anggaran SPBE'],
+            ['indicator_name' => 'Tingkat Kematangan Inovasi Proses Bisnis SPBE'],
+            ['indicator_name' => 'Tingkat Kematangan Pembangunan Aplikasi SPBE'],
+        )->for($aspect_two)->create();
+
+        Indicator::factory()->count(3)->sequence(
+            ['indicator_name' => 'Tingkat Kematangan Layanan Pusat Data'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Jaringan Intra Instansi Pusat/Pemerintah Daerah'],
+            ['indicator_name' => 'Tingkat Kematangan Penggunaan Sistem Penghubung Layanan Instansi Pusat/Pemerintah Daerah'],
+        )->for($aspect_three)->create();
+
+        Indicator::factory()->count(2)->sequence(
+            ['indicator_name' => 'Tingkat Kematangan Tim Koordinasi SPBE Instansi Pusat/Pemerintah Daerah'],
+            ['indicator_name' => 'Tingkat Kematangan Kolaborasi Penerapan SPBE'],
+        )->for($aspect_four)->create();
+
+        Indicator::factory()->count(8)->sequence(
+            ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Risiko SPBE'],
+            ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Keamanan Informasi'],
+            ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Data'],
+            ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Aset TIK'],
+            ['indicator_name' => 'Tingkat Kematangan Penerapan Kompetensi Sumber Daya Manusia'],
+            ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Pengetahuan'],
+            ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Perubahan'],
+            ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Layanan SPBE'],
+        )->for($aspect_five)->create();
+
+        Indicator::factory()->count(3)->sequence(
+            ['indicator_name' => 'Tingkat Kematangan Pelaksanaan Audit Infrastruktur SPBE'],
+            ['indicator_name' => 'Tingkat Kematangan Pelaksanaan Audit Aplikasi SPBE'],
+            ['indicator_name' => 'Tingkat Kematangan Pelaksanaan Audit Keamanan SPBE'],
+        )->for($aspect_six)->create();
+
+        Indicator::factory()->count(10)->sequence(
+            ['indicator_name' => 'Tingkat Kematangan Layanan Perencanaan'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Penganggaran'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Keuangan'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Pengadaan Barang dan Jasa'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Kepegawaian'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Kearsipan Dinamis'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Pengelolaan Barang Milik Negara / Daerah'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Pengawasan Internal Pemerintah'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Akuntabilitas Kinerja Organisasi'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Kinerja Pegawai'],
+        )->for($aspect_seven)->create();
+
+        Indicator::factory()->count(6)->sequence(
+            ['indicator_name' => 'Tingkat Kematangan Layanan Pengaduan Pelayanan Publik'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Data Terbuka'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Jaringan Dokumentasi dan Informasi Hukum (JDIH)'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Publik Sektor 1 (SIAPEL)'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Publik Sektor 2 (JKN-CEKAT)'],
+            ['indicator_name' => 'Tingkat Kematangan Layanan Publik Sektor 3 (E-BPHTB)'],
+        )->for($aspect_eight)->create();
     }
 }

@@ -20,13 +20,15 @@ class DocumentController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
+        $attributes = Indicator::leftJoin('documents','documents.indicator_id','=','indicators.id')
                 ->join('aspects','indicators.aspect_id','=','aspects.id')
                 ->join('domains','aspects.domain_id','=','domains.id')
-                ->join('opds','documents.opd_id','=','opds.id')
-                // ->join('users','users.opd_id','=','opds.id')
-                ->select('documents.*','domains.domain_name','aspects.aspect_name','indicators.indicator_name','opds.opd_name as opd_name')
-                ->orderBy('updated_at','desc');
+                ->leftJoin('opds','documents.opd_id','=','opds.id')
+                ->select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name');
+                foreach ($attributes as $attribute){
+                    $attribute->documents = $attribute->documents()->get();
+                }
+
         $opds = Opd::all();
         $domains = Domain::all();
         $aspects = Aspect::all();
@@ -77,16 +79,40 @@ class DocumentController extends Controller
         }
 
         $document->save();
-        return redirect()->route('document')
-            ->with('success', 'Dokumen berhasil diupload');
+
+        return back()->with('success', 'Dokumen berhasil diupload');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Document $document)
+    public function show(Indicator $indicator)
     {
-        return view('pages.tables',compact('document'));
+        $user = Auth::user();
+        $attributes = Indicator::leftJoin('documents','documents.indicator_id','=','indicators.id')
+                ->join('aspects','indicators.aspect_id','=','aspects.id')
+                ->join('domains','aspects.domain_id','=','domains.id')
+                ->leftJoin('opds','documents.opd_id','=','opds.id')
+                ->select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name');
+        $opds = Opd::all();
+        $domains = Domain::all();
+        $aspects = Aspect::all();
+
+        $aspect = $indicator->aspect;
+        $domain = $aspect->domain;
+        $documents = $indicator->documents;
+        foreach ($documents as $document){
+            $document->opd = $document->opd()->first();
+        }
+
+        if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
+            $attributes = $attributes->get();
+            return view('pages.documents.show', compact('attributes','opds','domain','aspect','indicator','documents'));
+        } else {
+            $userOpdId = $user->opd_id;
+            $attributes = $attributes->where('opds.id', $userOpdId)->get();
+            return view('pages.documents.show', compact('attributes','opds','domain','aspect','indicator','documents'));
+        }
     }
 
     /**
@@ -120,8 +146,7 @@ class DocumentController extends Controller
 
         $document->save();
 
-        return redirect()->route('document')
-            ->with('success', 'Dokumen berhasil diupload');
+        return back()->with('success', 'Dokumen berhasil diupload');
     }
 
     /**
