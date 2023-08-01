@@ -121,6 +121,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     // SCORE CRUD ROUTES
     Route::get('score', [ScoreController::class, 'index'])
     ->name('score');
+    Route::get('score/{year}', [ScoreController::class, 'indexDetail'])
+    ->name('score.show');
     Route::put('score/{indicator}', [ScoreController::class, 'update'])
     ->name('score.update');
 
