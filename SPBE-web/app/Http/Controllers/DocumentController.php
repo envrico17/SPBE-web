@@ -20,14 +20,13 @@ class DocumentController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        $attributes = Indicator::leftJoin('documents','documents.indicator_id','=','indicators.id')
-                ->join('aspects','indicators.aspect_id','=','aspects.id')
-                ->join('domains','aspects.domain_id','=','domains.id')
-                ->leftJoin('opds','documents.opd_id','=','opds.id')
-                ->select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name');
-                foreach ($attributes as $attribute){
-                    $attribute->documents = $attribute->documents()->get();
-                }
+        // $attributes = Indicator::
+        //         // ->leftJoin('opds','documents.opd_id','=','opds.id')
+        //         select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name');
+        //         foreach ($attributes as $attribute){
+        //             $attribute->documents = $attribute->documents()->get();
+        //         }
+        // $attributes = Indicator::all();
 
         $opds = Opd::all();
         $domains = Domain::all();
@@ -36,11 +35,11 @@ class DocumentController extends Controller
         $indicators = Indicator::all();
 
         if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
-            $attributes = $attributes->paginate(10);
+            $attributes = Indicator::paginate(10);
             return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
         } else {
             $userOpdId = $user->opd_id;
-            $attributes = $attributes->where('opds.id', $userOpdId)->paginate(10);
+            $attributes = $indicators->where('opds.id', $userOpdId)->paginate(10);
             return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
         }
     }
@@ -100,19 +99,24 @@ class DocumentController extends Controller
 
         $aspect = $indicator->aspect;
         $domain = $aspect->domain;
-        $documents = $indicator->documents;
+        $allDocuments = $indicator->documents;
+
+        if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
+            $attributes = $attributes->get();
+            $documents = $allDocuments;
+        } else {
+            $userOpdId = $user->opd_id;
+            $attributes = $attributes->where('opds.id', $userOpdId)->get();
+            $documents = $allDocuments->filter(function ($document) use ($user) {
+                return $document->opd_id === $user->opd_id;
+            });
+        }
+
         foreach ($documents as $document){
             $document->opd = $document->opd()->first();
         }
 
-        if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
-            $attributes = $attributes->get();
-            return view('pages.documents.show', compact('attributes','opds','domain','aspect','indicator','documents'));
-        } else {
-            $userOpdId = $user->opd_id;
-            $attributes = $attributes->where('opds.id', $userOpdId)->get();
-            return view('pages.documents.show', compact('attributes','opds','domain','aspect','indicator','documents'));
-        }
+        return view('pages.documents.show', compact('attributes', 'opds', 'domain', 'aspect', 'indicator', 'documents'));
     }
 
     /**
@@ -158,8 +162,8 @@ class DocumentController extends Controller
             Storage::disk('public')->delete($document->upload_path);
         }
         $document->delete();
-        return redirect()->route('document')
-            ->with('success', 'Dokumen berhasil dihapus');
+        return back()->with('success', 'Dokumen berhasil dihapus');
+
     }
 
     public function searchDocument(Request $request)

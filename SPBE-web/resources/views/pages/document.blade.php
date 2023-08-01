@@ -13,19 +13,19 @@
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Data Dukung</h6>
                                     <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
-                                        <form action="{{route("document.search")}}" method="GET">
-                                        @csrf
-                                        <div class="input-group input-group-outline">
-                                            <label class="form-label text-white">Cari dokumen atau indikator</label>
-                                            <input type="text" class="text-white form-control" name="keyword">
-                                        </div>
+                                        <form action="{{ route('document.search') }}" method="GET">
+                                            @csrf
+                                            <div class="input-group input-group-outline">
+                                                <label class="form-label text-white">Cari dokumen atau indikator</label>
+                                                <input type="text" class="text-white form-control" name="keyword">
+                                            </div>
                                         </form>
                                     </div>
                                     @if (Auth::user()->hasRole('admin'))
-                                    <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
-                                        data-bs-toggle="modal" data-bs-target="#inputDataDukungModal">
-                                        Tambah Data Dukung
-                                    </button>
+                                        <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
+                                            data-bs-toggle="modal" data-bs-target="#inputDataDukungModal">
+                                            Tambah Data Dukung
+                                        </button>
                                     @endif
                                 </div>
                             </div>
@@ -53,27 +53,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $uniqueIndicators = [];
-                                        @endphp
                                         @forelse ($attributes as $index =>$attribute)
-                                            @php
-                                            $year = date('Y', strtotime($attribute->updated_at));
-                                            $indicatorName = $attribute->indicator_name;
-                                            @endphp
-                                            @if (!in_array($indicatorName, $uniqueIndicators))
-                                                @php
-                                                    $uniqueIndicators[] = $indicatorName; // Tambahkan nama indikator ke array jika belum ada
-                                                @endphp
                                             <tr>
                                                 <td class="align-middle text-sm text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $index +1 }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
                                                 </td>
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $indicatorName }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
                                                 </td>
                                                 {{-- Year --}}
                                                 <td class="align-middle text-sm">
@@ -96,7 +85,8 @@
                                                 </td> --}}
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a href="{{ route('document.upload', $attribute->id) }}" class="btn btn-info font-weight-bold text-xs align-middle my-1">
+                                                    <a href="{{ route('document.upload', $attribute->id) }}"
+                                                        class="btn btn-info font-weight-bold text-xs align-middle my-1">
                                                         Lihat Dokumen
                                                         {{-- <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i> --}}
                                                     </a>
@@ -159,85 +149,87 @@
                                                         <i class="bi bi-upload" style="font-size: 1.1rem"></i>
                                                     </a>
                                                 </td> --}}
-                                                @endif
-                                                @empty
-                                                    </tbody>
-                                                    </table>
-                                                    <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
-                                                        Tidak ada data
-                                                    </div>
-                                                @endforelse
-                                            </tr>
+                                        @empty
                                         </tbody>
                                     </table>
-                            </div>
-                            <div class="container mt-3">
-                                {{ $attributes->onEachSide(2)->links() }}
+                                    <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
+                                        Tidak ada data
+                                    </div>
+                                    @endforelse
+                                    </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+                                <div class="container mt-3">
+                                    {{ $attributes->onEachSide(2)->links() }}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Modal Tambah Data Dukung -->
-                    <div class="modal fade" id="inputDataDukungModal" tabindex="-1"
-                        aria-labelledby="inputModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="inputModalLabel">Form Input Data Dukung</h5>
-                                    <button type="button" class="btn-close btn-close-white  "
-                                        data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ route('document.store') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                        <div class="container">
-                                            <div class="form-group mt-2">
-                                                <div>
-                                                    <label for="indikator">Nama Indikator</label>
-                                                </div>
-                                                <div>
-                                                    <select id="indikator" name="indicator_id"
-                                                        class="form-control border border-2 p-2">
-                                                        @foreach ($indicators as $indicator)
-                                                        <option value="{{$indicator->id}}">{{$indicator->indicator_name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <div>
-                                                    <label for="upd">Nama OPD</label>
+                        <!-- Modal Tambah Data Dukung -->
+                        <div class="modal fade" id="inputDataDukungModal" tabindex="-1" aria-labelledby="inputModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-xl">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="inputModalLabel">Form Input Data Dukung</h5>
+                                        <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('document.store') }}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="container">
+                                                <div class="form-group mt-2">
+                                                    <div>
+                                                        <label for="indikator">Nama Indikator</label>
                                                     </div>
-                                                <div>
-                                                    <select id="opd" name="opd_id"
-                                                    class="form-control border border-2 p-2">
-                                                        @foreach ($opds as $opd)
-                                                        <option value="{{$opd->id}}">{{$opd->opd_name}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <div>
+                                                        <select id="indikator" name="indicator_id"
+                                                            class="form-control border border-2 p-2">
+                                                            @foreach ($indicators as $indicator)
+                                                                <option value="{{ $indicator->id }}">
+                                                                    {{ $indicator->indicator_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <div>
+                                                        <label for="upd">Nama OPD</label>
+                                                    </div>
+                                                    <div>
+                                                        <select id="opd" name="opd_id"
+                                                            class="form-control border border-2 p-2">
+                                                            @foreach ($opds as $opd)
+                                                                <option value="{{ $opd->id }}">{{ $opd->opd_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <label for="data-dukung">Nama Dokumen</label>
+                                                    <input type="text" class="form-control border border-2 p-2"
+                                                        id="data-dukung" name="doc_name">
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <label for="fileUpload">Upload Data Dukung</label>
+                                                    <input type="file" class="form-control border border-2"
+                                                        id="fileUpload" name="file">
                                                 </div>
                                             </div>
-                                            <div class="form-group mt-2">
-                                                <label for="data-dukung">Nama Dokumen</label>
-                                                <input type="text" class="form-control border border-2 p-2"
-                                                    id="data-dukung" name="doc_name">
-                                            </div>
-                                            <div class="form-group mt-2">
-                                                <label for="fileUpload">Upload Data Dukung</label>
-                                                <input type="file" class="form-control border border-2"
-                                                    id="fileUpload" name="file">
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary">Tambah Data</button>
                                     </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {{-- <!-- Modal Edit Data -->
+                        {{-- <!-- Modal Edit Data -->
                     <div class="modal fade" id="uploadDataModal{{ $attribute->id }}" tabindex="-1"
                         aria-labelledby="editModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -276,7 +268,7 @@
                         </div>
                     </div> --}}
 
-                    {{-- <div class="row">
+                        {{-- <div class="row">
                     <div class="col-12">
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -544,20 +536,20 @@
                     </div>
                 </div>
                 <x-footers.auth></x-footers.auth> --}}
-                </div>
-    </main>
-    <x-plugins></x-plugins>
-    @push('js')
-        <script>
-            //message with toastr
-            @if (session()->has('success'))
+                    </div>
+        </main>
+        <x-plugins></x-plugins>
+        @push('js')
+            <script>
+                //message with toastr
+                @if (session()->has('success'))
 
-                toastr.success('{{ session('success') }}', 'BERHASIL!');
-            @elseif (session()->has('error'))
+                    toastr.success('{{ session('success') }}', 'BERHASIL!');
+                @elseif (session()->has('error'))
 
-                toastr.error('{{ session('error') }}', 'GAGAL!');
-            @endif
-        </script>
-    @endpush
+                    toastr.error('{{ session('error') }}', 'GAGAL!');
+                @endif
+            </script>
+        @endpush
 
-</x-layout>
+    </x-layout>

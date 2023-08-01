@@ -69,7 +69,8 @@
                                                         <div class="container-sm">
                                                             <div class="row align-items-center">
                                                                 <div class="col-md-auto">
-                                                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    <span data-bs-toggle="tooltip"
+                                                                        data-bs-placement="top"
                                                                         title="Edit Data Dukung">
                                                                         <a href="javascript:;"
                                                                             class="link-info font-weight-bold text-xs mx-2"
@@ -78,15 +79,16 @@
                                                                             <i class="bi bi-pencil-square fs-3"></i>
                                                                         </a>
                                                                     </span>
-                                                                </div>
-                                                                <div class="col-sm-auto">
-                                                                    <a class="link-info" href="{{ $document->file_path_url }}"
-                                                                        target="_blank">
+                                                                    <a class="link-info"
+                                                                        href="{{ $document->file_path_url }} "
+                                                                        data-bs-toggle="tooltip" data-bs-placement="right"
+                                                                        title="Lihat Data Dukung" target="_blank">
                                                                         {{-- @php
                                                                             dump($document);
                                                                             dd($document->opd);
                                                                         @endphp --}}
-                                                                        {{$document->opd->opd_name}} - {{ $document->doc_name }}
+                                                                        {{ $document->opd->opd_name }} -
+                                                                        {{ $document->doc_name }}
                                                                     </a>
                                                                 </div>
                                                             </div>
@@ -97,19 +99,20 @@
                                                         <div class="container-sm">
                                                             <div class="row align-items-center">
                                                                 <div class="col-md-auto">
-                                                                    <span data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                    <span data-bs-toggle="tooltip"
+                                                                        data-bs-placement="top"
                                                                         title="Tambah Data Dukung">
                                                                         <a href="javascript:;"
                                                                             class="link-info font-weight-bold text-xs mx-2"
                                                                             data-bs-toggle="modal"
                                                                             data-bs-target="#uploadDataModal{{ $document->id }}">
-                                                                            <i class="bi bi-file-earmark-arrow-up fs-3"></i>
+                                                                            <i
+                                                                                class="bi bi-file-earmark-arrow-up fs-3"></i>
                                                                         </a>
                                                                     </span>
-                                                                </div>
-                                                                <div class="col-sm-auto">
                                                                     <span class='text-secondary'>
-                                                                        {{$document->opd->opd_name}} - {{ $document->doc_name }} <span class="fw-bold"
+                                                                        {{ $document->opd->opd_name }} -
+                                                                        {{ $document->doc_name }} <span class="fw-bold"
                                                                             style="color:red;">(Belum Upload)</span>
                                                                     </span>
                                                                 </div>
@@ -147,7 +150,16 @@
                                                                                     value="{{ $document->doc_name }}">
                                                                             </div>
                                                                         @else
-                                                                            <span>{{ $document->doc_name }}</span>
+                                                                            <div class="form-group mt-2">
+                                                                                <label class="fs-6 pt-1"
+                                                                                    for="dokumenEdit">Nama
+                                                                                    Dokumen</label>
+                                                                                <input type="text"
+                                                                                    class="form-control border border-2 p-2"
+                                                                                    id="dokumenEdit" name="doc_name"
+                                                                                    value="{{ $document->doc_name }}"
+                                                                                    readonly>
+                                                                            </div>
                                                                         @endif
                                                                         <div class="form-group mt-2">
                                                                             <label class="fs-6 pt-1"
