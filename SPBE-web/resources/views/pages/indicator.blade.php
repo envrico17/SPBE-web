@@ -76,13 +76,13 @@
                                                 </td>
                                                 {{-- Details of the Indicator --}}
                                                 <td class="align-middle">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{!! $attribute->description !!}</span>
-                                                    {{-- <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                    {{-- <span
+                                                        class="text-secondary text-xs font-weight-bold">{!! $attribute->description !!}</span> --}}
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
                                                         data-bs-target="#detailModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        {!! $attribute->description !!}
+                                                        Deskripsi
                                                     </a>
                                                     <!-- Modal Detail Indicator -->
                                                     <div class="modal fade" id="detailModal{{ $attribute->id }}"
@@ -91,8 +91,7 @@
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="detailModalLabel">Detail
-                                                                        Indikator</h5>
+                                                                    <h5 class="modal-title" id="detailModalLabel">Deskripsi </h5>
                                                                     <button type="button"
                                                                         class="btn-close btn-close-white  "
                                                                         data-bs-dismiss="modal"
@@ -103,7 +102,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
                                                 </td>
 
                                                 {{-- Edit Indicator --}}

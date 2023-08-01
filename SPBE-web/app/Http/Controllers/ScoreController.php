@@ -28,6 +28,22 @@ class ScoreController extends Controller
         return view('pages.score', compact('attributes', 'aspects'));
     }
 
+    public function indexDetail($year):View
+    {
+        $attributes = Indicator::leftJoin('documents','documents.indicator_id','=','indicators.id')
+            ->join('aspects','indicators.aspect_id','=','aspects.id')
+            ->join('domains','aspects.domain_id','=','domains.id')
+            ->whereYear('indicators.updated_at', $year)
+            ->select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name')
+            ->paginate(10);
+        foreach ($attributes as $attribute){
+            $attribute->documents = $attribute->documents()->get();
+        }
+
+        $aspects = Aspect::all();
+        return view('pages.scores.show', compact('attributes', 'aspects'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
