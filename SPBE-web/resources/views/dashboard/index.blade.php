@@ -15,7 +15,7 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Jumlah Domain</p>
-                                <h4 class="mb-0">4</h4>
+                                <h4 class="mb-0">{{ $uniqueDomains }}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -34,7 +34,7 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Jumlah Aspek</p>
-                                <h4 class="mb-0">8</h4>
+                                <h4 class="mb-0">{{ $uniqueAspects }}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -53,7 +53,7 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Jumlah Indikator</p>
-                                <h4 class="mb-0">46</h4>
+                                <h4 class="mb-0">{{ $uniqueIndicators }}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
@@ -72,7 +72,7 @@
                             </div>
                             <div class="text-end pt-1">
                                 <p class="text-sm mb-0 text-capitalize">Jumlah Data Dukung</p>
-                                <h4 class="mb-0">211</h4>
+                                <h4 class="mb-0">{{ $uniqueDocuments }}</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0">
