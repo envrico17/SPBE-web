@@ -96,7 +96,7 @@
                                                 {{-- Edit OPD --}}
                                                 <td class="w-10">
                                                     <div class="align-middle text-center">
-                                                        <a href="javascript:;"
+                                                        <a href="javascript:;" style="margin-left: 50px;"
                                                             class="link-info font-weight-bold text-xs"
                                                             style="cursor: pointer" data-bs-toggle="modal"
                                                             data-bs-target="#editDataModal{{ $attribute->id }}"
@@ -163,7 +163,7 @@
                                                 </td>
                                                 {{-- Delete Button --}}
                                                 <td class="w-10 align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-right: 50px;"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
                                                         data-original-title="Delete user">

@@ -58,7 +58,7 @@
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-left: 50px;"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#editModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
@@ -113,7 +113,7 @@
                                                 </td>
                                                 {{-- Delete Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-right: 50px;"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
                                                         data-original-title="Delete user">

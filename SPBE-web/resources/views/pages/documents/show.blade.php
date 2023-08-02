@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3 text-start fw-bold">Aspek</div>
-                                    {{-- <div class="col-sm-auto fw-bold">:</div> --}}
+                                    <div class="col-sm-auto fw-bold">:</div>
                                     <div class="col-sm-8">{{ $aspect->aspect_name }}</div>
                                 </div>
                                 <div class="row mb-3">
@@ -38,8 +38,8 @@
                                 </div>
                                 <div class="row mb-3">
                                     <div class="col-sm-3 text-start fw-bold">Penjelasan Indikator</div>
-                                    {{-- <div class="col-sm-auto fw-bold">:</div> --}}
-                                    <div class="col-sm-5">{{ $indicator->description }}</div>
+                                    <div class="col-sm-auto fw-bold">:</div>
+                                    <div class="col-sm-8">{{ $indicator->description }}</div>
                                 </div>
                                 {{-- <hr>
                                 <div class="row mb-3"> --}}
