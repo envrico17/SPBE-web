@@ -66,8 +66,8 @@
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a class="link-info font-weight-bold text-xs"
-                                                        style="cursor: pointer" data-bs-toggle="modal"
+                                                    <a class="link-info font-weight-bold text-xs" style="margin-left: 50px;"
+                                                        data-bs-toggle="modal"
                                                         data-bs-target="#editDataModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
                                                         <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
@@ -122,7 +122,7 @@
                                                 </td>
                                                 {{-- Delete Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-right: 50px;"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
                                                         data-original-title="Delete user">

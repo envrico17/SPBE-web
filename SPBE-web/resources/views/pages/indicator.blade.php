@@ -39,17 +39,8 @@
                                             <th
                                                 class="w-10 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Indikator</th>
-                                            <th
-                                                class="w-7 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Aspek</th>
-                                            <th
-                                                class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Domain</th>
-                                            <th
-                                                class="w-7 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Deskripsi</th>
-                                            <th class="w-4 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                                                colspan="2">
+                                            <th class="w-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                                colspan="3">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -65,25 +56,18 @@
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
                                                 </td>
-                                                {{-- Aspect of the Indicator --}}
-                                                <td class="align-middle text-sm">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect->aspect_name }}</span>
-                                                </td>
-                                                <td class="align-middle text-sm">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect->domain->domain_name }}</span>
-                                                </td>
                                                 {{-- Details of the Indicator --}}
-                                                <td class="align-middle">
+                                                <td class="w-10">
+                                                    <div class="d-flex justify-content-center">
                                                     {{-- <span
                                                         class="text-secondary text-xs font-weight-bold">{!! $attribute->description !!}</span> --}}
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         style="cursor: pointer" data-bs-toggle="modal"
                                                         data-bs-target="#detailModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        Deskripsi
+                                                        <i class="bi bi-bookmarks" style="font-size: 1.1rem"></i>
                                                     </a>
+                                                    </div>
                                                     <!-- Modal Detail Indicator -->
                                                     <div class="modal fade" id="detailModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="detailModalLabel"
@@ -91,14 +75,35 @@
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="detailModalLabel">Deskripsi </h5>
+                                                                    <h5 class="modal-title" id="detailModalLabel">Penjelasan Indikator</h5>
                                                                     <button type="button"
                                                                         class="btn-close btn-close-white  "
                                                                         data-bs-dismiss="modal"
                                                                         aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    {!! $attribute->description !!}
+                                                                    <div class="card-body px-0 pb-2">
+                                                                        <div class="container">
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-sm-3 text-start fw-bold">Domain</div>
+                                                                                <div class="col-sm-auto fw-bold">:</div>
+                                                                                <div class="col-sm-8">{{ $attribute->aspect->domain->domain_name }}</div>
+                                                                            </div>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-sm-3 text-start fw-bold">Aspek</div>
+                                                                                <div class="col-sm-auto fw-bold">:</div>
+                                                                                <div class="col-sm-8">{{ $attribute->aspect->aspect_name }}</div>
+                                                                            </div>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-sm-3 text-start fw-bold">Indikator</div>
+                                                                                <div class="col-sm-auto fw-bold">:</div>
+                                                                                <div class="col-sm-8">{{ $attribute->indicator_name }}</div>
+                                                                            </div>
+                                                                            <div class="row mb-3">
+                                                                                <div class="col-sm-3 text-start fw-bold">Penjelasan Indikator</div>
+                                                                                <div class="col-sm-auto fw-bold">:</div>
+                                                                                <div class="col-sm-8">{!! $attribute->description !!}</div>
+                                                                            </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -106,15 +111,14 @@
                                                 </td>
 
                                                 {{-- Edit Indicator --}}
-                                                <td class="">
-                                                    <div class="align-middle text-center">
-                                                        <a href="javascript:;"
-                                                            class="link-info font-weight-bold text-xs"
-                                                            style="cursor: pointer" data-bs-toggle="modal"
-                                                            data-bs-target="#editDataModal{{ $attribute->id }}"
-                                                            data-original-title="Edit user">
-                                                            <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
-                                                        </a>
+                                                <td class="align-middle text-center">
+                                                    <div class="d-flex justify-content-center">
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#editDataModal{{ $attribute->id }}"
+                                                        data-original-title="Edit user">
+                                                        <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
+                                                    </a>
                                                     </div>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editDataModal{{ $attribute->id }}"
@@ -175,12 +179,14 @@
                                                 </td>
                                                 {{-- Delete Button --}}
                                                 <td class="align-middle text-center">
+                                                    <div class="d-flex justify-content-center">
                                                     <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal{{ $attribute->id }}"
                                                         data-original-title="Delete user">
                                                         <i class="bi bi-trash" style="font-size: 1.1rem"></i>
                                                     </a>
+                                                    </div>
                                                     <!-- Modal Delete Data -->
                                                     <div class="modal fade" id="deleteModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="deleteModalLabel"
