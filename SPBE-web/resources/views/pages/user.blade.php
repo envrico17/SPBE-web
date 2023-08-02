@@ -94,7 +94,7 @@
                                                 {{-- Nama OPD --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->opd->opd_name }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="w-10">

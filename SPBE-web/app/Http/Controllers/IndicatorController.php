@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aspect;
 use App\Models\Indicator;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -16,10 +17,7 @@ class IndicatorController extends Controller
      */
     public function index():View
     {
-        $attributes = Indicator::join('aspects','indicators.aspect_id','=','aspects.id')
-            ->join('domains','aspects.domain_id','=','domains.id')
-            ->select('indicators.*','aspects.aspect_name','domains.domain_name')
-            ->paginate(10);
+        $attributes = Indicator::paginate(10);
         $aspects = Aspect::all();
         return view('pages.indicator', compact('attributes', 'aspects'));
     }
@@ -37,21 +35,32 @@ class IndicatorController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'indicator_name' => 'required',
-            'aspect_id' => 'required',
-            'description' => 'required'
-        ]);
+        try {
+            $request->validate([
+                'indicator_name' => 'required',
+                'aspect_id' => 'required',
+                'description' => 'required'
+            ]);
 
-        // Simpan data ke database
-        Indicator::create([
-            'indicator_name' => $request->input('indicator_name'),
-            'aspect_id' => $request->input('aspect_id'),
-            'description' => $request->input('description'),
-        ]);
+            // Simpan data ke database
+            Indicator::create([
+                'indicator_name' => $request->input('indicator_name'),
+                'aspect_id' => $request->input('aspect_id'),
+                'description' => $request->input('description'),
+            ]);
 
-        return redirect()->route('indicator')
-            ->with('success','Indikator berhasil dibuat');
+            return redirect()->route('indicator')
+                ->with('success','Indikator berhasil dibuat');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal membuat indikator. Silahkan coba lagi.');
+        }
     }
 
     /**
@@ -75,18 +84,29 @@ class IndicatorController extends Controller
      */
     public function update(Request $request, Indicator $indicator): RedirectResponse
     {
-        $request->validate([
-            'indicator_name' => 'required'
-        ]);
+        try {
+            $request->validate([
+                'indicator_name' => 'required'
+            ]);
 
-        // Update data di database
-        $indicator->update([
-            'indicator_name' => $request->input('indicator_name'),
-            'description' => $request->input('description'),
-        ]);
+            // Update data di database
+            $indicator->update([
+                'indicator_name' => $request->input('indicator_name'),
+                'description' => $request->input('description'),
+            ]);
 
-        return redirect()->route('indicator')
-            ->with('success','Indikator berhasil diubah');
+            return redirect()->route('indicator')
+                ->with('success','Indikator berhasil diubah');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal update indikator. Silahkan coba lagi.');
+        }
     }
 
     /**
@@ -94,9 +114,20 @@ class IndicatorController extends Controller
      */
     public function destroy(Indicator $indicator): RedirectResponse
     {
-        $indicator->delete();
-        return redirect()->route('indicator')
-            ->with('success','Indikator berhasil dihapus');
+        try {
+            $indicator->delete();
+            return redirect()->route('indicator')
+                ->with('success','Indikator berhasil dihapus');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal menghapus indikator. Silahkan coba lagi.');
+        }
     }
 
     public function searchIndicator(Request $request)

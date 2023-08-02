@@ -7,6 +7,7 @@ use App\Models\Domain;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class AspectController extends Controller
@@ -16,10 +17,7 @@ class AspectController extends Controller
      */
     public function index():View
     {
-        $attributes = Aspect::join('domains','domains.id','=','aspects.domain_id')
-            // ->select('aspects.id as aspect_id','aspect_name','domains.id as domain_id','domain_name','timestamp')
-            ->select('aspects.*','domains.domain_name')
-            ->paginate(10);
+        $attributes = Aspect::paginate(10);
         $domains = Domain::all();
         return view('pages.aspect', compact('attributes','domains'));
     }
@@ -82,12 +80,23 @@ class AspectController extends Controller
      */
     public function update(Request $request, Aspect $aspect): RedirectResponse
     {
-        $request->validate([
-            'aspect_name' => 'required'
-        ]);
-        $aspect->update($request->all());
-        return redirect()->route('aspect')
-            ->with('success','Aspek berhasil dibuat');
+        try {
+            $request->validate([
+                'aspect_name' => 'required'
+            ]);
+            $aspect->update($request->all());
+            return redirect()->route('aspect')
+                ->with('success','Aspek berhasil dibuat');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal update aspek. Silahkan coba lagi.');
+        }
     }
 
     /**
@@ -95,9 +104,20 @@ class AspectController extends Controller
      */
     public function destroy(Aspect $aspect): RedirectResponse
     {
-        $aspect->delete();
-        return redirect()->route('aspect')
-            ->with('success','Aspek berhasil dihapus');
+        try {
+            $aspect->delete();
+            return redirect()->route('aspect')
+                ->with('success','Aspek berhasil dihapus');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal menghapus aspek. Silahkan coba lagi.');
+        }
     }
 
     public function searchAspect(Request $request)

@@ -68,11 +68,11 @@
                                                 {{-- Aspect of the Indicator --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect->aspect_name }}</span>
                                                 </td>
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->aspect->domain->domain_name }}</span>
                                                 </td>
                                                 {{-- Details of the Indicator --}}
                                                 <td class="align-middle">

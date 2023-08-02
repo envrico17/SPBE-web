@@ -62,7 +62,7 @@
                                                 {{-- Domain of the Aspect --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->domain->domain_name }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">

@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -20,13 +21,6 @@ class DocumentController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-        // $attributes = Indicator::
-        //         // ->leftJoin('opds','documents.opd_id','=','opds.id')
-        //         select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name');
-        //         foreach ($attributes as $attribute){
-        //             $attribute->documents = $attribute->documents()->get();
-        //         }
-        // $attributes = Indicator::all();
 
         $opds = Opd::all();
         $domains = Domain::all();
@@ -39,7 +33,7 @@ class DocumentController extends Controller
             return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
         } else {
             $userOpdId = $user->opd_id;
-            $attributes = $indicators->where('opds.id', $userOpdId)->paginate(10);
+            $attributes = Indicator::with('documents')->paginate(10);
             return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
         }
     }
@@ -57,29 +51,40 @@ class DocumentController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'doc_name'=>'required',
-            'opd_id'=>'required',
-            'indicator_id'=>'required',
-            'file'=>'nullable|file'
-        ]);
+        try{
+            $request->validate([
+                'doc_name'=>'required',
+                'opd_id'=>'required',
+                'indicator_id'=>'required',
+                'file'=>'nullable|file'
+            ]);
 
-        $document = new Document();
-        $document->doc_name = $request->input('doc_name');
-        $document->indicator_id = $request->input('indicator_id');
-        $document->opd_id = $request->input('opd_id');
+            $document = new Document();
+            $document->doc_name = $request->input('doc_name');
+            $document->indicator_id = $request->input('indicator_id');
+            $document->opd_id = $request->input('opd_id');
 
-        if ($request->hasFile('file')) {
-            Storage::makeDirectory(public_path('uploads'));
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $filename, 'public');
-            $document->upload_path = $path;
+            if ($request->hasFile('file')) {
+                Storage::makeDirectory(public_path('uploads'));
+                $file = $request->file('file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('uploads', $filename, 'public');
+                $document->upload_path = $path;
+            }
+
+            $document->save();
+
+            return back()->with('success', 'Entri Dokumen berhasil ditambah');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal menambah entri dokumen. Silahkan coba lagi.');
         }
-
-        $document->save();
-
-        return back()->with('success', 'Dokumen berhasil diupload');
     }
 
     /**
@@ -132,25 +137,36 @@ class DocumentController extends Controller
      */
     public function update(Request $request, Document $document): RedirectResponse
     {
-        $request->validate([
-            'file'=>'nullable|file'
-        ]);
+        try {
+            $request->validate([
+                'file'=>'nullable|file'
+            ]);
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $filename, 'public');
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $path = $file->storeAs('uploads', $filename, 'public');
 
-            if ($document->upload_path) {
-                Storage::delete($document->upload_path);
+                if ($document->upload_path) {
+                    Storage::delete($document->upload_path);
+                }
+
+                $document->upload_path = $path;
             }
 
-            $document->upload_path = $path;
+            $document->save();
+
+            return back()->with('success', 'Dokumen berhasil diupload');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal update dokumen. Silahkan coba lagi.');
         }
-
-        $document->save();
-
-        return back()->with('success', 'Dokumen berhasil diupload');
     }
 
     /**
@@ -158,11 +174,22 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document): RedirectResponse
     {
-        if ($document->upload_path) {
-            Storage::disk('public')->delete($document->upload_path);
+        try {
+            if ($document->upload_path) {
+                Storage::disk('public')->delete($document->upload_path);
+            }
+            $document->delete();
+            return back()->with('success', 'Dokumen berhasil dihapus');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal menghapus entri dokumen. Silahkan coba lagi.');
         }
-        $document->delete();
-        return back()->with('success', 'Dokumen berhasil dihapus');
 
     }
 
@@ -171,18 +198,26 @@ class DocumentController extends Controller
         $keyword = $request->input('keyword');
 
         // Get all documents that are related to the matching indicators
-        $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
-            ->join('aspects','indicators.aspect_id','=','aspects.id')
-            ->join('domains','aspects.domain_id','=','domains.id')
-            ->join('opds','documents.opd_id','=','opds.id')
-            ->join('users','users.opd_id','=','opds.id')
-            ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username', 'opds.opd_name')
-            ->where(function ($query) use ($keyword) {
-                $query->where('indicators.indicator_name', 'LIKE', '%' . $keyword . '%')
-                    ->orWhere('documents.doc_name', 'LIKE', '%' . $keyword . '%');
-            })
-            // ->whereIn('documents.indicator_id', $indicatorIds)
-            ->paginate(10);
+        // $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
+        //     ->join('aspects','indicators.aspect_id','=','aspects.id')
+        //     ->join('domains','aspects.domain_id','=','domains.id')
+        //     ->join('opds','documents.opd_id','=','opds.id')
+        //     ->join('users','users.opd_id','=','opds.id')
+        //     ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username', 'opds.opd_name')
+        //     ->where(function ($query) use ($keyword) {
+        //         $query->where('indicators.indicator_name', 'LIKE', '%' . $keyword . '%')
+        //             ->orWhere('documents.doc_name', 'LIKE', '%' . $keyword . '%');
+        //     })
+        //     // ->whereIn('documents.indicator_id', $indicatorIds)
+        //     ->paginate(10);
+
+        //     $keyword = $request->input('keyword');
+
+        $attributes = Indicator::where(function ($query) use ($keyword) {
+            $query->where('indicator_name', 'like', '%' . $keyword . '%')
+                ->orWhere('description', 'like', '%' . $keyword . '%');
+            // Add more columns to search here...
+        })->paginate(10);
 
         $usernames = User::all();
         $opds = Opd::all();

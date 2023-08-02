@@ -87,7 +87,7 @@ class DomainController extends Controller
                 ->withInput();
         } catch (\Exception $e) {
             return redirect()->back()
-                ->with('error', 'Domain gagal diupdate. Silahkan coba lagi.')
+                ->with('error', 'Gagal update domain. Silahkan coba lagi.')
                 ->withInput();
         }
     }

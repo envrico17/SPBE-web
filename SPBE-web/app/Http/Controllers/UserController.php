@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Opd;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -14,13 +15,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $attributes = User::join('opds','opds.id','=','users.opd_id')
-            ->select('users.*','opds.opd_name','opds.id as id_opd')
-            // ->orderBy('updated_at','asc')
-            ->paginate(10);
-            $users = User::all();
-            $opds = Opd::all();
-            return view('pages.user', compact('attributes','opds'));
+        // $attributes = User::join('opds','opds.id','=','users.opd_id')
+        //     ->select('users.*','opds.opd_name','opds.id as id_opd')
+        //     // ->orderBy('updated_at','asc')
+        //     ->paginate(10);
+        //     $users = User::all();
+        $attributes = User::paginate(10);
+        $opds = Opd::all();
+        return view('pages.user', compact('attributes','opds'));
     }
 
     /**
@@ -36,21 +38,32 @@ class UserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'opd_id' => 'required',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:8|max:255|confirmed',
-            'nip' => 'required|min:16',
-            'pangkat' => 'nullable',
-            'phone' => 'nullable',
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'opd_id' => 'required',
+                'email' => 'required|email|max:255|unique:users,email',
+                'password' => 'required|min:8|max:255|confirmed',
+                'nip' => 'required|min:16',
+                'pangkat' => 'nullable',
+                'phone' => 'nullable',
+            ]);
 
-        $input = $request->collect()->forget('password_confirmation');
-        $user = User::create($input->all());
+            $input = $request->collect()->forget('password_confirmation');
+            $user = User::create($input->all());
 
-        return redirect()->route('user')
-            ->with('success','User berhasil dibuat');
+            return redirect()->route('user')
+                ->with('success','User berhasil dibuat');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal membuat user. Silahkan coba lagi.');
+        }
     }
 
     /**
@@ -74,18 +87,29 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            // 'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'nullable|min:8|max:255',
-            'nip' => 'nullable',
-            'pangkat' => 'nullable',
-            'phone' => 'nullable',
-        ]);
-        $input = $request->collect()->forget('password_confirmation');
-        $user->update($input->all());
-        return redirect()->route('user')
-            ->with('success','User berhasil diupdate');
+        try {
+            $request->validate([
+                'name' => 'required|max:255',
+                // 'email' => 'required|email|max:255|unique:users,email',
+                'password' => 'nullable|min:8|max:255',
+                'nip' => 'nullable',
+                'pangkat' => 'nullable',
+                'phone' => 'nullable',
+            ]);
+            $input = $request->collect()->forget('password_confirmation');
+            $user->update($input->all());
+            return redirect()->route('user')
+                ->with('success','User berhasil diupdate');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal update user. Silahkan coba lagi.');
+        }
     }
 
     /**
@@ -93,9 +117,20 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('user')
-            ->with('success','User berhasil dihapus');
+        try {
+            $user->delete();
+            return redirect()->route('user')
+                ->with('success','User berhasil dihapus');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal menghapus user. Silahkan coba lagi.');
+        }
     }
 
     public function searchUser(Request $request)
