@@ -139,6 +139,7 @@ class DocumentController extends Controller
     {
         try {
             $request->validate([
+                'doc_name'=>'required',
                 'file'=>'nullable|file'
             ]);
 
@@ -154,6 +155,7 @@ class DocumentController extends Controller
                 $document->upload_path = $path;
             }
 
+            $document->update($request->all());
             $document->save();
 
             return back()->with('success', 'Dokumen berhasil diupload');

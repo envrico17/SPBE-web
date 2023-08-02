@@ -58,7 +58,7 @@
                                         </div>
                                         @endif
                                         <div class="input-group input-group-outline mt-3">
-                                            <label class="form-label">Email/NIP</label>
+                                            <label class="form-label">Username / NIP</label>
                                             <input type="text" class="form-control" name="username" value="{{ 'admin@material.com' }}">
                                         </div>
                                         @error('email')
@@ -80,7 +80,7 @@
                                             <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign
                                                 in</button>
                                         </div>
-                                        <p class="mt-4 text-sm text-center">
+                                        {{-- <p class="mt-4 text-sm text-center">
                                             Don't have an account?
                                             <a href="{{ route('register') }}"
                                                 class="text-primary text-gradient font-weight-bold">Sign up</a>
@@ -89,7 +89,7 @@
                                             Forgot your password? Reset your password
                                             <a href="{{ route('verify') }}"
                                                 class="text-primary text-gradient font-weight-bold">here</a>
-                                        </p>
+                                        </p> --}}
                                     </form>
                                 </div>
                             </div>
