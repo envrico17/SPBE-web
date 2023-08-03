@@ -55,7 +55,7 @@
                                                 class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 OPD</th>
                                             <th
-                                                class="w-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="w-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -103,7 +103,13 @@
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#editModal{{ $attribute->id }}"
                                                             data-original-title="Edit user">
-                                                            <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
+                                                            <i class="bi bi-pencil-square mx-2" style="font-size: 1.1rem"></i>
+                                                        </a>
+                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                            data-original-title="Delete user">
+                                                            <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
                                                         </a>
                                                     </div>
                                                     <!-- Modal Edit Data -->
@@ -210,15 +216,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                {{-- Delete Button --}}
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                        data-original-title="Delete user">
-                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
-                                                    </a>
                                                     <!-- Modal Delete Data -->
                                                     <div class="modal fade" id="deleteModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="deleteModalLabel"

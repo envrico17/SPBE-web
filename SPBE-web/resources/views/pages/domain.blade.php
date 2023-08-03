@@ -40,7 +40,7 @@
                                                 class="w-10 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Domain</th>
                                             <th
-                                                class="w-2 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="w-2 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -58,11 +58,17 @@
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-left: 50px;"
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#editModal{{ $attribute->id }}"
                                                         data-original-title="Edit user">
-                                                        <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
+                                                        <i class="bi bi-pencil-square mx-2" style="font-size: 1.1rem"></i>
+                                                    </a>
+                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                        data-original-title="Delete user">
+                                                        <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
                                                     </a>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editModal{{ $attribute->id }}"
@@ -110,15 +116,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
-                                                {{-- Delete Button --}}
-                                                <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-right: 50px;"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                        data-original-title="Delete user">
-                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
-                                                    </a>
                                                     <!-- Modal Delete Data -->
                                                     <div class="modal fade" id="deleteModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="deleteModalLabel"
@@ -161,6 +158,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                {{-- Delete Button --}}
                                             </tr>
                                         @empty
                                         </tbody>

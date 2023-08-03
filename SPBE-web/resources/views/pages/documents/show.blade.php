@@ -39,7 +39,7 @@
                                 <div class="row mb-3">
                                     <div class="col-sm-3 text-start fw-bold">Penjelasan Indikator</div>
                                     <div class="col-sm-auto fw-bold">:</div>
-                                    <div class="col-sm-8">{{ $indicator->description }}</div>
+                                    <div class="col-sm-8">{!! $indicator->description !!}</div>
                                 </div>
                                 {{-- <hr>
                                 <div class="row mb-3"> --}}
@@ -239,7 +239,7 @@
                                                 class="w-7 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Dokumen</th>
                                             <th
-                                                class="w-2 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" colspan="2">
+                                                class="w-2 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -268,7 +268,7 @@
                                                         href="{{ $document->file_path_url }} "
                                                         data-bs-toggle="tooltip" data-bs-placement="right"
                                                         title="Lihat Data Dukung" target="_blank">
-                                                        <i class="bi bi-folder-symlink-fill fs-5"></i>
+                                                        <i class="bi bi-folder-symlink-fill fs-5 mx-2"></i>
                                                     </a>
                                                 </span>
                                             @else
@@ -278,9 +278,7 @@
                                                     N/A
                                                 </span>
                                             @endif
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                @if (!is_null($document->upload_path))
+                                            @if (!is_null($document->upload_path))
                                                 <span data-bs-toggle="tooltip"
                                                     data-bs-placement="top"
                                                     title="Edit Data Dukung">
@@ -288,7 +286,7 @@
                                                         class="link-info font-weight-bold text-xs mx-2"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#uploadDataModal{{ $document->id }}">
-                                                        <i class="bi bi-pencil-square fs-5"></i>
+                                                        <i class="bi bi-pencil-square fs-5 mx-2"></i>
                                                     </a>
                                                 </span>
                                                 @else
@@ -299,7 +297,7 @@
                                                         class="link-info font-weight-bold text-xs mx-2"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#uploadDataModal{{ $document->id }}">
-                                                        <i class="bi bi-file-earmark-arrow-up fs-5"></i>
+                                                        <i class="bi bi-file-earmark-arrow-up fs-5 mx-2"></i>
                                                     </a>
                                                 </span>
                                                 @endif

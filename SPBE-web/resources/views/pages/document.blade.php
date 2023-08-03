@@ -13,10 +13,10 @@
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Data Dukung</h6>
                                     <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
-                                        <form action="{{ route('document.search') }}" method="GET">
+                                        <form action="{{ route('document.search') }}" method="GET" class="d-flex">
                                             @csrf
-                                            <div class="input-group input-group-outline">
-                                                <label class="form-label text-white">Cari dokumen atau indikator</label>
+                                            <div class="input-group input-group-outline flex-nowrap">
+                                                <label class="form-label text-white" style="min-width:1000px; font-size:12.5px;">Cari dokumen atau indikator</label>
                                                 <input type="text" class="text-white form-control" name="keyword">
                                             </div>
                                         </form>
