@@ -39,8 +39,8 @@
                                             <th
                                                 class="w-10 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Indikator</th>
-                                            <th class="w-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                                                colspan="3">
+                                            <th
+                                                class="w-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -59,14 +59,34 @@
                                                 {{-- Details of the Indicator --}}
                                                 <td class="w-10">
                                                     <div class="d-flex justify-content-center">
-                                                    {{-- <span
+                                                        {{-- Edit Button --}}
+                                                        {{-- <span
                                                         class="text-secondary text-xs font-weight-bold">{!! $attribute->description !!}</span> --}}
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        style="cursor: pointer" data-bs-toggle="modal"
-                                                        data-bs-target="#detailModal{{ $attribute->id }}"
-                                                        data-original-title="Edit user">
-                                                        <i class="bi bi-bookmarks" style="font-size: 1.1rem"></i>
-                                                    </a>
+                                                        <a href="javascript:;"
+                                                            class="link-info font-weight-bold text-xs"
+                                                            style="cursor: pointer" data-bs-toggle="modal"
+                                                            data-bs-target="#detailModal{{ $attribute->id }}"
+                                                            data-original-title="Detail Indicator">
+                                                            <i class="bi bi-bookmarks mx-2"
+                                                                style="font-size: 1.1rem"></i>
+                                                        </a>
+                                                        {{-- Edit Button --}}
+                                                        <a href="javascript:;"
+                                                            class="link-info font-weight-bold text-xs"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#editDataModal{{ $attribute->id }}"
+                                                            data-original-title="Edit Indicator">
+                                                            <i class="bi bi-pencil-square mx-2"
+                                                                style="font-size: 1.1rem"></i>
+                                                        </a>
+                                                        {{-- Delete Button --}}
+                                                        <a href="javascript:;"
+                                                            class="link-info font-weight-bold text-xs"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                            data-original-title="Delete Indicator">
+                                                            <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
+                                                        </a>
                                                     </div>
                                                     <!-- Modal Detail Indicator -->
                                                     <div class="modal fade" id="detailModal{{ $attribute->id }}"
@@ -75,7 +95,8 @@
                                                         <div class="modal-dialog modal-dialog-centered modal-xl">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="detailModalLabel">Penjelasan Indikator</h5>
+                                                                    <h5 class="modal-title" id="detailModalLabel">
+                                                                        Penjelasan Indikator</h5>
                                                                     <button type="button"
                                                                         class="btn-close btn-close-white  "
                                                                         data-bs-dismiss="modal"
@@ -85,40 +106,93 @@
                                                                     <div class="card-body px-0 pb-2">
                                                                         <div class="container">
                                                                             <div class="row mb-3">
-                                                                                <div class="col-sm-3 text-start fw-bold">Domain</div>
+                                                                                <div
+                                                                                    class="col-sm-3 text-start fw-bold">
+                                                                                    Domain</div>
                                                                                 <div class="col-sm-auto fw-bold">:</div>
-                                                                                <div class="col-sm-8">{{ $attribute->aspect->domain->domain_name }}</div>
+                                                                                <div class="col-sm-8">
+                                                                                    {{ $attribute->aspect->domain->domain_name }}
+                                                                                </div>
                                                                             </div>
                                                                             <div class="row mb-3">
-                                                                                <div class="col-sm-3 text-start fw-bold">Aspek</div>
+                                                                                <div
+                                                                                    class="col-sm-3 text-start fw-bold">
+                                                                                    Aspek</div>
                                                                                 <div class="col-sm-auto fw-bold">:</div>
-                                                                                <div class="col-sm-8">{{ $attribute->aspect->aspect_name }}</div>
+                                                                                <div class="col-sm-8">
+                                                                                    {{ $attribute->aspect->aspect_name }}
+                                                                                </div>
                                                                             </div>
                                                                             <div class="row mb-3">
-                                                                                <div class="col-sm-3 text-start fw-bold">Indikator</div>
+                                                                                <div
+                                                                                    class="col-sm-3 text-start fw-bold">
+                                                                                    Indikator</div>
                                                                                 <div class="col-sm-auto fw-bold">:</div>
-                                                                                <div class="col-sm-8">{{ $attribute->indicator_name }}</div>
+                                                                                <div class="col-sm-8">
+                                                                                    {{ $attribute->indicator_name }}
+                                                                                </div>
                                                                             </div>
                                                                             <div class="row mb-3">
-                                                                                <div class="col-sm-3 text-start fw-bold">Penjelasan Indikator</div>
+                                                                                <div
+                                                                                    class="col-sm-3 text-start fw-bold">
+                                                                                    Penjelasan Indikator</div>
                                                                                 <div class="col-sm-auto fw-bold">:</div>
-                                                                                <div class="col-sm-8">{!! $attribute->description !!}</div>
+                                                                                <div class="col-sm-8">
+                                                                                    {!! $attribute->description !!}</div>
                                                                             </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
-
-                                                {{-- Edit Indicator --}}
-                                                <td class="align-middle text-center">
-                                                    <div class="d-flex justify-content-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#editDataModal{{ $attribute->id }}"
-                                                        data-original-title="Edit user">
-                                                        <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
-                                                    </a>
+                                                    <!-- Modal Delete Data -->
+                                                    <div class="modal fade" id="deleteModal{{ $attribute->id }}"
+                                                        tabindex="-1" aria-labelledby="deleteModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header justify-between">
+                                                                    <h5 class="modal-title" id="deleteModalLabel">
+                                                                        Hapus
+                                                                        Indikator ini?</h5>
+                                                                    <button type="button"
+                                                                        class="btn-close btn-close-white"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="container">
+                                                                        <div class="form-group mt-2">
+                                                                            <div class="text-info">Nama
+                                                                                Indikator
+                                                                            </div>
+                                                                            <div class="text-warning">
+                                                                                {{ $attribute->indicator_name }}
+                                                                            </div>
+                                                                            <div class="text-info">Deskripsi
+                                                                                Indikator
+                                                                            </div>
+                                                                            <div class="text-warning">
+                                                                                {!! $attribute->description !!}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <div class="order-0">
+                                                                        <form
+                                                                            action="{{ route('indicator.destroy', ['indicator' => $attribute->id]) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Hapus
+                                                                                Indikator</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editDataModal{{ $attribute->id }}"
@@ -177,62 +251,6 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                {{-- Delete Button --}}
-                                                <td class="align-middle text-center">
-                                                    <div class="d-flex justify-content-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                        data-original-title="Delete user">
-                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
-                                                    </a>
-                                                    </div>
-                                                    <!-- Modal Delete Data -->
-                                                    <div class="modal fade" id="deleteModal{{ $attribute->id }}"
-                                                        tabindex="-1" aria-labelledby="deleteModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header justify-between">
-                                                                    <h5 class="modal-title" id="deleteModalLabel">
-                                                                        Hapus
-                                                                        Indikator ini?</h5>
-                                                                    <button type="button"
-                                                                        class="btn-close btn-close-white"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="container">
-                                                                        <div class="form-group mt-2">
-                                                                            <div class="text-info">Nama Indikator
-                                                                            </div>
-                                                                            <div class="text-warning">
-                                                                                {{ $attribute->indicator_name }}
-                                                                            </div>
-                                                                            <div class="text-info">Deskripsi Indikator
-                                                                            </div>
-                                                                            <div class="text-warning">{!! $attribute->description !!}</div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <div class="order-0">
-                                                                        <form
-                                                                            action="{{ route('indicator.destroy', ['indicator' => $attribute->id]) }}"
-                                                                            method="POST">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="btn btn-danger">Hapus
-                                                                                Indikator</button>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
                                             </tr>
                             </div>
                         </div>
@@ -240,7 +258,7 @@
                         </tbody>
                         </table>
                         <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
-                        Tidak ada data
+                            Tidak ada data
                         </div>
                         @endforelse
                         </tbody>

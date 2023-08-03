@@ -42,8 +42,7 @@
                                             <th
                                                 class="w-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Alias OPD</th>
-                                            <th class="w-3 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7"
-                                                colspan="2">
+                                            <th class="w-3 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                             {{-- <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -101,10 +100,15 @@
                                                             style="cursor: pointer" data-bs-toggle="modal"
                                                             data-bs-target="#editDataModal{{ $attribute->id }}"
                                                             data-original-title="Edit user">
-                                                            <i class="bi bi-pencil-square" style="font-size: 1.1rem"></i>
+                                                            <i class="bi bi-pencil-square mx-2" style="font-size: 1.1rem"></i>
                                                         </a>
-                                                    </div>
-                                                    <!-- Modal Edit Data -->
+                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-right: 50px;"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                            data-original-title="Delete user">
+                                                            <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
+                                                        </a>
+                                                        <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editDataModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="editModalLabel"
                                                         aria-hidden="true">
@@ -160,15 +164,9 @@
                                                                 </div>
                                                         </div>
                                                     </div>
-                                                </td>
+                                                    </div>
+                                                          </td>
                                                 {{-- Delete Button --}}
-                                                <td class="w-10 align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-right: 50px;"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                        data-original-title="Delete user">
-                                                        <i class="bi bi-trash" style="font-size: 1.1rem"></i>
-                                                    </a>
                                                     <!-- Modal Delete Data -->
                                                     <div class="modal fade" id="deleteModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="deleteModalLabel"
@@ -211,7 +209,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </td>
                                             </tr>
                                         @empty
                                             <div class='alert alert-danger'>
