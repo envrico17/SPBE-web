@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('indicators', function (Blueprint $table) {
+        Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('aspect_id');
-            $table->string('indicator_name');
-            $table->text('description')->nullable();
-            $table->integer('score')->nullable();
+            $table->string('score_name');
+            $table->text('score_description')->nullable();
+            $table->integer('score_date')->nullable();
             $table->timestamps();
-            $table->foreign('aspect_id')
-                ->references('id')->on('aspects')->onDelete('cascade');
         });
     }
 
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('indicators');
+        Schema::dropIfExists('scores');
     }
 };

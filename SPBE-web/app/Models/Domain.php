@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Domain extends Model
@@ -13,6 +14,16 @@ class Domain extends Model
     protected $fillable = [
         'domain_name'
     ];
+
+    /**
+     * Get the score that owns the Domain
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function score(): BelongsTo
+    {
+        return $this->belongsTo(Score::class);
+    }
 
     /**
      * Get all of the aspects for the Domain

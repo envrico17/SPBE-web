@@ -129,7 +129,8 @@
                                                                             </div>
                                                                         </div>
                                                                 </div>
-                                                                <form action="{{ route('score.update', ['indicator' => $attribute->id]) }}" method="POST">
+                                                                <form action="{{ route('score.update', ['score' => $score->id, 'indicator' => $attribute->id]) }}"
+                                                                    method="POST">
                                                                     <div class="modal-body">
                                                                         @csrf
                                                                         @method('PUT')

@@ -1,4 +1,7 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
+    {{-- @php
+        dd($attributes)
+    @endphp --}}
     <x-navbars.sidebar activePage="score"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
@@ -23,51 +26,53 @@
                                             <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Tahun</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Nama Form</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                                 colspan="">
                                                 Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php
-                                            $uniqueYears = [];
-                                        @endphp
-                                            @foreach($attributes as $attribute)
-                                            @php
-                                                    $year = date('Y', strtotime($attribute->updated_at));
-                                            @endphp
-                                                @if (!in_array($year, $uniqueYears))
-                                                @php
-                                                    $uniqueYears[] = $year; // Add the year to the array if it's not already present
-                                                @endphp
-                                            <tr class="data-row" data-year="{{ $year }}">
+                                        @foreach ($attributes as $attribute)
+                                            <tr class="data-row">
                                                 {{-- Year --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $year }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->score_date }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                        {{ $attribute->score_name }}</span>
                                                 </td>
                                                 {{-- Beri Penilaian --}}
-                                                <td class="w-10">
+                                                <td>
                                                     <div class="align-middle text-center">
-                                                        <a href="{{ route('score.show', ['year' => $year]) }}" class="link-info font-weight-bold text-xs"
+                                                        <a href="{{ route('score.show', ['score' => $attribute->id]) }}"
+                                                            class="link-info font-weight-bold text-xs"
                                                             style="cursor: pointer">
                                                             Lihat
+                                                        </a>
+                                                        <a href="{{ route('score.clone', [$attribute->id]) }}"
+                                                            class="mx-3 link-info font-weight-bold text-xs"
+                                                            style="cursor: pointer">
+                                                            Duplikat
                                                         </a>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                        {{-- <div class="container mt-3">
+                            {{-- <div class="container mt-3">
                             {{ $attributes->onEachSide(2)->links() }}
                         </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </main>
     <x-plugins></x-plugins>

@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Indicator;
 use App\Models\Document;
 use App\Models\Aspect;
+use App\Models\Score;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -15,25 +17,52 @@ class ScoreController extends Controller
 {
     public function index():View
     {
-        $attributes = Indicator::leftJoin('documents','documents.indicator_id','=','indicators.id')
-            ->join('aspects','indicators.aspect_id','=','aspects.id')
-            ->join('domains','aspects.domain_id','=','domains.id')
-            ->select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name')
-            ->paginate(10);
-        foreach ($attributes as $attribute){
-            $attribute->documents = $attribute->documents()->get();
-        }
+        // $scores = Score::all();
+        $attributes = Score::with('indicators')->paginate(10);
 
-        $aspects = Aspect::all();
-        return view('pages.score', compact('attributes', 'aspects'));
+        return view('pages.score', compact('attributes'));
     }
 
-    public function indexDetail($year):View
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        try {
+            $request->validate([
+                'score_name' => 'required',
+                'score_description' => 'nullable',
+                'score_date' => 'required'
+            ]);
+
+            // Simpan data ke database
+            $reqForm = Indicator::create([
+                'score_name' => $request->input('score_name'),
+                'score_description' => $request->input('score_description'),
+                'score_date' => $request->input('score_date'),
+            ]);
+
+            return redirect()->route('indicator')
+                ->with('success','Form berhasil dibuat');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal membuat form. Silahkan coba lagi.');
+        }
+    }
+
+    public function indexDetail(Score $score):View
     {
         $attributes = Indicator::leftJoin('documents','documents.indicator_id','=','indicators.id')
+            // ->join('scores','indicators.score_id','=','scores.id')
             ->join('aspects','indicators.aspect_id','=','aspects.id')
             ->join('domains','aspects.domain_id','=','domains.id')
-            ->whereYear('indicators.updated_at', $year)
+            ->whereYear('indicators.updated_at', $score->score_date)
             ->select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name')
             ->paginate(10);
         foreach ($attributes as $attribute){
@@ -41,7 +70,7 @@ class ScoreController extends Controller
         }
 
         $aspects = Aspect::all();
-        return view('pages.scores.show', compact('attributes', 'aspects'));
+        return view('pages.scores.show', compact('attributes', 'aspects', 'score'));
     }
 
     /**
@@ -58,35 +87,57 @@ class ScoreController extends Controller
      */
     public function show(Indicator $indicator)
     {
-        
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Indicator $indicator)
+    public function edit(Score $score)
     {
-        //
+        return view('pages.scores.edit', compact('score'));
+    }
+
+    public function updateForm(Request $request, Score $score): RedirectResponse
+    {
+        $request->validate([
+            'score_name' => 'required',
+            'score_description' => 'nullable',
+        ]);
+
+        $score->update($request->all());
+
+        return redirect()->route('score')
+            ->with('success','Form Score berhasil diubah');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Indicator $indicator): RedirectResponse
+    public function update(Request $request, Score $score, Indicator $indicator): RedirectResponse
     {
-        $request->validate([
-            'score' => 'required'
-        ]);
+        try {
+            $request->validate([
+                'score' => 'required'
+            ]);
 
-        // Update data di database
-        $indicator->update([
-            'score' => $request->input('score'),
-        ]);
+            // Update data di database
+            $indicator->update($request->all());
 
-        // return dd($request, $indicator->score);
+            // return dd($request, $indicator);
 
-        return redirect()->route('score')
-            ->with('success','Score berhasil diubah');
+            return redirect()->back()
+                ->with('success','Score berhasil diubah');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal update aspek. Silahkan coba lagi.');
+        }
     }
 
     /**
@@ -97,5 +148,14 @@ class ScoreController extends Controller
         $indicator->delete();
         return redirect()->route('indicator')
             ->with('success','Indikator berhasil dihapus');
+    }
+
+    public function clone($score_id)
+    {
+        $score = Score::findOrFail($score_id);
+        $new_score = $score->duplicate();
+        $new_score->save();
+
+        return redirect()->route('score.edit', $new_score);
     }
 }

@@ -86,7 +86,7 @@ class IndicatorController extends Controller
     {
         try {
             $request->validate([
-                'indicator_name' => 'required'
+                'indicator_name' => 'nullable'
             ]);
 
             // Update data di database
@@ -94,6 +94,8 @@ class IndicatorController extends Controller
                 'indicator_name' => $request->input('indicator_name'),
                 'description' => $request->input('description'),
             ]);
+
+            return dd($request, $indicator);
 
             return redirect()->route('indicator')
                 ->with('success','Indikator berhasil diubah');
