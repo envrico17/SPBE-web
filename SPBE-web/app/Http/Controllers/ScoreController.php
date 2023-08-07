@@ -58,19 +58,21 @@ class ScoreController extends Controller
 
     public function indexDetail(Score $score):View
     {
-        $attributes = Indicator::leftJoin('documents','documents.indicator_id','=','indicators.id')
-            // ->join('scores','indicators.score_id','=','scores.id')
-            ->join('aspects','indicators.aspect_id','=','aspects.id')
-            ->join('domains','aspects.domain_id','=','domains.id')
-            ->whereYear('indicators.updated_at', $score->score_date)
-            ->select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name')
-            ->paginate(10);
+        // $attributes = Indicator::leftJoin('documents','documents.indicator_id','=','indicators.id')
+        //     ->join('scores','indicators.score_id','=','scores.id')
+        //     ->join('aspects','indicators.aspect_id','=','aspects.id')
+        //     ->join('domains','aspects.domain_id','=','domains.id')
+        //     ->where('scores.score_date', $score->score_date)
+        //     ->select('indicators.*','documents.doc_name','documents.upload_path','documents.upload_path','aspects.aspect_name','domains.domain_name')
+        //     ->paginate(10);
+        $attributes = Indicator::where('score_id', $score->id)->paginate(10);
         foreach ($attributes as $attribute){
             $attribute->documents = $attribute->documents()->get();
+            $attribute->scoreForm = $attribute->score()->first();
         }
 
         $aspects = Aspect::all();
-        return view('pages.scores.show', compact('attributes', 'aspects', 'score'));
+        return view('pages.scores.show', compact('attributes','score'));
     }
 
     /**

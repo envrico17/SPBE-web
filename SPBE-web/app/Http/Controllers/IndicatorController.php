@@ -95,7 +95,7 @@ class IndicatorController extends Controller
                 'description' => $request->input('description'),
             ]);
 
-            return dd($request, $indicator);
+            // return dd($request, $indicator);
 
             return redirect()->route('indicator')
                 ->with('success','Indikator berhasil diubah');

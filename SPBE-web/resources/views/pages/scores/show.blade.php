@@ -1,4 +1,7 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
+    {{-- @php
+        dd($attributes)
+    @endphp --}}
     <x-navbars.sidebar activePage="score"></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
@@ -73,7 +76,7 @@
                                                 {{-- Year --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->scoreForm->score_date }}</span>
                                                 </td>
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-center text-sm">
