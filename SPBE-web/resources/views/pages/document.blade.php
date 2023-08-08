@@ -67,7 +67,7 @@
                                                 {{-- Year --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ date('Y', strtotime($attribute->updated_at)) }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->scoreForm->score_date }}</span>
                                                 </td>
                                                 {{-- Lihat Dokumen --}}
                                                 {{-- <td class="align-middle text-center text-break">

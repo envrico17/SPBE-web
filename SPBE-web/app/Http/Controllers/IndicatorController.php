@@ -18,6 +18,9 @@ class IndicatorController extends Controller
     public function index():View
     {
         $attributes = Indicator::paginate(10);
+        foreach ($attributes as $attribute){
+            $attribute->scoreForm = $attribute->score()->first();
+        }
         $aspects = Aspect::all();
         return view('pages.indicator', compact('attributes', 'aspects'));
     }

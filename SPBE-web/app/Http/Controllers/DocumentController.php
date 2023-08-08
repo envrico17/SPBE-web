@@ -23,18 +23,24 @@ class DocumentController extends Controller
         $user = Auth::user();
 
         $opds = Opd::all();
-        $domains = Domain::all();
-        $aspects = Aspect::all();
-        $documents = Document::all();
+        // $domains = Domain::all();
+        // $aspects = Aspect::all();
+        // $documents = Document::all();
         $indicators = Indicator::all();
 
         if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
             $attributes = Indicator::paginate(10);
-            return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
+            foreach ($attributes as $attribute){
+                $attribute->scoreForm = $attribute->score()->first();
+            }
+            return view('pages.document', compact('attributes','indicators','opds'));
         } else {
             $userOpdId = $user->opd_id;
             $attributes = Indicator::with('documents')->paginate(10);
-            return view('pages.document', compact('attributes','opds','indicators','domains','aspects','documents'));
+            foreach ($attributes as $attribute){
+                $attribute->scoreForm = $attribute->score()->first();
+            }
+            return view('pages.document', compact('attributes','indicators','opds'));
         }
     }
 
