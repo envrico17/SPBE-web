@@ -32,7 +32,8 @@ class ScoreController extends Controller
             $request->validate([
                 'score_name' => 'required',
                 'score_description' => 'nullable',
-                'score_date' => 'required'
+                'score_date' => 'required',
+                'score_date_range' => 'nullable'
             ]);
 
             // Simpan data ke database
@@ -40,6 +41,7 @@ class ScoreController extends Controller
                 'score_name' => $request->input('score_name'),
                 'score_description' => $request->input('score_description'),
                 'score_date' => $request->input('score_date'),
+                'score_date_range' => $request->input('score_date_range')
             ]);
 
             return redirect()->route('indicator')

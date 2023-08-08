@@ -9,31 +9,39 @@
                 <div class="col-12">
                     <div class="card my-4">
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-1">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Edit Score Form</h6>
-                                    <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body px-0 pb-2">
-                            <form method="POST" action="{{ route('score.updateForm', $score->id) }}">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('score.updateForm', $score->id) }}" class="">
                                 @csrf
                                 @method('PUT')
 
-                                <div class="form-group">
-                                    <label for="nameInput">Nama Form</label>
-                                    <input type="text" class="form-control" id="nameInput"
-                                    name="score_name">
+                                <div class="form-group mt-2">
+                                    <label for="indicator_name">Nama Indikator</label>
+                                    <input type="text" class="form-control border border-2 p-2"
+                                        id="indicator_name" name="indicator_name">
                                 </div>
-                                <div class="form-group">
-                                    <label for="descriptionInput">Deskripsi</label>
-                                    <textarea name="score_description" class="form-control" id="descriptionInput"></textarea>
+                                <div class="form-group mt-2">
+                                    <label for="descriptionEdit">Deskripsi</label>
+                                    <textarea id="descriptionEdit"
+                                        style="
+                                                width: 50%;
+                                                height: 150px;
+                                                padding: 12px 20px;
+                                                box-sizing: border-box;
+                                                border: 2px solid #ccc;
+                                                border-radius: 4px;
+                                                background-color: #f8f8f8;
+                                                resize: none;"
+                                        name="description" class="form-control border border-2 p-2"></textarea>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mt-2">
                                     <label for="yearSelect">Tahun</label>
-                                    <select class="form-control" id="yearSelect" name="score_date">
+                                    <select class="form-control border border-2 p-2" id="yearSelect" name="score_date">
                                         <option>2024</option>
                                         <option>2025</option>
                                         <option>2026</option>
@@ -41,7 +49,15 @@
                                         <option>2028</option>
                                     </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                                <div class="form-group mt-2">
+                                    <label for="dateRange">Tanggal Penilaian</label>
+                                    <x-flatpickr range clearable onClose="rangeFormat" class="form-control"
+                                        date-format="d F Y" name="score_date_range" id="score_date_range" />
+                                </div>
+
+
+                                <button type="submit" class="btn btn-primary mt-5">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -100,6 +116,11 @@
                     });
                 }
             });
+        </script>
+        <script>
+            function rangeFormat(selectedDates, dateStr, instance) {
+                instance.element.value = dateStr.replace('to', ':#;');
+            }
         </script>
     @endpush
 

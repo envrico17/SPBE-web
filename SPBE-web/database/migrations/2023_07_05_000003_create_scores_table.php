@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('score_name');
             $table->text('score_description')->nullable();
             $table->integer('score_date')->nullable();
+            $table->string('score_date_range')->nullable();
             $table->timestamps();
         });
     }
