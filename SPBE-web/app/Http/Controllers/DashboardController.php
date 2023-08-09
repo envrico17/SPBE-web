@@ -9,11 +9,22 @@ use App\Models\Indicator;
 use App\Models\Score;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+
+        $score = Score::where('score_date', '2023')->first();
+        $attributes = Indicator::where('score_id', $score->id)->paginate(10);
+        foreach ($attributes as $attribute){
+            $attribute->documents = $attribute->documents()->get();
+            $attribute->scoreForm = $attribute->score()->first();
+        }
+
+        $aspects = Aspect::all();
+
         $uniqueDomains = Domain::distinct('domain_name')->count('domain_name');
 
         $uniqueAspects = Aspect::distinct('aspect_name')->count('aspect_name');
@@ -51,6 +62,7 @@ class DashboardController extends Controller
             'uniqueDocuments',
             'score',
             'data',
+            'attributes'
         ));
     }
 }
