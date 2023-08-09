@@ -14,7 +14,7 @@
                         <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
-                                    <h6 class="text-white text-capitalize ps-3">Penilaian</h6>
+                                    <h6 class="text-white text-capitalize ps-3">{{ $attributes[0]->scoreForm->score_name }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -27,9 +27,6 @@
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-1">
                                                 No
                                             </th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
-                                                Tahun</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-7">
                                                 Nama Indikator</th>
@@ -47,7 +44,7 @@
                                         @endphp
                                         @forelse ($attributes as $attribute)
                                             @php
-                                                $year = date('Y', strtotime($attribute->updated_at));
+                                                $year = $attribute->scoreForm->score_date;
                                                 $indicatorName = $attribute->indicator_name;
                                             @endphp
                                             @if (!in_array($indicatorName, $uniqueIndicators))
@@ -58,11 +55,6 @@
                                                     <td class="align-middle text-center text-sm">
                                                         <span
                                                             class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
-                                                    </td>
-                                                    {{-- Year --}}
-                                                    <td class="align-middle text-center text-sm">
-                                                        <span
-                                                            class="text-secondary text-xs font-weight-bold">{{ $attribute->scoreForm->score_date }}</span>
                                                     </td>
                                                     {{-- Indicator --}}
                                                     <td class="align-middle text-sm">
@@ -82,7 +74,7 @@
                                                                 style="cursor: pointer" data-bs-toggle="modal"
                                                                 data-bs-target="#detailModal{{ $attribute->id }}"
                                                                 data-original-title="Edit user">
-                                                                Beri Penilaian
+                                                                <i class="bi bi-journal-check mx-2" style="font-size: 1.1rem"></i>
                                                             </a>
                                                         </div>
                                                         <!-- Modal Beri Penilaian -->
@@ -174,7 +166,7 @@
                                                                                 class="col-sm-8 align-items-center justify-content-center">
                                                                                 <textarea id="descriptionEdit"
                                                                                 style="
-                                                                                                width: 50%;
+                                                                                                width: 100%;
                                                                                                 height: 150px;
                                                                                                 padding: 12px 20px;
                                                                                                 box-sizing: border-box;
@@ -182,7 +174,7 @@
                                                                                                 border-radius: 4px;
                                                                                                 background-color: #f8f8f8;
                                                                                                 resize: none;"
-                                                                                    name="description" class="form-control border border-2 p-2"></textarea>
+                                                                                    name="score_description" class="form-control border border-2 p-2"></textarea>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

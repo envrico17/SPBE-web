@@ -28,19 +28,21 @@ class DocumentController extends Controller
         // $documents = Document::all();
         $indicators = Indicator::all();
 
+        $uniqueYears = DB::table('scores')->distinct()->pluck('score_date');
+
         if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
             $attributes = Indicator::paginate(10);
             foreach ($attributes as $attribute){
                 $attribute->scoreForm = $attribute->score()->first();
             }
-            return view('pages.document', compact('attributes','indicators','opds'));
+            return view('pages.document', compact('attributes','indicators','opds','uniqueYears'));
         } else {
             $userOpdId = $user->opd_id;
             $attributes = Indicator::with('documents')->paginate(10);
             foreach ($attributes as $attribute){
                 $attribute->scoreForm = $attribute->score()->first();
             }
-            return view('pages.document', compact('attributes','indicators','opds'));
+            return view('pages.document', compact('attributes','indicators','opds','uniqueYears'));
         }
     }
 
@@ -204,37 +206,58 @@ class DocumentController extends Controller
     public function searchDocument(Request $request)
     {
         $keyword = $request->input('keyword');
+        $user = Auth::user();
 
-        // Get all documents that are related to the matching indicators
-        // $attributes = Document::join('indicators','documents.indicator_id','=','indicators.id')
-        //     ->join('aspects','indicators.aspect_id','=','aspects.id')
-        //     ->join('domains','aspects.domain_id','=','domains.id')
-        //     ->join('opds','documents.opd_id','=','opds.id')
-        //     ->join('users','users.opd_id','=','opds.id')
-        //     ->select('documents.*', 'domains.domain_name', 'aspects.aspect_name', 'indicators.indicator_name', 'users.name as username', 'opds.opd_name')
-        //     ->where(function ($query) use ($keyword) {
-        //         $query->where('indicators.indicator_name', 'LIKE', '%' . $keyword . '%')
-        //             ->orWhere('documents.doc_name', 'LIKE', '%' . $keyword . '%');
-        //     })
-        //     // ->whereIn('documents.indicator_id', $indicatorIds)
-        //     ->paginate(10);
-
-        //     $keyword = $request->input('keyword');
-
-        $attributes = Indicator::where(function ($query) use ($keyword) {
-            $query->where('indicator_name', 'like', '%' . $keyword . '%')
-                ->orWhere('description', 'like', '%' . $keyword . '%');
-            // Add more columns to search here...
-        })->paginate(10);
-
-        $usernames = User::all();
         $opds = Opd::all();
-        $domains = Domain::all();
-        $aspects = Aspect::all();
-        $documents = Document::all();
+        // $domains = Domain::all();
+        // $aspects = Aspect::all();
+        // $documents = Document::all();
         $indicators = Indicator::all();
 
-        return view('pages.document', compact('attributes', 'usernames', 'opds', 'indicators', 'domains', 'aspects', 'documents'));
+        $uniqueYears = DB::table('scores')->distinct()->pluck('score_date');
+
+        if(($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
+            $attributes = Indicator::join('scores','scores.id','=','indicators.score_id')
+            ->where(function ($query) use ($keyword) {
+                $query->where('indicator_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('description', 'like', '%' . $keyword . '%')
+                    ->orWhere('score_date', 'like', '%' . $keyword . '%');
+                // Add more columns to search here...
+            })->paginate(10);
+            foreach ($attributes as $attribute){
+                $attribute->scoreForm = $attribute->score()->first();
+            }
+            return view('pages.document', compact('attributes','indicators','opds','uniqueYears'));
+        } else {
+            $userOpdId = $user->opd_id;
+            $attributes = Indicator::where(function ($query) use ($keyword) {
+                $query->where('indicator_name', 'like', '%' . $keyword . '%')
+                    ->orWhere('description', 'like', '%' . $keyword . '%')
+                    ->orWhere('scores.score_date', 'like', '%' . $keyword . '%');
+                // Add more columns to search here...
+            })->paginate(10);
+            foreach ($attributes as $attribute){
+                $attribute->scoreForm = $attribute->score()->first();
+            }
+            return view('pages.document', compact('attributes','indicators','opds','uniqueYears'));
+        }
+
+        // $attributes = Indicator::join('scores','scores.id','=','indicators.score_id')
+        //     ->where(function ($query) use ($keyword) {
+        //     $query->where('indicator_name', 'like', '%' . $keyword . '%')
+        //         ->orWhere('description', 'like', '%' . $keyword . '%')
+        //         ->orWhere('score_date', 'like', '%' . $keyword . '%');
+        //     // Add more columns to search here...
+        // })->paginate(10);
+
+        // $usernames = User::all();
+        // $opds = Opd::all();
+        // $domains = Domain::all();
+        // $aspects = Aspect::all();
+        // $documents = Document::all();
+        // $indicators = Indicator::all();
+
+        // return view('pages.document', compact('attributes', 'usernames', 'opds', 'indicators', 'domains', 'aspects', 'documents'));
     }
 
 }
