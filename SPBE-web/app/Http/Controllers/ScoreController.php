@@ -147,11 +147,22 @@ class ScoreController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Indicator $indicator): RedirectResponse
+        public function destroy(Score $score): RedirectResponse
     {
-        $indicator->delete();
-        return redirect()->route('indicator')
-            ->with('success','Indikator berhasil dihapus');
+        try {
+            $score->delete();
+            return redirect()->route('score')
+                ->with('success','Form berhasil dihapus');
+        } catch (ValidationException $e) {
+            // Handle validation exception (form validation errors)
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        } catch (\Exception $e) {
+            // Handle other exceptions (e.g., database error)
+            return redirect()->back()
+                ->with('error', 'Gagal menghapus indikator. Silahkan coba lagi.');
+        }
     }
 
     public function clone($score_id)
