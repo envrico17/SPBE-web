@@ -21,23 +21,9 @@
                                 @method('PUT')
 
                                 <div class="form-group mt-2">
-                                    <label for="indicator_name">Nama Indikator</label>
+                                    <label for="indicator_name">Nama Form</label>
                                     <input type="text" class="form-control border border-2 p-2"
-                                        id="indicator_name" name="indicator_name">
-                                </div>
-                                <div class="form-group mt-2">
-                                    <label for="descriptionEdit">Deskripsi</label>
-                                    <textarea id="descriptionEdit"
-                                        style="
-                                                width: 50%;
-                                                height: 150px;
-                                                padding: 12px 20px;
-                                                box-sizing: border-box;
-                                                border: 2px solid #ccc;
-                                                border-radius: 4px;
-                                                background-color: #f8f8f8;
-                                                resize: none;"
-                                        name="description" class="form-control border border-2 p-2"></textarea>
+                                        id="score_name" name="score_name">
                                 </div>
                                 <div class="form-group mt-2">
                                     <label for="yearSelect">Tahun</label>

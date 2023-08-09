@@ -63,12 +63,12 @@
                                                         <a href="{{ route('score.show', ['score' => $attribute->id]) }}"
                                                             class="link-info font-weight-bold text-xs"
                                                             style="cursor: pointer">
-                                                            Lihat
+                                                            <i class="bi bi-eye mx-2" style="font-size: 1.1rem"></i>
                                                         </a>
                                                         <a href="{{ route('score.clone', [$attribute->id]) }}"
                                                             class="mx-3 link-info font-weight-bold text-xs"
                                                             style="cursor: pointer">
-                                                            Duplikat
+                                                            <i class="bi bi-plus-square mx-2" style="font-size: 1.1rem"></i>
                                                         </a>
                                                     </div>
                                                 </td>

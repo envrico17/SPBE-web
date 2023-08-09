@@ -12,6 +12,15 @@
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Data Dukung</h6>
+                                    <div class="ms-4 d-flex align-items-center">
+                                        <label for="filter-year" class="me-2" style="color: white; display: inline-block; vertical-align: middle;">Filter Tahun:</label>
+                                        <select id="filter-year" class="form-control text-center" style="background: white;">
+                                            <option value="">Semua Tahun</option>
+                                            @foreach ($uniqueYears as $year)
+                                                <option value="{{ $year }}">{{ $year }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
                                         <form action="{{ route('document.search') }}" method="GET" class="d-flex">
                                             @csrf
@@ -41,9 +50,6 @@
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
                                                 Indikator</th>
-                                            {{-- <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
-                                                Data Dukung</th> --}}
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
                                                 Tahun</th>
@@ -54,7 +60,7 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($attributes as $index =>$attribute)
-                                            <tr>
+                                            <tr class="data-row" data-year="{{ $attribute->scoreForm->score_date }}">
                                                 <td class="align-middle text-sm text-center">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
@@ -550,6 +556,22 @@
                     toastr.error('{{ session('error') }}', 'GAGAL!');
                 @endif
             </script>
-        @endpush
+            <script>
+                const filterYearDropdown = document.getElementById('filter-year');
+                const dataRows = document.querySelectorAll('.data-row');
 
+                filterYearDropdown.addEventListener('change', function() {
+                    const selectedYear = this.value;
+
+                    dataRows.forEach(row => {
+                        const rowYear = row.getAttribute('data-year');
+                        if (!selectedYear || rowYear === selectedYear) {
+                            row.style.display = 'table-row';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
+        @endpush
     </x-layout>

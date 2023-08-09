@@ -17,12 +17,13 @@ class IndicatorController extends Controller
      */
     public function index():View
     {
+        $uniqueYears = DB::table('scores')->distinct()->pluck('score_date');
         $attributes = Indicator::paginate(10);
         foreach ($attributes as $attribute){
             $attribute->scoreForm = $attribute->score()->first();
         }
         $aspects = Aspect::all();
-        return view('pages.indicator', compact('attributes', 'aspects'));
+        return view('pages.indicator', compact('attributes', 'aspects','uniqueYears'));
     }
 
     /**
