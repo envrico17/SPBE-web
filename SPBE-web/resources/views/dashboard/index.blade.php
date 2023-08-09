@@ -1,4 +1,7 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
+    {{-- @php
+        dd($score, $data)
+    @endphp --}}
     <x-navbars.sidebar activePage='dashboard'></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
@@ -133,7 +136,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">4.00</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['indexScore'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row" style="border-bottom: 2px dashed #000000; padding-bottom: 10px; background-color: #c0bdbd;">
@@ -155,7 +158,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">4.00</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['domainOne'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -166,7 +169,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">4.00</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['aspectOne'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row" style="background-color: #c0bdbd;">
@@ -177,7 +180,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">4.40</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['domainTwo'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -188,7 +191,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">3.50</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['aspectTwo'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -199,7 +202,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">5.00</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['aspectThree'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -210,7 +213,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">5.00</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['aspectFour'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row" style="background-color: #c0bdbd;">
@@ -221,7 +224,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">2.09</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['domainThree'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -232,7 +235,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">2.13</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['aspectFive'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -243,7 +246,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">4.46</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['aspectSix'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row" style="background-color: #c0bdbd;">
@@ -254,7 +257,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">4.46</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['domainFour'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -265,7 +268,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">4.10</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['aspectSeven'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -276,7 +279,7 @@
                                             <span class="text-secondary text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-secondary text-xs font-weight-bold">5.00</span>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $data['aspectEight'] }}</span>
                                         </td>
                                     </tr>
                                 </tbody>

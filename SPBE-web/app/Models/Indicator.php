@@ -13,7 +13,7 @@ class Indicator extends Model
     use HasFactory;
 
     protected $fillable = [
-        'aspect_id','indicator_name','score_id','score','description'
+        'aspect_id','domain_id','indicator_name','score_id','score','score_description','description'
    ];
 
    /**
@@ -54,6 +54,16 @@ class Indicator extends Model
     public function score(): BelongsTo
     {
         return $this->belongsTo(Score::class);
+    }
+
+    /**
+     * Get the domain that owns the Indicator
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function domain(): BelongsTo
+    {
+        return $this->belongsTo(Domain::class);
     }
 
    public function getFilePathUrlAttribute()

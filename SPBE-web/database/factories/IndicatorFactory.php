@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Score;
 use App\Models\Aspect;
+use App\Models\Domain;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Indicator>
@@ -23,8 +24,10 @@ class IndicatorFactory extends Factory
             'indicator_name' => fake()->words(2, true),
             'description' => fake()->sentence(4),
             'score' => null,
-            'score_id' => Score::factory(),
+            'score_description' => null,
+            'domain_id' => Domain::factory(),
             'aspect_id' => Aspect::factory(),
+            'score_id' => Score::factory(),
         ];
     }
 }

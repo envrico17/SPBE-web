@@ -142,7 +142,7 @@ class DatabaseSeeder extends Seeder
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Manajemen Keamanan Informasi'],
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Audit TIK'],
             ['indicator_name' => 'Tingkat Kematangan Kebijakan Internal Tim Koordinasi SPBE Instansi Pusat/Pemerintah Daerah'],
-        )->for($aspect_one)->for($form_score_one)->create();
+        )->for($aspect_one)->for($form_score_one)->for($domain_one)->create();
 
         Indicator::factory()->count(5)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Arsitektur SPBE Instansi Pusat/Pemerintah Daerah'],
@@ -150,18 +150,18 @@ class DatabaseSeeder extends Seeder
             ['indicator_name' => 'Tingkat Kematangan Rencana dan Anggaran SPBE'],
             ['indicator_name' => 'Tingkat Kematangan Inovasi Proses Bisnis SPBE'],
             ['indicator_name' => 'Tingkat Kematangan Pembangunan Aplikasi SPBE'],
-        )->for($aspect_two)->for($form_score_one)->create();
+        )->for($aspect_two)->for($form_score_one)->for($domain_two)->create();
 
         Indicator::factory()->count(3)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Layanan Pusat Data'],
             ['indicator_name' => 'Tingkat Kematangan Layanan Jaringan Intra Instansi Pusat/Pemerintah Daerah'],
             ['indicator_name' => 'Tingkat Kematangan Penggunaan Sistem Penghubung Layanan Instansi Pusat/Pemerintah Daerah'],
-        )->for($aspect_three)->for($form_score_one)->create();
+        )->for($aspect_three)->for($form_score_one)->for($domain_two)->create();
 
         Indicator::factory()->count(2)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Tim Koordinasi SPBE Instansi Pusat/Pemerintah Daerah'],
             ['indicator_name' => 'Tingkat Kematangan Kolaborasi Penerapan SPBE'],
-        )->for($aspect_four)->for($form_score_one)->create();
+        )->for($aspect_four)->for($form_score_one)->for($domain_two)->create();
 
         Indicator::factory()->count(8)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Risiko SPBE'],
@@ -172,13 +172,13 @@ class DatabaseSeeder extends Seeder
             ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Pengetahuan'],
             ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Perubahan'],
             ['indicator_name' => 'Tingkat Kematangan Penerapan Manajemen Layanan SPBE'],
-        )->for($aspect_five)->for($form_score_one)->create();
+        )->for($aspect_five)->for($form_score_one)->for($domain_three)->create();
 
         Indicator::factory()->count(3)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Pelaksanaan Audit Infrastruktur SPBE'],
             ['indicator_name' => 'Tingkat Kematangan Pelaksanaan Audit Aplikasi SPBE'],
             ['indicator_name' => 'Tingkat Kematangan Pelaksanaan Audit Keamanan SPBE'],
-        )->for($aspect_six)->for($form_score_one)->create();
+        )->for($aspect_six)->for($form_score_one)->for($domain_three)->create();
 
         Indicator::factory()->count(10)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Layanan Perencanaan'],
@@ -191,7 +191,7 @@ class DatabaseSeeder extends Seeder
             ['indicator_name' => 'Tingkat Kematangan Layanan Pengawasan Internal Pemerintah'],
             ['indicator_name' => 'Tingkat Kematangan Layanan Akuntabilitas Kinerja Organisasi'],
             ['indicator_name' => 'Tingkat Kematangan Layanan Kinerja Pegawai'],
-        )->for($aspect_seven)->for($form_score_one)->create();
+        )->for($aspect_seven)->for($form_score_one)->for($domain_four)->create();
 
         Indicator::factory()->count(6)->sequence(
             ['indicator_name' => 'Tingkat Kematangan Layanan Pengaduan Pelayanan Publik'],
@@ -200,6 +200,6 @@ class DatabaseSeeder extends Seeder
             ['indicator_name' => 'Tingkat Kematangan Layanan Publik Sektor 1 (SIAPEL)'],
             ['indicator_name' => 'Tingkat Kematangan Layanan Publik Sektor 2 (JKN-CEKAT)'],
             ['indicator_name' => 'Tingkat Kematangan Layanan Publik Sektor 3 (E-BPHTB)'],
-        )->for($aspect_eight)->for($form_score_one)->create();
+        )->for($aspect_eight)->for($form_score_one)->for($domain_four)->create();
     }
 }

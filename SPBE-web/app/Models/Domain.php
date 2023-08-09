@@ -34,4 +34,14 @@ class Domain extends Model
     {
         return $this->hasMany(Aspect::class);
     }
+
+    /**
+     * Get all of the indicators for the Domain
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function indicators(): HasMany
+    {
+        return $this->hasMany(Indicators::class);
+    }
 }

@@ -46,10 +46,14 @@ class IndicatorController extends Controller
                 'description' => 'required'
             ]);
 
+            $aspect = Aspect::find($request->input('aspect_id'));
+            $domain_id = $aspect->domain->id;
+
             // Simpan data ke database
             Indicator::create([
                 'indicator_name' => $request->input('indicator_name'),
                 'aspect_id' => $request->input('aspect_id'),
+                'domain_id' => $domain_id,
                 'description' => $request->input('description'),
             ]);
 
