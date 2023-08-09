@@ -24,6 +24,7 @@ class ScoreFactory extends Factory
             'score_name' => fake()->sentence(1),
             'score_description' => fake()->sentence(3),
             'score_date' => fake()->year('+5 years'),
+            'score_date_range' => null,
         ];
     }
 }

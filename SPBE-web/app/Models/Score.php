@@ -13,7 +13,7 @@ class Score extends Model
     use \Bkwld\Cloner\Cloneable;
 
     protected $fillable = [
-        'score_name', 'score_value', 'score_description', 'score_date'
+        'score_name', 'score_value', 'score_description', 'score_date', 'score_date_range'
     ];
 
     protected $cloneable_relations = ['indicators'];

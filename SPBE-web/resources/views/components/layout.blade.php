@@ -41,6 +41,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- Toastr CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    {{-- DatePicker --}}
+    @include('flatpickr::components.style')
     <style>
         td {
             white-space: normal !important;
@@ -51,7 +53,7 @@
             table-layout: fixed;
         }
 
-        .table thead th{
+        .table thead th {
             padding: 0.75rem 0.5rem
         }
     </style>
@@ -78,15 +80,14 @@
 
     {{-- jQuery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    {{-- Select2 plugin --}}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets') }}/js/material-dashboard.min.js?v=3.0.0"></script>
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {{-- DatePicker --}}
+    @include('flatpickr::components.script')
     <script>
         // Toastr options
         toastr.options = {
@@ -98,21 +99,21 @@
 
         // Function to show Toastr alerts for validation errors and success messages
         function showToastrMessages(messages, type) {
-          for (let message of messages) {
-            toastr[type](message);
-          }
+            for (let message of messages) {
+                toastr[type](message);
+            }
         }
 
         // Check for validation errors and display Toastr alerts if any
         @if ($errors->any())
-          showToastrMessages({!! json_encode($errors->all()) !!}, 'error');
+            showToastrMessages({!! json_encode($errors->all()) !!}, 'error');
         @endif
 
         // Check for success message and display Toastr alert if exists
         @if (session('success'))
-          showToastrMessages(['{{ session('success') }}'], 'success');
+            showToastrMessages(['{{ session('success') }}'], 'success');
         @endif
-      </script>
+    </script>
 </body>
 
 </html>

@@ -21,12 +21,18 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-1">
+                                                No</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
                                                 Tahun</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-7">
                                                 Nama Form</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+                                                Tanggal Penilaian</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3"
                                                 colspan="">
                                                 Action</th>
                                         </tr>
@@ -34,6 +40,10 @@
                                     <tbody>
                                         @foreach ($attributes as $attribute)
                                             <tr class="data-row">
+                                                <td class="align-middle text-center text-sm">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
+                                                </td>
                                                 {{-- Year --}}
                                                 <td class="align-middle text-center text-sm">
                                                     <span
@@ -42,6 +52,10 @@
                                                 <td>
                                                     <span class="text-secondary text-xs font-weight-bold">
                                                         {{ $attribute->score_name }}</span>
+                                                </td>
+                                                <td>
+                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                        {{ $attribute->score_date_range }}</span>
                                                 </td>
                                                 {{-- Beri Penilaian --}}
                                                 <td>
