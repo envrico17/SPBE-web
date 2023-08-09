@@ -29,6 +29,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\ScoreController;
 use App\Models\Indicator;
+use App\Models\Score;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
@@ -131,6 +132,8 @@ Route::middleware(['auth','role:admin'])->group(function () {
     ->name('score.updateForm');
     Route::put('score/{score}/update/{indicator}', [ScoreController::class, 'update'])
     ->name('score.update');
+    Route::delete('score/{score}', [ScoreController::class, 'destroy'])
+    ->name('score.destroy');
     // Route::resource('scores', ScoreController::class);
 
     Route::delete('document/{document}', [DocumentController::class, 'destroy'])

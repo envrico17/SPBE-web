@@ -19,11 +19,10 @@
                             <form method="POST" action="{{ route('score.updateForm', $score->id) }}" class="">
                                 @csrf
                                 @method('PUT')
-
                                 <div class="form-group mt-2">
                                     <label for="indicator_name">Nama Form</label>
-                                    <input type="text" class="form-control border border-2 p-2"
-                                        id="score_name" name="score_name">
+                                    <input type="text" class="form-control border border-2 p-2" id="score_name"
+                                        name="score_name">
                                 </div>
                                 <div class="form-group mt-2">
                                     <label for="yearSelect">Tahun</label>
@@ -35,15 +34,19 @@
                                         <option>2028</option>
                                     </select>
                                 </div>
-
                                 <div class="form-group mt-2">
                                     <label for="dateRange">Tanggal Penilaian</label>
                                     <x-flatpickr range clearable onClose="rangeFormat" class="form-control"
                                         date-format="d F Y" name="score_date_range" id="score_date_range" />
                                 </div>
-
-
-                                <button type="submit" class="btn btn-primary mt-5">Submit</button>
+                                <div class="d-flex justify-content-between mt-5">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                            <form action="{{ route('score.destroy', $score->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-secondary">Cancel  </button>
                             </form>
                         </div>
                     </div>
