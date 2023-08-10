@@ -89,9 +89,8 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-sm-6 mb-xl-0 my-3 text-center">
                     <form id="filterForm" action="{{ route('dashboard') }}" method="GET">
-                        @csrf
-                        <select id="filterDropdown" name="option">
-                                <option value=''>Pilih Nama Score Form</option>
+                        <select id="filterDropdown" name="option" class="form-select px-3">
+                                <option selected>Pilih Nama Score Form</option>
                             @foreach ($scores as $score)
                                 <option value={{ $score->id }}>{{ $score->score_name }}</option>
                             @endforeach

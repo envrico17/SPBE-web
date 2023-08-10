@@ -12,30 +12,26 @@
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Data Dukung</h6>
-                                    <div class="ms-4 d-flex align-items-center">
-                                        <label for="filter-year" class="me-2" style="color: white; display: inline-block; vertical-align: middle;">Filter Tahun:</label>
-                                        <select id="filter-year" class="form-control text-center" style="background: white;">
-                                            <option value="">Semua Tahun</option>
-                                            @foreach ($uniqueYears as $year)
-                                                <option value="{{ $year }}">{{ $year }}</option>
-                                            @endforeach
-                                        </select>
+                                    <div class="d-flex px-3">
+                                        <form id="filterForm" action="{{ route('document') }}" method="GET" class="d-flex">
+                                            <select name="option" id="filterDropdown" class="form-select px-4" style="background: white;">
+                                                <option selected>Pilih Tahun</option>
+                                                @foreach ($uniqueScores as $score)
+                                                    <option value="{{ $score->id }}">{{ $score->score_date }}</option>
+                                                @endforeach
+                                            </select>
+                                        </form>
                                     </div>
                                     <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
                                         <form action="{{ route('document.search') }}" method="GET" class="d-flex">
-                                            @csrf
                                             <div class="input-group input-group-outline flex-nowrap">
-                                                <label class="form-label text-white" style="min-width:1000px; font-size:12.5px;">Cari dokumen atau indikator</label>
+                                                <label class="form-label text-white" style="font-size:12.5px;">Cari
+                                                    dokumen atau
+                                                    indikator</label>
                                                 <input type="text" class="text-white form-control" name="keyword">
                                             </div>
                                         </form>
                                     </div>
-                                    @if (Auth::user()->hasRole('admin'))
-                                        <button type="button" class="btn bg-gradient-dark px-3 mb-2 me-3 active"
-                                            data-bs-toggle="modal" data-bs-target="#inputDataDukungModal">
-                                            Tambah Data Dukung
-                                        </button>
-                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -155,87 +151,24 @@
                                                         <i class="bi bi-upload" style="font-size: 1.1rem"></i>
                                                     </a>
                                                 </td> --}}
-                                        @empty
-                                        </tbody>
-                                    </table>
-                                    <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
-                                        Tidak ada data
-                                    </div>
-                                    @endforelse
-                                    </tr>
+                                            @empty
                                     </tbody>
-                                    </table>
+                                </table>
+                                <div colspan="auto" class='alert alert-danger fw-bold text-center text-white mt-4'>
+                                    Tidak ada data
                                 </div>
-                                <div class="container mt-3">
-                                    {{ $attributes->onEachSide(2)->links() }}
-                                </div>
+                                @endforelse
+                                </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                            <div class="container mt-3">
+                                {{ $attributes->onEachSide(2)->links() }}
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Modal Tambah Data Dukung -->
-                        <div class="modal fade" id="inputDataDukungModal" tabindex="-1" aria-labelledby="inputModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="inputModalLabel">Form Input Data Dukung</h5>
-                                        <button type="button" class="btn-close btn-close-white  " data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="{{ route('document.store') }}" method="POST"
-                                            enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="container">
-                                                <div class="form-group mt-2">
-                                                    <div>
-                                                        <label for="indikator">Nama Indikator</label>
-                                                    </div>
-                                                    <div>
-                                                        <select id="indikator" name="indicator_id"
-                                                            class="form-control border border-2 p-2">
-                                                            @foreach ($indicators as $indicator)
-                                                                <option value="{{ $indicator->id }}">
-                                                                    {{ $indicator->indicator_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mt-2">
-                                                    <div>
-                                                        <label for="upd">Nama OPD</label>
-                                                    </div>
-                                                    <div>
-                                                        <select id="opd" name="opd_id"
-                                                            class="form-control border border-2 p-2">
-                                                            @foreach ($opds as $opd)
-                                                                <option value="{{ $opd->id }}">{{ $opd->opd_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group mt-2">
-                                                    <label for="data-dukung">Nama Dokumen</label>
-                                                    <input type="text" class="form-control border border-2 p-2"
-                                                        id="data-dukung" name="doc_name">
-                                                </div>
-                                                <div class="form-group mt-2">
-                                                    <label for="fileUpload">Upload Data Dukung</label>
-                                                    <input type="file" class="form-control border border-2"
-                                                        id="fileUpload" name="file">
-                                                </div>
-                                            </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Tambah Data</button>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- <!-- Modal Edit Data -->
+                    {{-- <!-- Modal Edit Data -->
                     <div class="modal fade" id="uploadDataModal{{ $attribute->id }}" tabindex="-1"
                         aria-labelledby="editModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -274,7 +207,7 @@
                         </div>
                     </div> --}}
 
-                        {{-- <div class="row">
+                    {{-- <div class="row">
                     <div class="col-12">
                         <div class="card my-4">
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
@@ -542,36 +475,27 @@
                     </div>
                 </div>
                 <x-footers.auth></x-footers.auth> --}}
-                    </div>
-        </main>
-        <x-plugins></x-plugins>
-        @push('js')
-            <script>
-                //message with toastr
-                @if (session()->has('success'))
+                </div>
+    </main>
+    <x-plugins></x-plugins>
+    @push('js')
+        <script>
+            //message with toastr
+            @if (session()->has('success'))
 
-                    toastr.success('{{ session('success') }}', 'BERHASIL!');
-                @elseif (session()->has('error'))
+                toastr.success('{{ session('success') }}', 'BERHASIL!');
+            @elseif (session()->has('error'))
 
-                    toastr.error('{{ session('error') }}', 'GAGAL!');
-                @endif
-            </script>
-            <script>
-                const filterYearDropdown = document.getElementById('filter-year');
-                const dataRows = document.querySelectorAll('.data-row');
+                toastr.error('{{ session('error') }}', 'GAGAL!');
+            @endif
+        </script>
+        <script>
+            var filterDropdown = document.getElementById('filterDropdown');
+            var filterForm = document.getElementById('filterForm');
 
-                filterYearDropdown.addEventListener('change', function() {
-                    const selectedYear = this.value;
-
-                    dataRows.forEach(row => {
-                        const rowYear = row.getAttribute('data-year');
-                        if (!selectedYear || rowYear === selectedYear) {
-                            row.style.display = 'table-row';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                });
-            </script>
-        @endpush
-    </x-layout>
+            filterDropdown.addEventListener('change', function () {
+                filterForm.submit();
+            });
+        </script>
+    @endpush
+</x-layout>

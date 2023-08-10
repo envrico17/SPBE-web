@@ -13,17 +13,24 @@
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Indikator</h6>
                                     <div class="ms-4 d-flex align-items-center">
-                                        <label for="filter-year" class="me-2" style="color: white; display: inline-block; vertical-align: middle;">Filter Tahun:</label>
-                                        <select id="filter-year" class="form-control text-center" style="background: white;">
-                                            <option value="">Semua Tahun</option>
-                                            @foreach ($uniqueYears as $year)
-                                                <option value="{{ $year }}">{{ $year }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="filterDropdown" class="me-2"
+                                            style="color: white; display: inline-block; vertical-align: middle;">Filter
+                                            Tahun:</label>
+                                        <form id="filterForm" action="{{ route('indicator') }}" method="GET">
+                                            <select id="filterDropdown" class="form-select text-center px-3"
+                                                style="background: white;" name="year" onchange="this.form.submit()">\
+                                                <option value="">Semua Tahun</option>
+                                                @foreach ($uniqueYears as $year)
+                                                    <option value="{{ $year }}"
+                                                        {{ Request::input('year') == $year ? 'selected' : '' }}>
+                                                        {{ $year }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </form>
                                     </div>
                                     <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
                                         <form action="{{ route('indicator.search') }}" method="GET">
-                                            @csrf
                                             <div class="input-group input-group-outline">
                                                 <label class="form-label text-white">Cari indikator</label>
                                                 <input type="text" class="text-white form-control" name="keyword">
@@ -145,7 +152,8 @@
                                                                                 <div
                                                                                     class="col-sm-3 text-start fw-bold">
                                                                                     Penjelasan Indikator</div>
-                                                                                <div class="col-sm-auto fw-bold">:</div>
+                                                                                <div class="col-sm-auto fw-bold">:
+                                                                                </div>
                                                                                 <div class="col-sm-8">
                                                                                     {!! $attribute->description !!}</div>
                                                                             </div>
@@ -371,22 +379,13 @@
                 toastr.error('{{ session('error') }}', 'GAGAL!');
             @endif
         </script>
-        <script>
-            const filterYearDropdown = document.getElementById('filter-year');
-            const dataRows = document.querySelectorAll('.data-row');
+        {{-- <script>
+            var filterDropdown = document.getElementById('filterDropdown');
+            var filterForm = document.getElementById('filterForm');
 
-            filterYearDropdown.addEventListener('change', function() {
-                const selectedYear = this.value;
-
-                dataRows.forEach(row => {
-                    const rowYear = row.getAttribute('data-year');
-                    if (!selectedYear || rowYear === selectedYear) {
-                        row.style.display = 'table-row';
-                    } else {
-                        row.style.display = 'none';
-                    }
-                });
+            filterDropdown.addEventListener('change', function () {
+                filterForm.submit();
             });
-        </script>
+        </script> --}}
     @endpush
 </x-layout>
