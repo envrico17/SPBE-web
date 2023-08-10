@@ -142,16 +142,21 @@ class IndicatorController extends Controller
 
     public function searchIndicator(Request $request)
     {
+        $uniqueYears = DB::table('scores')->distinct()->pluck('score_date');
+        $aspects = Aspect::all();
         $keyword = $request->input('keyword');
         $attributes = Indicator::join('aspects','indicators.aspect_id','=','aspects.id')
             ->join('domains','aspects.domain_id','=','domains.id')
-            ->select('indicators.*','aspects.aspect_name','domains.domain_name')
+            ->join('scores','scores.id','=','indicators.score_id')
+            ->select('indicators.*','aspects.aspect_name','domains.domain_name','scores.score_date')
             ->where(function ($query) use ($keyword) {
-            $query->where('indicator_name', 'LIKE', '%' . $keyword . '%')->paginate(10);
+            $query->where('indicator_name', 'LIKE', '%' . $keyword . '%')
+                ->orWhere('scores.score_date', 'like', '%' . $keyword . '%');
             })
             ->paginate(10);
-
-            $aspects = Aspect::all();
-            return view('pages.indicator', compact('attributes','aspects'));
+            foreach ($attributes as $attribute){
+                $attribute->scoreForm = $attribute->score()->first();
+            }
+            return view('pages.indicator', compact('attributes','aspects','uniqueYears'));
         }
 }

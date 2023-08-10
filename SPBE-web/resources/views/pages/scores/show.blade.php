@@ -126,7 +126,7 @@
                                                                                     Penjelasan Indikator</div>
                                                                                 <div class="col-sm-auto fw-bold">:</div>
                                                                                 <div class="col-sm-5">
-                                                                                    {{ $attribute->description }}</div>
+                                                                                    {!! $attribute->description !!}</div>
                                                                             </div>
                                                                             <form
                                                                             action="{{ route('score.update', ['score' => $score->id, 'indicator' => $attribute->id]) }}"
@@ -164,7 +164,7 @@
                                                                                 </div>
                                                                                 <div
                                                                                 class="col-sm-8 align-items-center justify-content-center">
-                                                                                <textarea id="descriptionEdit"
+                                                                                <textarea id="descriptionEdit2_{{ $attribute->id }}"
                                                                                 style="
                                                                                                 width: 100%;
                                                                                                 height: 150px;
@@ -174,7 +174,7 @@
                                                                                                 border-radius: 4px;
                                                                                                 background-color: #f8f8f8;
                                                                                                 resize: none;"
-                                                                                    name="score_description" class="form-control border border-2 p-2"></textarea>
+                                                                                    name="score_description" class="form-control border border-2 p-2">{!! $attribute->score_description !!}</textarea>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
