@@ -39,19 +39,24 @@
                                     <x-flatpickr range clearable onClose="rangeFormat" class="form-control"
                                         date-format="d F Y" name="score_date_range" id="score_date_range" />
                                 </div>
-                                <div class="d-flex flex-row justify-content-end mt-5">
-                                    <button type="submit" class="btn btn-primary mx-2">Submit</button>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex flex-row-reverse">
+                                <button type="submit" class="btn btn-primary mx-2">Submit</button>
                                 </form>
                                 <form action="{{ route('score.destroy', $score->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger mx-2">Cancel  </button>
-                                </div>
-                            </form>
+                                    <button type="submit" class="btn btn-danger mx-2">Cancel </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        </div>
         </div>
         <!-- Tambahkan stylesheet TinyMCE (jika menggunakan CDN) -->
         <script src="https://cdn.tiny.cloud/1/m5qijcc36wgnreuxu9sqpw3jsaelf3euqu4gsb85pn56ti5w/tinymce/5/tinymce.min.js">

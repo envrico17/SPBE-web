@@ -7,21 +7,18 @@ use App\Models\Aspect;
 use App\Models\Document;
 use App\Models\Indicator;
 use App\Models\Score;
-use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
+        $option = Request::query('option');
 
-        $score = Score::where('score_date', '2023')->first();
-        $attributes = Indicator::where('score_id', $score->id)->paginate(10);
-        foreach ($attributes as $attribute){
-            $attribute->documents = $attribute->documents()->get();
-            $attribute->scoreForm = $attribute->score()->first();
-        }
+        $scores = Score::all();
 
         $aspects = Aspect::all();
 
@@ -33,9 +30,22 @@ class DashboardController extends Controller
 
         $uniqueDocuments = Document::distinct('doc_name')->count('doc_name');
 
-        //Scoring
-        $score = Score::where('score_date', '2023')->first();
+        if(is_null($option)){
+            return view('dashboard.index', compact(
+            'uniqueDomains',
+            'uniqueAspects',
+            'uniqueIndicators',
+            'uniqueDocuments',
+            'scores'
+            ));
+        }
 
+        $score = $scores->where('id', $option)->first();
+        $attributes = Indicator::where('score_id', $score->id)->paginate(10);
+        foreach ($attributes as $attribute){
+            $attribute->documents = $attribute->documents()->get();
+            $attribute->scoreForm = $attribute->score()->first();
+        }
         $data = new Collection([
             'aspectOne' => $score->indicators()->where('aspect_id', 1)->sum('score') * 1.3,
             'aspectTwo' => $score->indicators()->where('aspect_id', 2)->sum('score') * 2.5,
@@ -60,9 +70,36 @@ class DashboardController extends Controller
             'uniqueAspects',
             'uniqueIndicators',
             'uniqueDocuments',
+            'scores',
             'score',
             'data',
             'attributes'
         ));
+
+        // function dashboardSearch(Request $request) {
+        //     $score = $scores->where('id', 13)->first();
+        //     $attributes = Indicator::where('score_id', 1)->paginate(10);
+        //     foreach ($attributes as $attribute){
+        //         $attribute->documents = $attribute->documents()->get();
+        //         $attribute->scoreForm = $attribute->score()->first();
+        //     }
+        //     $data = new Collection([
+        //         'aspectOne' => $score->indicators()->where('aspect_id', 1)->sum('score') * 1.3,
+        //         'aspectTwo' => $score->indicators()->where('aspect_id', 2)->sum('score') * 2.5,
+        //         'aspectThree' => $score->indicators()->where('aspect_id', 3)->sum('score') * 2.5,
+        //         'aspectFour' => $score->indicators()->where('aspect_id', 4)->sum('score') * 2.5,
+        //         'aspectFive' => $score->indicators()->where('aspect_id', 5)->sum('score') * 1.5,
+        //         'aspectSix' => $score->indicators()->where('aspect_id', 6)->sum('score') * 1.5,
+        //         'aspectSeven' => $score->indicators()->where('aspect_id', 7)->sum('score') * 2.75,
+        //         'aspectEight' => $score->indicators()->where('aspect_id', 8)->sum('score') * 3,
+        //     ]);
+
+        //     $data['domainOne'] = $data['aspectOne'];
+        //     $data['domainTwo'] = $data['aspectTwo'] + $data['aspectThree'] + $data['aspectFour'];
+        //     $data['domainThree'] = $data['aspectFive'] + $data['aspectSix'];
+        //     $data['domainFour'] = $data['aspectSeven'] + $data['aspectEight'];
+
+        //     $data['indexScore'] = 1/100 * ($data['domainOne'] + $data['domainTwo'] + $data['domainThree'] + $data['domainFour']);
+        // }
     }
 }

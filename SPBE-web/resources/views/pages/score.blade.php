@@ -68,7 +68,7 @@
                                                         <a href="{{ route('score.clone', [$attribute->id]) }}"
                                                             class="mx-3 link-info font-weight-bold text-xs"
                                                             style="cursor: pointer">
-                                                            <i class="bi bi-plus-square mx-2" style="font-size: 1.1rem"></i>
+                                                            <i class="bi bi-files mx-2" style="font-size: 1.1rem"></i>
                                                         </a>
                                                         {{-- Delete Button --}}
                                                         <a href="javascript:;"
