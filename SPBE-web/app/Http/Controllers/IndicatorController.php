@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aspect;
 use App\Models\Indicator;
+use App\Models\Score;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
@@ -19,9 +20,11 @@ class IndicatorController extends Controller
      */
     public function index(): View
     {
+
         $user = Auth::user();
         $uniqueYears = DB::table('scores')->distinct()->pluck('score_date');
         $aspects = Aspect::all();
+        $scores = Score::all();
 
         $keyword = FacadesRequest::input('keyword');
         $selectedYear = FacadesRequest::input('year');
@@ -52,7 +55,7 @@ class IndicatorController extends Controller
 
         $attributes->appends(['year' => $selectedYear]);
 
-        return view('pages.indicator', compact('attributes', 'aspects', 'uniqueYears', 'keyword', 'selectedYear'));
+        return view('pages.indicator', compact('attributes', 'aspects', 'uniqueYears', 'keyword', 'selectedYear','scores'));
     }
 
     /**
@@ -72,17 +75,20 @@ class IndicatorController extends Controller
             $request->validate([
                 'indicator_name' => 'required',
                 'aspect_id' => 'required',
-                'description' => 'required'
+                'score_id' => 'required',
+                'description' => 'required',
             ]);
 
             $aspect = Aspect::find($request->input('aspect_id'));
-            $domain_id = $aspect->domain->id;
+            $domain = $aspect->domain->first();
+            $domain_id = $domain->id;
 
             // Simpan data ke database
             Indicator::create([
                 'indicator_name' => $request->input('indicator_name'),
-                'aspect_id' => $request->input('aspect_id'),
                 'domain_id' => $domain_id,
+                'aspect_id' => $request->input('aspect_id'),
+                'score_id' => $request->input('score_id'),
                 'description' => $request->input('description'),
             ]);
 
@@ -191,7 +197,8 @@ class IndicatorController extends Controller
 
         $uniqueYears = DB::table('scores')->distinct()->pluck('score_date');
         $aspects = Aspect::all();
+        $scores = Score::all();
 
-        return view('pages.indicator', compact('attributes', 'aspects', 'uniqueYears'));
+        return view('pages.indicator', compact('attributes', 'aspects', 'uniqueYears','scores'));
     }
 }
