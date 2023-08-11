@@ -326,6 +326,25 @@
                                             id="indicator_name" name="indicator_name">
                                     </div>
                                     <div class="form-group mt-2">
+                                        <div>
+                                            <label for="score_id">Nama Form</label>
+                                        </div>
+                                        <div>
+                                            <select id="score_id" name="score_id"
+                                                class="form-control border border-2 p-2">
+                                                @forelse ($scores as $score)
+                                                    <option value="{{ $score->id }}">
+                                                        {{ $score->score_name }}
+                                                    </option>
+                                                @empty
+                                                    <div class='alert alert-danger'>
+                                                        Tidak ada data
+                                                    </div>
+                                                @endforelse
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group mt-2">
                                         <label for="descriptionEdit">Deskripsi</label>
                                         <textarea id="descriptionEdit"
                                             style="
