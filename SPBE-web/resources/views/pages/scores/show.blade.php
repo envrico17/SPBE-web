@@ -53,7 +53,7 @@
                                                 {{-- Score --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->score }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->score ?? '-' }}</span>
                                                 </td>
                                                 {{-- Beri Penilaian --}}
                                                 <td class="">
@@ -128,21 +128,21 @@
                                                                                 <div class="col-sm-auto fw-bold">:
                                                                                 </div>
                                                                                 <div
-                                                                                    class="col-sm-8 align-items-center justify-content-center">
+                                                                                    class="col-sm-auto align-items-center justify-content-center">
                                                                                     <select id="score"
                                                                                         name="score"
                                                                                         class="form-control border border-2 p-2">
-                                                                                        <option value="">
+                                                                                        <option value="" selected>
                                                                                         </option>
-                                                                                        <option value="1">1
+                                                                                        <option value="1">1 - Kurang
                                                                                         </option>
-                                                                                        <option value="2">2
+                                                                                        <option value="2">2 - Cukup
                                                                                         </option>
-                                                                                        <option value="3">3
+                                                                                        <option value="3">3 - Baik
                                                                                         </option>
-                                                                                        <option value="4">4
+                                                                                        <option value="4">4 - Sangat Baik
                                                                                         </option>
-                                                                                        <option value="5">5
+                                                                                        <option value="5">5 - Memuaskan
                                                                                         </option>
                                                                                     </select>
                                                                                 </div>

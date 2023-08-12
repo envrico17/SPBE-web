@@ -90,56 +90,54 @@
                                                                         style="font-size: 1.1rem"></i>
                                                                 </a>
                                                             </span>
-                                                            <!-- Modal Delete Data -->
-                                                            <div class="modal fade" id="deleteModal{{ $attribute->id }}"
-                                                                tabindex="-1" aria-labelledby="deleteModalLabel"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header justify-between">
-                                                                            <h5 class="modal-title" id="deleteModalLabel">
-                                                                                Hapus
-                                                                                Form ini?</h5>
-                                                                            <button type="button"
-                                                                                class="btn-close btn-close-white"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close"></button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <div class="container">
-                                                                                <div class="form-group mt-2">
-                                                                                    <div class="text-info">Nama
-                                                                                        Form
-                                                                                    </div>
-                                                                                    <div class="text-warning">
-                                                                                        {{ $attribute->score_name }}
-                                                                                    </div>
-                                                                                    <div class="text-info">Tanggal Penilaian
-                                                                                    </div>
-                                                                                    <div class="text-warning">
-                                                                                        {{ $attribute->score_date_range }}
-                                                                                    </div>
-                                                                                </div>
+                                                        </div>
+                                                    </span>
+                                                    <!-- Modal Delete Data -->
+                                                    <div class="modal fade" id="deleteModal{{ $attribute->id }}"
+                                                        tabindex="-1" aria-labelledby="deleteModalLabel"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header justify-between">
+                                                                    <h5 class="modal-title" id="deleteModalLabel">
+                                                                        Hapus
+                                                                        Form ini?</h5>
+                                                                    <button type="button" class="btn-close btn-close-white"
+                                                                        data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="container">
+                                                                        <div class="form-group mt-2">
+                                                                            <div class="text-info">Nama
+                                                                                Form
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="modal-footer">
-                                                                            <div class="order-0">
-                                                                                <form
-                                                                                    action="{{ route('score.destroy', ['score' => $attribute->id]) }}"
-                                                                                    method="POST">
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-danger">Hapus
-                                                                                        Form</button>
-                                                                                </form>
+                                                                            <div class="text-warning">
+                                                                                {{ $attribute->score_name }}
+                                                                            </div>
+                                                                            <div class="text-info">Tanggal Penilaian
+                                                                            </div>
+                                                                            <div class="text-warning">
+                                                                                {{ $attribute->score_date_range }}
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="modal-footer">
+                                                                    <div class="order-0">
+                                                                        <form
+                                                                            action="{{ route('score.destroy', ['score' => $attribute->id]) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger">Hapus
+                                                                                Form</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </span>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach

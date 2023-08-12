@@ -11,10 +11,13 @@ class ScoreIndicator extends Model
 {
     use HasFactory;
     use \Znck\Eloquent\Traits\BelongsToThrough;
+    use \Bkwld\Cloner\Cloneable;
 
     protected $fillable = [
         'indicator_id', 'score_id', 'score', 'score_description'
     ];
+
+    protected $clone_exempt_attributes = ['score'];
 
     /**
      * Get the indicator that owns the ScoreIndicator

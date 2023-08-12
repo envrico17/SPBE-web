@@ -22,12 +22,12 @@
                                 <div class="form-group mt-2">
                                     <label for="indicator_name">Nama Form</label>
                                     <input type="text" class="form-control border border-2 p-2" id="score_name"
-                                        name="score_name">
+                                        name="score_name" value="{{ $score->score_name }}">
                                 </div>
                                 <div class="form-group mt-2">
                                     <label for="indicator_name">Deskripsi Form</label>
                                     <input type="text" class="form-control border border-2 p-2" id="score_description"
-                                        name="score_description">
+                                        name="score_description" value="{{ $score->score_description }}">
                                 </div>
                                 <div class="form-group mt-2">
                                     <label for="yearSelect">Tahun</label>

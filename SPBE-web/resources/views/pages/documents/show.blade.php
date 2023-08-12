@@ -67,16 +67,19 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="w-1 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-4 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 No</th>
                                             <th
-                                                class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama OPD</th>
                                             <th
-                                                class="w-7 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama Dokumen</th>
                                             <th
-                                                class="w-2 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Tahun</th>
+                                            <th
+                                                class="w-auto text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>
@@ -94,6 +97,10 @@
                                                 <td class="align-middle">
                                                     <span
                                                         class="text-secondary text-xs font-weight-bold">{{ $document->doc_name }}</span>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold">{{ $document->created_at->year }}</span>
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">

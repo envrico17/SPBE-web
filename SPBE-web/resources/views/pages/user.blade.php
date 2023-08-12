@@ -34,28 +34,28 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="w-1 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-2 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 No</th>
                                             <th
-                                                class="w-6 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Nama User</th>
                                             <th
-                                                class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Username</th>
                                             <th
-                                                class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
                                                 NIP</th>
                                             <th
-                                                class="w-3 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Gol</th>
                                             <th
-                                                class="w-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 No.Hp</th>
                                             <th
-                                                class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 OPD</th>
                                             <th
-                                                class="w-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                class="w-auto text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                         </tr>
                                     </thead>

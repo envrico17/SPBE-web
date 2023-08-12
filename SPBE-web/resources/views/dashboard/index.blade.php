@@ -347,14 +347,14 @@
                                     <thead>
                                         <tr>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-1">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-7">
                                                 No
                                             </th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-auto">
                                                 Nama Indikator</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-15">
                                                 Score</th>
                                         </tr>
                                     </thead>
@@ -363,7 +363,7 @@
                                             <tr>
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $loop->iteration }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ ($score_indicators->currentPage() - 1) * $score_indicators->perPage() + $loop->iteration }}</span>
                                                 </td>
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-sm">
@@ -371,9 +371,9 @@
                                                         class="text-secondary text-xs font-weight-bold">{{ $score_indicator->indicator->indicator_name }}</span>
                                                 </td>
                                                 {{-- Score --}}
-                                                <td class="align-middle text-sm">
+                                                <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $score_indicator->score }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $score_indicator->score ?? '-' }}</span>
                                                 </td>
                                             </tr>
                                         @empty
