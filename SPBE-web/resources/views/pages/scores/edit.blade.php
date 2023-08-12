@@ -25,6 +25,11 @@
                                         name="score_name">
                                 </div>
                                 <div class="form-group mt-2">
+                                    <label for="indicator_name">Deskripsi Form</label>
+                                    <input type="text" class="form-control border border-2 p-2" id="score_description"
+                                        name="score_description">
+                                </div>
+                                <div class="form-group mt-2">
                                     <label for="yearSelect">Tahun</label>
                                     <select class="form-control border border-2 p-2" id="yearSelect" name="score_date">
                                         <option>2024</option>
@@ -48,7 +53,7 @@
                                 <form action="{{ route('score.destroy', $score->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger mx-2">Cancel </button>
+                                    <button type="submit" class="btn btn-danger mx-2">Hapus</button>
                                 </form>
                             </div>
                         </div>

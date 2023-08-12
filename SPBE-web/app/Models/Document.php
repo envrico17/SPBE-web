@@ -14,7 +14,7 @@ class Document extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'opd_id',
         'indicator_id',
         'doc_name',
         'upload_path'
@@ -31,13 +31,13 @@ class Document extends Model
    }
 
    /**
-    * Get the indicator that owns the Document
+    * Get the score_detail that owns the Document
     *
     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-   public function indicator(): BelongsTo
+   public function score_detail(): BelongsTo
    {
-       return $this->belongsTo(Indicator::class);
+       return $this->belongsTo(ScoreDetail::class);
    }
 
    public function getFilePathUrlAttribute()

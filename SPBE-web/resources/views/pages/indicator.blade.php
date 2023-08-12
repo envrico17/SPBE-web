@@ -12,25 +12,8 @@
                             <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                 <div class="d-flex flex-row justify-content-between align-items-center">
                                     <h6 class="text-white text-capitalize ps-3">Tabel Input Indikator</h6>
-                                    <div class="ms-4 d-flex align-items-center">
-                                        <label for="filterDropdown" class="me-2"
-                                            style="color: white; display: inline-block; vertical-align: middle;">Filter
-                                            Tahun:</label>
-                                        <form id="filterForm" action="{{ route('indicator') }}" method="GET">
-                                            <select id="filterDropdown" class="form-select text-center px-3"
-                                                style="background: white;" name="year" onchange="this.form.submit()">\
-                                                <option value="">Semua Tahun</option>
-                                                @foreach ($uniqueYears as $year)
-                                                    <option value="{{ $year }}"
-                                                        {{ Request::input('year') == $year ? 'selected' : '' }}>
-                                                        {{ $year }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </form>
-                                    </div>
                                     <div class="ms-md-auto px-3 mb-2 me-2 d-flex">
-                                        <form action="{{ route('indicator.search') }}" method="GET">
+                                        <form action="{{ route('indicator') }}" method="GET">
                                             <div class="input-group input-group-outline">
                                                 <label class="form-label text-white">Cari indikator</label>
                                                 <input type="text" class="text-white form-control" name="keyword">
@@ -62,10 +45,10 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($attributes as $index => $attribute)
-                                            <tr class="data-row" data-year="{{ $attribute->scoreForm->score_date }}">
+                                            <tr class="data-row">
                                                 <td class="align-middle text-center text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $index + 1 }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ ($attributes->currentPage() - 1) * $attributes->perPage() + $loop->iteration }}</span>
                                                 </td>
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-sm">
@@ -78,31 +61,39 @@
                                                         {{-- Edit Button --}}
                                                         {{-- <span
                                                         class="text-secondary text-xs font-weight-bold">{!! $attribute->description !!}</span> --}}
-                                                        <a href="javascript:;"
-                                                            class="link-info font-weight-bold text-xs"
-                                                            style="cursor: pointer" data-bs-toggle="modal"
-                                                            data-bs-target="#detailModal{{ $attribute->id }}"
-                                                            data-original-title="Detail Indicator">
-                                                            <i class="bi bi-bookmarks mx-2"
-                                                                style="font-size: 1.1rem"></i>
-                                                        </a>
+                                                        <span data-bs-toggle="tooltip" title="Lihat Detail">
+                                                            <a href="javascript:;"
+                                                                class="link-info font-weight-bold text-xs"
+                                                                style="cursor: pointer" data-bs-toggle="modal"
+                                                                data-bs-target="#detailModal{{ $attribute->id }}"
+                                                                data-original-title="Detail Indicator">
+                                                                <i class="bi bi-bookmarks mx-2"
+                                                                    style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                        </span>
                                                         {{-- Edit Button --}}
-                                                        <a href="javascript:;"
-                                                            class="link-info font-weight-bold text-xs"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editDataModal{{ $attribute->id }}"
-                                                            data-original-title="Edit Indicator">
-                                                            <i class="bi bi-pencil-square mx-2"
-                                                                style="font-size: 1.1rem"></i>
-                                                        </a>
+                                                        <span data-bs-toggle="tooltip" title="Edit">
+                                                            <a href="javascript:;"
+                                                                class="link-info font-weight-bold text-xs"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editDataModal{{ $attribute->id }}"
+                                                                data-original-title="Edit Indicator">
+                                                                <i class="bi bi-pencil-square mx-2"
+                                                                    style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                        </span>
                                                         {{-- Delete Button --}}
-                                                        <a href="javascript:;"
-                                                            class="link-info font-weight-bold text-xs"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                            data-original-title="Delete Indicator">
-                                                            <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
-                                                        </a>
+                                                        <span data-bs-toggle="tooltip" title="Hapus">
+                                                            <a href="javascript:;"
+                                                                class="link-info font-weight-bold text-xs"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                                data-original-title="Delete Indicator">
+                                                                <i class="bi bi-trash mx-2"
+                                                                    style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                        </span>
+
                                                     </div>
                                                     <!-- Modal Detail Indicator -->
                                                     <div class="modal fade" id="detailModal{{ $attribute->id }}"
@@ -127,7 +118,7 @@
                                                                                     Domain</div>
                                                                                 <div class="col-sm-auto fw-bold">:</div>
                                                                                 <div class="col-sm-8">
-                                                                                    {{ $attribute->aspect->domain->domain_name }}
+                                                                                    {{ $attribute->domain->domain_name }}
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row mb-3">
@@ -324,25 +315,6 @@
                                         <label for="indicator_name">Nama Indikator</label>
                                         <input type="text" class="form-control border border-2 p-2"
                                             id="indicator_name" name="indicator_name">
-                                    </div>
-                                    <div class="form-group mt-2">
-                                        <div>
-                                            <label for="score_id">Nama Form</label>
-                                        </div>
-                                        <div>
-                                            <select id="score_id" name="score_id"
-                                                class="form-control border border-2 p-2">
-                                                @forelse ($scores as $score)
-                                                    <option value="{{ $score->id }}">
-                                                        {{ $score->score_name }}
-                                                    </option>
-                                                @empty
-                                                    <div class='alert alert-danger'>
-                                                        Tidak ada data
-                                                    </div>
-                                                @endforelse
-                                            </select>
-                                        </div>
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="descriptionEdit">Deskripsi</label>

@@ -41,7 +41,7 @@
                                                 Nama User</th>
                                             <th
                                                 class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                E-mail</th>
+                                                Username</th>
                                             <th
                                                 class="w-5 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"">
                                                 NIP</th>
@@ -99,18 +99,22 @@
                                                 {{-- Edit Button --}}
                                                 <td class="w-10">
                                                     <div class="align-middle text-center">
-                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#editModal{{ $attribute->id }}"
-                                                            data-original-title="Edit user">
-                                                            <i class="bi bi-pencil-square mx-2" style="font-size: 1.1rem"></i>
-                                                        </a>
-                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                            data-original-title="Delete user">
-                                                            <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
-                                                        </a>
+                                                        <span data-bs-toggle="tooltip" title="Edit">
+                                                            <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editModal{{ $attribute->id }}"
+                                                                data-original-title="Edit user">
+                                                                <i class="bi bi-pencil-square mx-2" style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                        </span>
+                                                        <span data-bs-toggle="tooltip" title="Hapus">
+                                                            <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                                data-original-title="Delete user">
+                                                                <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                        </span>
                                                     </div>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editModal{{ $attribute->id }}"

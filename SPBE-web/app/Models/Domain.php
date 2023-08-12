@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Domain extends Model
 {
@@ -14,16 +15,6 @@ class Domain extends Model
     protected $fillable = [
         'domain_name'
     ];
-
-    /**
-     * Get the score that owns the Domain
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function score(): BelongsTo
-    {
-        return $this->belongsTo(Score::class);
-    }
 
     /**
      * Get all of the aspects for the Domain
@@ -38,10 +29,10 @@ class Domain extends Model
     /**
      * Get all of the indicators for the Domain
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function indicators(): HasMany
+    public function indicators(): HasManyThrough
     {
-        return $this->hasMany(Indicators::class);
+        return $this->hasManyThrough(Indicators::class, Aspect::class);
     }
 }

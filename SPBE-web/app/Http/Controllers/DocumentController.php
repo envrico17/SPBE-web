@@ -9,7 +9,7 @@ use App\Models\Indicator;
 use App\Models\Opd;
 use App\Models\User;
 use App\Models\Score;
-
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Validation\ValidationException;
@@ -22,75 +22,40 @@ use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
-        $option = FacadesRequest::query('option');
         $user = Auth::user();
-
         $opds = Opd::all();
         $indicators = Indicator::all();
-        $scores = Score::all();
-
-        $uniqueScores = $scores->unique('score_date');
 
         try {
-            $option = FacadesRequest::query('option'); // Get the selected option from the query parameter
+            $keyword = $request->input('keyword'); // Get the selected option from the query parameter
 
-            if (is_null($option)) {
+            if (is_null($keyword)) {
                 // No option selected, fetch data without filtering
                 $query = Indicator::query();
             } else {
                 // Option selected, fetch data based on the selected option
-                $query = Indicator::where('score_id', $option);
+                $query = Indicator::where('indicator_name', 'like', '%' . $keyword . '%');
             }
 
-            if (!($user->hasRole('admin') || $user->hasRole('supervisor'))) {
-                $query = $query->with('documents');
+            if ($user->hasRole('user')) {
+                $query = $query->whereHas('documents', function(Builder $builder){
+                    $user = Auth::user();
+                    $builder->where('opd_id', $user->opd_id);
+                });
             }
 
-            // Paginate the data
-            $perPage = 10;
-            $currentPage = FacadesRequest::query('page', 1);
-            $attributes = $query->paginate($perPage, ['*'], 'page', $currentPage);
+            $attributes = $query->paginate(10);
 
-            foreach ($attributes as $attribute) {
-                $attribute->scoreForm = $attribute->score()->first();
-            }
+            // Include the selected keyword in the pagination links
+            $attributes->appends(['keyword' => $keyword]);
 
-            // Include the selected option in the pagination links
-            $attributes->appends(['option' => $option]);
-
-            return view('pages.document', compact('attributes', 'uniqueScores'));
+            return view('pages.document', compact('attributes'));
         } catch (ModelNotFoundException $e) {
             return redirect()->route('dashboard')->with('error', 'Filtered data not found.');
         }
-    }
-
-    public function searchDocument(Request $request)
-    {
-        $user = Auth::user();
-        $keyword = $request->input('keyword');
-
-        $scores = Score::all();
-        $uniqueScores = $scores->unique('score_date');
-
-        if ($user->hasRole('admin') || $user->hasRole('supervisor')) {
-            $attributes = Indicator::where('indicator_name', 'like', '%' . $keyword . '%')->paginate(10);
-        } else {
-            $attributes = Indicator::with('documents')
-                ->where('indicator_name', 'like', '%' . $keyword . '%')
-                ->paginate(10);
-        }
-
-        foreach ($attributes as $attribute) {
-            $attribute->scoreForm = $attribute->score()->first();
-        }
-
-        // Include the keyword in the pagination links
-        $attributes->appends(['keyword' => $keyword]);
-
-        return view('pages.document', compact('attributes','uniqueScores'));
     }
 
     /**
@@ -148,35 +113,17 @@ class DocumentController extends Controller
     public function show(Indicator $indicator)
     {
         $user = Auth::user();
-        $attributes = Indicator::leftJoin('documents', 'documents.indicator_id', '=', 'indicators.id')
-            ->join('aspects', 'indicators.aspect_id', '=', 'aspects.id')
-            ->join('domains', 'aspects.domain_id', '=', 'domains.id')
-            ->leftJoin('opds', 'documents.opd_id', '=', 'opds.id')
-            ->select('indicators.*', 'documents.doc_name', 'documents.upload_path', 'documents.upload_path', 'aspects.aspect_name', 'domains.domain_name');
         $opds = Opd::all();
-        $domains = Domain::all();
-        $aspects = Aspect::all();
 
-        $aspect = $indicator->aspect;
-        $domain = $aspect->domain;
-        $allDocuments = $indicator->documents;
+        $documents = Document::where('indicator_id', $indicator->id);
 
-        if (($user->hasRole('admin')) || ($user->hasRole('supervisor'))) {
-            $attributes = $attributes->get();
-            $documents = $allDocuments;
+        if($user->hasRole('user')){
+            $documents = $documents->where('opd_id',$user->opd_id)->paginate(10);
         } else {
-            $userOpdId = $user->opd_id;
-            $attributes = $attributes->where('opds.id', $userOpdId)->get();
-            $documents = $allDocuments->filter(function ($document) use ($user) {
-                return $document->opd_id === $user->opd_id;
-            });
+            $documents = $documents->paginate(10);
         }
 
-        foreach ($documents as $document) {
-            $document->opd = $document->opd()->first();
-        }
-
-        return view('pages.documents.show', compact('attributes', 'opds', 'domain', 'aspect', 'indicator', 'documents'));
+        return view('pages.documents.show', compact('indicator','documents','opds'));
     }
 
     /**

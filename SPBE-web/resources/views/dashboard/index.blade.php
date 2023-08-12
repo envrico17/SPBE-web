@@ -1,6 +1,6 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
     {{-- @php
-        dd($score, $data)
+        dd($aspects)
     @endphp --}}
     <x-navbars.sidebar activePage='dashboard'></x-navbars.sidebar>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -104,24 +104,24 @@
                     <div class="card-body px-0">
                         <div class="container">
                             <div class="row mb-3">
-                                <div class="col-sm-5 text-start fw-bold fs-3">Hasil Evaluasi {{ $attributes[0]->scoreForm->score_name }}</div>
+                                <div class="col-sm-5 text-start fw-bold fs-3">Hasil Evaluasi {{ $score_form->score_name }}</div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-sm-3 text-start fw-bold">Nama Form</div>
                                 <div class="col-sm-auto fw-bold">:</div>
-                                <div class="col-sm-8">{{ $attributes[0]->scoreForm->score_name }}</div>
+                                <div class="col-sm-8">{{ $score_form->score_name }}</div>
                             </div>
                             <hr size="3">
                             <div class="row mb-3">
                                 <div class="col-sm-3 text-start fw-bold">Tahun</div>
                                 <div class="col-sm-auto fw-bold">:</div>
-                                <div class="col-sm-8">{{ $attributes[0]->scoreForm->score_date }}</div>
+                                <div class="col-sm-8">{{ $score_form->score_date }}</div>
                             </div>
                             <hr size="3">
                             <div class="row mb-3">
                                 <div class="col-sm-3 text-start fw-bold">Deskripsi</div>
                                 <div class="col-sm-auto fw-bold">:</div>
-                                <div class="col-sm-8"></div>
+                                <div class="col-sm-8">{{ $score_form->score_description }}</div>
                             </div>
                             <hr size="3">
                         </div>
@@ -188,7 +188,7 @@
                                             <span class=" text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class=" text-xs font-weight-bold">Sangat Baik</span>
+                                            <span class=" text-xs font-weight-bold">{{ $data['spbeStatus'] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row" style="background-color: #c0bdbd;">
@@ -212,7 +212,7 @@
                                             <span class="text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-xs font-weight-bold">{{ $data['aspectOne'] }}</span>
+                                            <span class="text-xs font-weight-bold">{{ $data[1] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row" style="background-color: #c0bdbd;">
@@ -236,7 +236,7 @@
                                             <span class="text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-xs font-weight-bold">{{ $data['aspectTwo'] }}</span>
+                                            <span class="text-xs font-weight-bold">{{ $data[2] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -248,7 +248,7 @@
                                             <span class="text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-xs font-weight-bold">{{ $data['aspectThree'] }}</span>
+                                            <span class="text-xs font-weight-bold">{{ $data[3] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -260,7 +260,7 @@
                                             <span class="text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-xs font-weight-bold">{{ $data['aspectFour'] }}</span>
+                                            <span class="text-xs font-weight-bold">{{ $data[4] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row" style="background-color: #c0bdbd;">
@@ -284,7 +284,7 @@
                                             <span class=" text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class=" text-xs font-weight-bold">{{ $data['aspectFive'] }}</span>
+                                            <span class=" text-xs font-weight-bold">{{ $data[5] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -295,7 +295,7 @@
                                             <span class=" text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class=" text-xs font-weight-bold">{{ $data['aspectSix'] }}</span>
+                                            <span class=" text-xs font-weight-bold">{{ $data[6] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row" style="background-color: #c0bdbd;">
@@ -319,7 +319,7 @@
                                             <span class="text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class=" text-xs font-weight-bold">{{ $data['aspectSeven'] }}</span>
+                                            <span class=" text-xs font-weight-bold">{{ $data[7] }}</span>
                                         </td>
                                     </tr>
                                     <tr class="data-row">
@@ -331,7 +331,7 @@
                                             <span class=" text-xs font-weight-bold">:</span>
                                         </td>
                                         <td class="align-middle text-sm">
-                                            <span class="text-xs font-weight-bold">{{ $data['aspectEight'] }}</span>
+                                            <span class="text-xs font-weight-bold">{{ $data[8] }}</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -359,7 +359,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($attributes as $attribute)
+                                        @forelse($score_indicators as $score_indicator)
                                             <tr>
                                                 <td class="align-middle text-center text-sm">
                                                     <span
@@ -368,12 +368,12 @@
                                                 {{-- Indicator --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->indicator_name }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $score_indicator->indicator->indicator_name }}</span>
                                                 </td>
                                                 {{-- Score --}}
                                                 <td class="align-middle text-sm">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">{{ $attribute->score }}</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{ $score_indicator->score }}</span>
                                                 </td>
                                             </tr>
                                         @empty
@@ -387,7 +387,7 @@
                                 </table>
                             </div>
                             <div class="container mt-3">
-                                {{ $attributes->onEachSide(2)->links() }}
+                                {{ $score_indicators->onEachSide(2)->links() }}
                             </div>
                         </div>
                     </div>

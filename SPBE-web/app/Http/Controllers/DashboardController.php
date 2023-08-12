@@ -7,7 +7,7 @@ use App\Models\Aspect;
 use App\Models\Document;
 use App\Models\Indicator;
 use App\Models\Score;
-
+use App\Models\ScoreIndicator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use Illuminate\Support\Facades\Auth;
@@ -24,16 +24,19 @@ class DashboardController extends Controller
         $option = FacadesRequest::query('option');
 
         $scores = Score::all();
-
         $aspects = Aspect::all();
 
-        $uniqueDomains = Domain::distinct('domain_name')->count('domain_name');
+        $uniqueDomains = Domain::count('domain_name');
 
-        $uniqueAspects = Aspect::distinct('aspect_name')->count('aspect_name');
+        $uniqueAspects = Aspect::count('aspect_name');
 
-        $uniqueIndicators = Indicator::distinct('indicator_name')->count('indicator_name');
+        $uniqueIndicators = Indicator::count('indicator_name');
 
-        $uniqueDocuments = Document::distinct('doc_name')->count('doc_name');
+        if (! $user->hasRole('admin')){
+            $uniqueDocuments = Document::where('opd_id',$user->opd_id)->count();
+        } else {
+            $uniqueDocuments = Document::count();
+        }
 
         if (is_null($option)) {
             return view('dashboard.index', compact(
@@ -46,40 +49,74 @@ class DashboardController extends Controller
         }
 
         try {
-            $score = $scores->find($option);
+            $score_form = Score::where('id', $option)->first();
+            $score_indicators = ScoreIndicator::where('score_id', $option)
+                                    ->orderBy('indicator_id','asc')
+                                    ->paginate(10);
 
-            if (!$score) {
-                throw new ModelNotFoundException();
+            $data = new Collection();
+
+            foreach ($aspects as $aspect) {
+                $aspect->aspect_score = $aspect->score_indicators->where('score_id', $option)->sum('score');
+
+                // Modify aspect_score based on criteria
+                switch ($aspect->id) {
+                    case 1:
+                        $aspect->aspect_score *= 1.5;
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                        $aspect->aspect_score *= 2.5;
+                        break;
+                    case 5:
+                    case 6:
+                        $aspect->aspect_score *= 1.5;
+                        break;
+                    case 7:
+                        $aspect->aspect_score *= 2.75;
+                        break;
+                    case 8:
+                        $aspect->aspect_score *= 3;
+                        break;
+                    default:
+                        // Handle other cases if needed
+                        break;
+                }
+
+                $data->put($aspect->id, $aspect->aspect_score);
             }
-            $attributes = Indicator::where('score_id', $score->id)->paginate(10);
-            foreach ($attributes as $attribute) {
-                $attribute->documents = $attribute->documents()->get();
-                $attribute->scoreForm = $attribute->score()->first();
+
+            if (!$score_form) {
+                throw new ModelNotFoundException();
             }
         } catch (ModelNotFoundException $e) {
             return redirect()->route('dashboard')->with('error', 'Filtered data not found.');
         }
 
-        $data = new Collection([
-            'aspectOne' => $score->indicators()->where('aspect_id', 1)->sum('score') * 1.3,
-            'aspectTwo' => $score->indicators()->where('aspect_id', 2)->sum('score') * 2.5,
-            'aspectThree' => $score->indicators()->where('aspect_id', 3)->sum('score') * 2.5,
-            'aspectFour' => $score->indicators()->where('aspect_id', 4)->sum('score') * 2.5,
-            'aspectFive' => $score->indicators()->where('aspect_id', 5)->sum('score') * 1.5,
-            'aspectSix' => $score->indicators()->where('aspect_id', 6)->sum('score') * 1.5,
-            'aspectSeven' => $score->indicators()->where('aspect_id', 7)->sum('score') * 2.75,
-            'aspectEight' => $score->indicators()->where('aspect_id', 8)->sum('score') * 3,
-        ]);
-
-        $data['domainOne'] = $data['aspectOne'];
-        $data['domainTwo'] = $data['aspectTwo'] + $data['aspectThree'] + $data['aspectFour'];
-        $data['domainThree'] = $data['aspectFive'] + $data['aspectSix'];
-        $data['domainFour'] = $data['aspectSeven'] + $data['aspectEight'];
+        $data['domainOne'] = $data['1'];
+        $data['domainTwo'] = $data['2'] + $data['3'] + $data['4'];
+        $data['domainThree'] = $data['5'] + $data['6'];
+        $data['domainFour'] = $data['7'] + $data['8'];
 
         $data['indexScore'] = 1 / 100 * ($data['domainOne'] + $data['domainTwo'] + $data['domainThree'] + $data['domainFour']);
 
+        $value = $data['indexScore'];
+
+        if ($value >= 4.2 && $value <= 5) {
+            $data['spbeStatus'] = "Memuaskan";
+        } elseif ($value >= 3.5 && $value < 4.2) {
+            $data['spbeStatus'] = "Sangat Baik";
+        } elseif ($value >= 2.6 && $value < 3.5) {
+            $data['spbeStatus'] = "Baik";
+        } elseif ($value >= 1.8 && $value < 2.6) {
+            $data['spbeStatus'] = "Cukup";
+        } elseif ($value < 1.8) {
+            $data['spbeStatus'] = "Kurang";
+        }
+
         // Include the selected option in the pagination links
-        $attributes->appends(['option' => $option]);
+        $score_indicators->appends(['option' => $option]);
 
         // Pass the data to the view
         return view('dashboard.index', compact(
@@ -88,9 +125,9 @@ class DashboardController extends Controller
             'uniqueIndicators',
             'uniqueDocuments',
             'scores',
-            'score',
+            'score_form',
+            'score_indicators',
             'data',
-            'attributes'
         ));
     }
 }

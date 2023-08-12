@@ -22,7 +22,7 @@ class ScoreFactory extends Factory
     {
         return [
             'score_name' => fake()->sentence(1),
-            'score_description' => fake()->sentence(3),
+            'score_description' => fake()->sentence(2),
             'score_date' => fake()->year('+5 years'),
             'score_date_range' => null,
         ];

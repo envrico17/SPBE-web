@@ -25,4 +25,14 @@ class Opd extends Model
    {
        return $this->hasMany(User::class);
    }
+
+   /**
+    * Get all of the documents for the Opd
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    */
+   public function documents(): HasMany
+   {
+       return $this->hasMany(Document::class);
+   }
 }

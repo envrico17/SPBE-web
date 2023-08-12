@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class Indicator extends Model
 {
+    use \Znck\Eloquent\Traits\BelongsToThrough;
     use HasFactory;
 
     protected $fillable = [
-        'aspect_id','domain_id','indicator_name','score_id','score','score_description','description'
+        'aspect_id','indicator_name','description'
    ];
 
    /**
@@ -27,13 +28,13 @@ class Indicator extends Model
    }
 
    /**
-    * Get all of the scores for the Indicator
+    * Get all of the score_indicators for the Indicator
     *
     * @return \Illuminate\Database\Eloquent\Relations\HasMany
     */
-   public function scores(): HasMany
+   public function score_indicators(): HasMany
    {
-       return $this->hasMany(Score::class);
+       return $this->hasMany(ScoreIndicator::class);
    }
 
    /**
@@ -46,24 +47,14 @@ class Indicator extends Model
        return $this->belongsTo(Aspect::class);
    }
 
-   /**
-    * Get the score that owns the Indicator
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-    */
-    public function score(): BelongsTo
-    {
-        return $this->belongsTo(Score::class);
-    }
-
     /**
      * Get the domain that owns the Indicator
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToThrough
      */
-    public function domain(): BelongsTo
+    public function domain()
     {
-        return $this->belongsTo(Domain::class);
+        return $this->belongsToThrough(Domain::class, Aspect::class);
     }
 
    public function getFilePathUrlAttribute()

@@ -18,44 +18,23 @@ class IndicatorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-
-        $user = Auth::user();
-        $uniqueYears = DB::table('scores')->distinct()->pluck('score_date');
         $aspects = Aspect::all();
-        $scores = Score::all();
 
-        $keyword = FacadesRequest::input('keyword');
-        $selectedYear = FacadesRequest::input('year');
+        $keyword = $request->input('keyword');
 
-        if ($selectedYear) {
-            if ($user->hasRole('admin') || $user->hasRole('supervisor')) {
-                $attributes = Indicator::whereHas('score', function ($query) use ($selectedYear) {
-                    $query->where('score_date', $selectedYear);
-                })->paginate(10);
-            } else {
-                $attributes = Indicator::with('documents')
-                    ->whereHas('score', function ($query) use ($selectedYear) {
-                        $query->where('score_date', $selectedYear);
-                    })
-                    ->paginate(10);
-            }
+        $attributes = Indicator::with('domain')->orderBy('id','asc');
 
-            foreach ($attributes as $attribute) {
-                $attribute->scoreForm = $attribute->score()->first();
-            }
-        } else {
-            // Default logic to fetch indicators
-            $attributes = Indicator::paginate(10);
-            foreach ($attributes as $attribute) {
-                $attribute->scoreForm = $attribute->score()->first();
-            }
+        if($keyword){
+            $attributes = $attributes->where('indicator_name', 'like', '%' . $keyword . '%');
         }
 
-        $attributes->appends(['year' => $selectedYear]);
+        $attributes = $attributes->paginate(10);
 
-        return view('pages.indicator', compact('attributes', 'aspects', 'uniqueYears', 'keyword', 'selectedYear','scores'));
+        $attributes = $attributes->appends(['keyword' => $keyword]);
+
+        return view('pages.indicator', compact('attributes', 'aspects', 'keyword'));
     }
 
     /**
@@ -75,20 +54,13 @@ class IndicatorController extends Controller
             $request->validate([
                 'indicator_name' => 'required',
                 'aspect_id' => 'required',
-                'score_id' => 'required',
                 'description' => 'required',
             ]);
-
-            $aspect = Aspect::find($request->input('aspect_id'));
-            $domain = $aspect->domain->first();
-            $domain_id = $domain->id;
 
             // Simpan data ke database
             Indicator::create([
                 'indicator_name' => $request->input('indicator_name'),
-                'domain_id' => $domain_id,
                 'aspect_id' => $request->input('aspect_id'),
-                'score_id' => $request->input('score_id'),
                 'description' => $request->input('description'),
             ]);
 
@@ -179,15 +151,7 @@ class IndicatorController extends Controller
     {
         $user = Auth::user();
         $keyword = $request->input('keyword');
-
-        if ($user->hasRole('admin') || $user->hasRole('supervisor')) {
-            $attributes = Indicator::where('indicator_name', 'like', '%' . $keyword . '%')->paginate(10);
-        } else {
-            $attributes = Indicator::with('documents')
-                ->where('indicator_name', 'like', '%' . $keyword . '%')
-                ->paginate(10);
-        }
-
+        $attributes = Indicator::where('indicator_name', 'like', '%' . $keyword . '%')->orderBy('id','')->paginate(10);
         foreach ($attributes as $attribute) {
             $attribute->scoreForm = $attribute->score()->first();
         }

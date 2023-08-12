@@ -42,7 +42,8 @@
                                             <th
                                                 class="w-4 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                 Alias OPD</th>
-                                            <th class="w-3 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
+                                            <th
+                                                class="w-3 text-uppercase text-secondary text-center text-xxs font-weight-bolder opacity-7">
                                                 Action</th>
                                             {{-- <th
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -73,142 +74,137 @@
                                                             class="text-secondary text-xs font-weight-bold">{{ $attribute->opd_alias }}</span>
                                                     </div>
                                                 </td>
-                                                {{-- <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">Admin</span>
-                                            </td>
-                                            <td class="align-middle text-center">
-                                                <span class="text-secondary text-xs font-weight-bold">22/03/18</span>
-                                            </td> --}}
-                                                {{-- <td class="align-middle">
-                                                <a rel="tooltip" class="btn btn-success btn-link" href=""
-                                                    data-original-title="" title="">
-                                                    <i class="material-icons">edit</i>
-                                                    <div class="ripple-container"></div>
-                                                </a>
-
-                                                <button type="button" class="btn btn-danger btn-link"
-                                                    data-original-title="" title="">
-                                                    <i class="material-icons">close</i>
-                                                    <div class="ripple-container"></div>
-                                                </button>
-                                            </td> --}}
                                                 {{-- Edit OPD --}}
-                                                <td class="w-10">
+                                                <td>
                                                     <div class="align-middle text-center">
-                                                        <a href="javascript:;" style="margin-left: 50px;"
-                                                            class="link-info font-weight-bold text-xs"
-                                                            style="cursor: pointer" data-bs-toggle="modal"
-                                                            data-bs-target="#editDataModal{{ $attribute->id }}"
-                                                            data-original-title="Edit user">
-                                                            <i class="bi bi-pencil-square mx-2" style="font-size: 1.1rem"></i>
-                                                        </a>
-                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs" style="margin-right: 50px;"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                            data-original-title="Delete user">
-                                                            <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
-                                                        </a>
+                                                        <span data-bs-toggle="tooltip" title="Edit">
+                                                            <a href="javascript:;"
+                                                                class="link-info font-weight-bold text-xs"
+                                                                style="cursor: pointer" data-bs-toggle="modal"
+                                                                data-bs-target="#editDataModal{{ $attribute->id }}"
+                                                                data-original-title="Edit user">
+                                                                <i class="bi bi-pencil-square mx-2"
+                                                                    style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                        </span>
+                                                        <span data-bs-toggle="tooltip" title="Hapus">
+                                                            <a href="javascript:;"
+                                                                class="link-info font-weight-bold text-xs"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                                data-original-title="Delete user">
+                                                                <i class="bi bi-trash mx-2"
+                                                                    style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                        </span>
                                                         <!-- Modal Edit Data -->
-                                                    <div class="modal fade" id="editDataModal{{ $attribute->id }}"
-                                                        tabindex="-1" aria-labelledby="editModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editModalLabel">Form
-                                                                        Edit</h5>
-                                                                    <button type="button"
-                                                                        class="btn-close btn-close-white"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form
-                                                                        action="{{ route('opd.update', ['opd' => $attribute->id]) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('PUT')
-                                                                        <div class="container">
-                                                                            <div class="form-group mt-2">
-                                                                                <div class="text-info text-center">Nama OPD Lama
-                                                                                </div>
-                                                                                <div class="text-warning text-center">
-                                                                                    {{ $attribute->opd_name }}</div>
-                                                                                <label class="fs-6"
-                                                                                    for="opdUpdate">Masukan Nama
-                                                                                    OPD Baru</label>
-                                                                                <input type="text"
-                                                                                    class="form-control border border-2 p-2"
-                                                                                    id="opdUpdate" name="opd_name"
-                                                                                    value="{{ $attribute->opd_name }}">
-                                                                                <div class="text-info text-center pt-3">Alias OPD Lama
-                                                                                </div>
-                                                                                <div class="text-warning text-center">
-                                                                                    {{ $attribute->opd_alias }}</div>
-                                                                                <label class="fs-6"
-                                                                                    for="opdUpdate">Masukan Alias
-                                                                                    OPD Baru</label>
-                                                                                <input type="text"
-                                                                                    class="form-control border border-2 p-2"
-                                                                                    id="opdUpdate" name="opd_alias"
-                                                                                    value="{{ $attribute->opd_alias }}">
-                                                                            </div>
-                                                                        </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <div class="order-1">
-                                                                        <button type="submit"
-                                                                            class="btn btn-success">Ubah Data</button>
-                                                                        </form>
+                                                        <div class="modal fade" id="editDataModal{{ $attribute->id }}"
+                                                            tabindex="-1" aria-labelledby="editModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="editModalLabel">Form
+                                                                            Edit</h5>
+                                                                        <button type="button"
+                                                                            class="btn-close btn-close-white"
+                                                                            data-bs-dismiss="modal"
+                                                                            aria-label="Close"></button>
                                                                     </div>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                          </td>
-                                                {{-- Delete Button --}}
-                                                    <!-- Modal Delete Data -->
-                                                    <div class="modal fade" id="deleteModal{{ $attribute->id }}"
-                                                        tabindex="-1" aria-labelledby="deleteModalLabel"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header justify-between">
-                                                                    <h5 class="modal-title" id="deleteModalLabel">
-                                                                        Hapus
-                                                                        OPD ini?</h5>
-                                                                    <button type="button"
-                                                                        class="btn-close btn-close-white"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="container">
-                                                                        <div class="form-group mt-2">
-                                                                            <div class="text-info">Nama OPD
-                                                                            </div>
-                                                                            <div class="text-warning">
-                                                                                {{ $attribute->opd_name }}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <div class="order-0">
+                                                                    <div class="modal-body">
                                                                         <form
-                                                                            action="{{ route('opd.destroy', ['opd' => $attribute->id]) }}"
+                                                                            action="{{ route('opd.update', ['opd' => $attribute->id]) }}"
                                                                             method="POST">
                                                                             @csrf
-                                                                            @method('DELETE')
+                                                                            @method('PUT')
+                                                                            <div class="container">
+                                                                                <div class="form-group mt-2">
+                                                                                    <div class="text-info text-center">
+                                                                                        Nama OPD Lama
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="text-warning text-center">
+                                                                                        {{ $attribute->opd_name }}</div>
+                                                                                    <label class="fs-6"
+                                                                                        for="opdUpdate">Masukan Nama
+                                                                                        OPD Baru</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control border border-2 p-2"
+                                                                                        id="opdUpdate" name="opd_name"
+                                                                                        value="{{ $attribute->opd_name }}">
+                                                                                    <div
+                                                                                        class="text-info text-center pt-3">
+                                                                                        Alias OPD Lama
+                                                                                    </div>
+                                                                                    <div
+                                                                                        class="text-warning text-center">
+                                                                                        {{ $attribute->opd_alias }}
+                                                                                    </div>
+                                                                                    <label class="fs-6"
+                                                                                        for="opdUpdate">Masukan Alias
+                                                                                        OPD Baru</label>
+                                                                                    <input type="text"
+                                                                                        class="form-control border border-2 p-2"
+                                                                                        id="opdUpdate" name="opd_alias"
+                                                                                        value="{{ $attribute->opd_alias }}">
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <div class="order-1">
                                                                             <button type="submit"
-                                                                                class="btn btn-danger">Hapus
-                                                                                OPD</button>
-                                                                        </form>
+                                                                                class="btn btn-success">Ubah
+                                                                                Data</button>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                </td>
+                                                {{-- Delete Button --}}
+                                                <!-- Modal Delete Data -->
+                                                <div class="modal fade" id="deleteModal{{ $attribute->id }}"
+                                                    tabindex="-1" aria-labelledby="deleteModalLabel"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header justify-between">
+                                                                <h5 class="modal-title" id="deleteModalLabel">
+                                                                    Hapus
+                                                                    OPD ini?</h5>
+                                                                <button type="button"
+                                                                    class="btn-close btn-close-white"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="container">
+                                                                    <div class="form-group mt-2">
+                                                                        <div class="text-info">Nama OPD
+                                                                        </div>
+                                                                        <div class="text-warning">
+                                                                            {{ $attribute->opd_name }}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="order-0">
+                                                                    <form
+                                                                        action="{{ route('opd.destroy', ['opd' => $attribute->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger">Hapus
+                                                                            OPD</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
+                                                </div>
                                             </tr>
                                         @empty
                                             <div class='alert alert-danger'>

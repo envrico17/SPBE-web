@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Model;
 
 class Aspect extends Model
@@ -33,5 +34,15 @@ class Aspect extends Model
    public function domain(): BelongsTo
    {
        return $this->belongsTo(Domain::class);
+   }
+
+   /**
+    * Get all of the score_indicators for the Aspect
+    *
+    * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    */
+   public function score_indicators(): HasManyThrough
+   {
+       return $this->hasManyThrough(ScoreIndicator::class, Indicator::class);
    }
 }

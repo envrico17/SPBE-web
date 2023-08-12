@@ -28,6 +28,7 @@ use App\Http\Controllers\AspectController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\ScoreController;
+use App\Http\Controllers\ScoreIndicatorController;
 use App\Models\Indicator;
 use App\Models\Score;
 
@@ -82,8 +83,6 @@ Route::middleware(['auth','role:admin'])->group(function () {
     // Indicator CRUD routes
     Route::get('indicator', [IndicatorController::class, 'index'])
     ->name('indicator');
-    Route::get('/indicator/search', [IndicatorController::class, 'searchIndicator'])
-    ->name('indicator.search');
     Route::post('indicator', [IndicatorController::class, 'store'])
     ->name('indicator.store');
     Route::put('indicator/{indicator}', [IndicatorController::class, 'update'])
@@ -122,7 +121,7 @@ Route::middleware(['auth','role:admin'])->group(function () {
     // SCORE CRUD ROUTES
     Route::get('score', [ScoreController::class, 'index'])
     ->name('score');
-    Route::get('score/{score}', [ScoreController::class, 'indexDetail'])
+    Route::get('score/{score}', [ScoreController::class, 'show'])
     ->name('score.show');
     Route::get('score/{score}/edit', [ScoreController::class, 'edit'])
     ->name('score.edit');
@@ -130,8 +129,10 @@ Route::middleware(['auth','role:admin'])->group(function () {
     ->name('score.clone');
     Route::put('score/{score}',[ScoreController::class, 'updateForm'])
     ->name('score.updateForm');
-    Route::put('score/{score}/update/{indicator}', [ScoreController::class, 'update'])
+    // We use different controller here
+    Route::put('score/{score}/{id}', [ScoreIndicatorController::class, 'update'])
     ->name('score.update');
+    // back to ScoreController
     Route::delete('score/{score}', [ScoreController::class, 'destroy'])
     ->name('score.destroy');
     // Route::resource('scores', ScoreController::class);
@@ -152,8 +153,8 @@ Route::middleware(['auth','role:user'])->group(function () {
 Route::middleware(['auth'])->group(function(){
     Route::get('document', [DocumentController::class, 'index'])
     ->name('document');
-    Route::get('document-upload/{indicator}', [DocumentController::class, 'show'])
-    ->name('document.upload');
+    Route::get('document/indicator/{indicator}', [DocumentController::class, 'show'])
+    ->name('document.show');
     Route::get('/document/search', [DocumentController::class, 'searchDocument'])
     ->name('document.search');
 

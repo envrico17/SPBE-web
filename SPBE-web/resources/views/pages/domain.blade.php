@@ -58,18 +58,22 @@
                                                 </td>
                                                 {{-- Edit Button --}}
                                                 <td class="align-middle text-center">
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#editModal{{ $attribute->id }}"
-                                                        data-original-title="Edit user">
-                                                        <i class="bi bi-pencil-square mx-2" style="font-size: 1.1rem"></i>
-                                                    </a>
-                                                    <a href="javascript:;" class="link-info font-weight-bold text-xs"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                        data-original-title="Delete user">
-                                                        <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
-                                                    </a>
+                                                    <span data-bs-toggle="tooltip" title="Edit">
+                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#editModal{{ $attribute->id }}"
+                                                            data-original-title="Edit user">
+                                                            <i class="bi bi-pencil-square mx-2" style="font-size: 1.1rem"></i>
+                                                        </a>
+                                                    </span>
+                                                    <span data-bs-toggle="tooltip" title="Hapus">
+                                                        <a href="javascript:;" class="link-info font-weight-bold text-xs"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                            data-original-title="Delete user">
+                                                            <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
+                                                        </a>
+                                                    </span>
                                                     <!-- Modal Edit Data -->
                                                     <div class="modal fade" id="editModal{{ $attribute->id }}"
                                                         tabindex="-1" aria-labelledby="editModalLabel"

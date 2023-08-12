@@ -13,18 +13,18 @@ class Score extends Model
     use \Bkwld\Cloner\Cloneable;
 
     protected $fillable = [
-        'score_name', 'score_value', 'score_description', 'score_date', 'score_date_range'
+        'score_name', 'score_description', 'score_date', 'score_date_range'
     ];
 
-    protected $cloneable_relations = ['indicators'];
+    protected $cloneable_relations = ['score_indicators'];
 
     /**
-     * Get all of the indicators for the Score
+     * Get all of the score_indicators for the Score
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function indicators(): HasMany
+    public function score_indicators(): HasMany
     {
-        return $this->hasMany(Indicator::class);
+        return $this->hasMany(ScoreIndicator::class);
     }
 }

@@ -24,15 +24,15 @@
                                                 class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-1">
                                                 No</th>
                                             <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-2">
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-1">
                                                 Tahun</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-7">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3">
                                                 Nama Form</th>
                                             <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-5">
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3">
                                                 Tanggal Penilaian</th>
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-3"
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 w-4"
                                                 colspan="">
                                                 Action</th>
                                         </tr>
@@ -59,73 +59,87 @@
                                                 </td>
                                                 {{-- Beri Penilaian --}}
                                                 <td>
-                                                    <div class="align-middle text-center">
-                                                        <a href="{{ route('score.show', ['score' => $attribute->id]) }}"
-                                                            class="link-info font-weight-bold text-xs"
-                                                            style="cursor: pointer">
-                                                            <i class="bi bi-eye mx-2" style="font-size: 1.1rem"></i>
-                                                        </a>
-                                                        <a href="{{ route('score.clone', [$attribute->id]) }}"
-                                                            class="mx-3 link-info font-weight-bold text-xs"
-                                                            style="cursor: pointer">
-                                                            <i class="bi bi-files mx-2" style="font-size: 1.1rem"></i>
-                                                        </a>
-                                                        {{-- Delete Button --}}
-                                                        <a href="javascript:;"
-                                                            class="link-info font-weight-bold text-xs"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#deleteModal{{ $attribute->id }}"
-                                                            data-original-title="Delete Indicator">
-                                                            <i class="bi bi-trash mx-2" style="font-size: 1.1rem"></i>
-                                                        </a>
-                                                        <!-- Modal Delete Data -->
-                                                        <div class="modal fade" id="deleteModal{{ $attribute->id }}"
-                                                            tabindex="-1" aria-labelledby="deleteModalLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered modal-xl">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header justify-between">
-                                                                        <h5 class="modal-title" id="deleteModalLabel">
-                                                                            Hapus
-                                                                            Form ini?</h5>
-                                                                        <button type="button"
-                                                                            class="btn-close btn-close-white"
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div class="container">
-                                                                            <div class="form-group mt-2">
-                                                                                <div class="text-info">Nama
-                                                                                    Form
+                                                    <span class="text-secondary text-xs font-weight-bold">
+                                                        <div class="align-middle text-center">
+                                                            <a href="{{ route('score.show', ['score' => $attribute->id]) }}"
+                                                                class="link-info font-weight-bold text-xs"
+                                                                data-bs-toggle="tooltip" style="cursor: pointer"
+                                                                title="Lihat Form">
+                                                                <i class="bi bi-eye mx-3" style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                            <a href="{{ route('score.edit', ['score' => $attribute->id]) }}"
+                                                                class="link-info font-weight-bold text-xs"
+                                                                data-bs-toggle="tooltip" style="cursor: pointer"
+                                                                title="Edit Form">
+                                                                <i class="bi bi-pencil" style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                            <a href="{{ route('score.clone', [$attribute->id]) }}"
+                                                                class="mx-3 link-info font-weight-bold text-xs"
+                                                                data-bs-toggle="tooltip" style="cursor: pointer"
+                                                                title="Duplikat Form">
+                                                                <i class="bi bi-files" style="font-size: 1.1rem"></i>
+                                                            </a>
+                                                            {{-- Delete Button --}}
+                                                            <span data-bs-toggle='tooltip' title="Hapus Form">
+                                                                <a href="javascript:;"
+                                                                    class="link-info font-weight-bold text-xs"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#deleteModal{{ $attribute->id }}"
+                                                                    data-original-title="Delete Indicator">
+                                                                    <i class="bi bi-trash"
+                                                                        style="font-size: 1.1rem"></i>
+                                                                </a>
+                                                            </span>
+                                                            <!-- Modal Delete Data -->
+                                                            <div class="modal fade" id="deleteModal{{ $attribute->id }}"
+                                                                tabindex="-1" aria-labelledby="deleteModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header justify-between">
+                                                                            <h5 class="modal-title" id="deleteModalLabel">
+                                                                                Hapus
+                                                                                Form ini?</h5>
+                                                                            <button type="button"
+                                                                                class="btn-close btn-close-white"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div class="container">
+                                                                                <div class="form-group mt-2">
+                                                                                    <div class="text-info">Nama
+                                                                                        Form
+                                                                                    </div>
+                                                                                    <div class="text-warning">
+                                                                                        {{ $attribute->score_name }}
+                                                                                    </div>
+                                                                                    <div class="text-info">Tanggal Penilaian
+                                                                                    </div>
+                                                                                    <div class="text-warning">
+                                                                                        {{ $attribute->score_date_range }}
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="text-warning">
-                                                                                    {{ $attribute->score_name }}
-                                                                                </div>
-                                                                                <div class="text-info">Tanggal Penilaian
-                                                                                </div>
-                                                                                <div class="text-warning">
-                                                                                    {{ $attribute->score_date_range }}</div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <div class="order-0">
-                                                                            <form
-                                                                                action="{{ route('score.destroy', ['score' => $attribute->id]) }}"
-                                                                                method="POST">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">Hapus
-                                                                                    Form</button>
-                                                                            </form>
+                                                                        <div class="modal-footer">
+                                                                            <div class="order-0">
+                                                                                <form
+                                                                                    action="{{ route('score.destroy', ['score' => $attribute->id]) }}"
+                                                                                    method="POST">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-danger">Hapus
+                                                                                        Form</button>
+                                                                                </form>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -152,29 +166,6 @@
 
                 toastr.error('{{ session('error') }}', 'GAGAL!');
             @endif
-        </script>
-        <script>
-            const filterYearSelect = document.getElementById('filterYear');
-            const yearDataRows = document.querySelectorAll('.data-row');
-
-            filterYearSelect.addEventListener('change', function() {
-                const selectedYear = this.value;
-
-                if (selectedYear === '') {
-                    yearDataRows.forEach(row => {
-                        row.style.display = 'table-row';
-                    });
-                } else {
-                    yearDataRows.forEach(row => {
-                        const rowYear = row.getAttribute('data-year');
-                        if (rowYear === selectedYear) {
-                            row.style.display = 'table-row';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                }
-            });
         </script>
     @endpush
 </x-layout>
